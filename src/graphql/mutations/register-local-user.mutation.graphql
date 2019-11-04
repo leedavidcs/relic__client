@@ -1,0 +1,13 @@
+mutation RegisterLocalUser($email: EmailAddress!, $password: String!, $username: String!) {
+	registerLocalUser(email: $email, password: $password, username: $username) {
+		success
+		error
+		user {
+			id
+			email
+			emailVerified
+			password
+			username
+		}
+	}
+}

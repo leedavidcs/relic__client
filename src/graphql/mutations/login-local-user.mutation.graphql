@@ -1,0 +1,6 @@
+mutation LoginLocalUser($userIdentifier: String!, $password: String!) {
+	loginLocalUser(userIdentifier: $userIdentifier, password: $password) {
+		token
+		refreshToken
+	}
+}
