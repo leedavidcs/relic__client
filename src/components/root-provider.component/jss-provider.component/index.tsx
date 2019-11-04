@@ -1,3 +1,4 @@
+import { CustomTheme, standardTheme } from "@/themes";
 import React, {
 	Context,
 	createContext,
@@ -8,24 +9,21 @@ import React, {
 	useState
 } from "react";
 import { ThemeProvider } from "react-jss";
-import { DefaultTheme, ITheme } from "./themes";
-
-export * from "./themes";
 
 export interface IJssProviderState {
-	theme: ITheme;
+	theme: CustomTheme;
 }
 
 export interface IThemeContextProps {
-	setState: IJssProviderState | Dispatch<SetStateAction<ITheme>>;
+	setState: IJssProviderState | Dispatch<SetStateAction<CustomTheme>>;
 }
 
 export const themeContext: Context<IThemeContextProps> = createContext<IThemeContextProps>({
-	setState: { theme: DefaultTheme }
+	setState: { theme: standardTheme }
 });
 
 export const JssProvider: FC = ({ children }) => {
-	const [theme, setTheme] = useState<ITheme>(DefaultTheme);
+	const [theme, setTheme] = useState<CustomTheme>(standardTheme);
 
 	return (
 		<themeContext.Provider value={{ setState: setTheme }}>

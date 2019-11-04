@@ -1,16 +1,20 @@
+import classnames from "classnames";
 import React, { FC } from "react";
 import { useStyles } from "./styles";
 
-export interface IProps {
+interface IProps {
+	className?: string;
 	stickTop?: boolean;
 }
 
 export const Toolbar: FC<IProps> = (props) => {
-	const { children } = props;
+	const { children, className } = props;
 
 	const classes = useStyles(props);
 
-	return <div className={classes.root}>{children}</div>;
+	const classNames = classnames(classes.root, className);
+
+	return <div className={classNames}>{children}</div>;
 };
 
 Toolbar.defaultProps = { stickTop: false };

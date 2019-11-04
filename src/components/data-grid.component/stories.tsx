@@ -1,39 +1,42 @@
-import { storiesOf } from "@storybook/react";
 import Faker from "faker";
-import _ from "lodash";
+import { uniq } from "lodash";
 import React from "react";
 import { DataGrid } from ".";
 import { IHeaderConfig } from "./inner-element.component";
-
-Faker.seed(1);
 
 const MAX_DATA_SIZE: number = 30;
 const MAX_COLUMN_WIDTH: number = 80;
 const MIN_COLUMN_WIDTH: number = 30;
 
-const MOCK_HEADER_NAMES: string[] = _.uniq([...Array(MAX_DATA_SIZE)].map(() => Faker.lorem.word()));
+export default { title: "data-grid", component: DataGrid };
 
-const reducedSize: number = MOCK_HEADER_NAMES.length;
+export const standard = () => {
+	Faker.seed(1);
 
-const MOCK_DATA: Array<{ [key: string]: number }> = [...Array(reducedSize)].map((x, i) => {
-	const data: { [key: string]: any } = {};
+	const MOCK_HEADER_NAMES: string[] = uniq(
+		[...Array(MAX_DATA_SIZE)].map(() => Faker.lorem.word())
+	);
 
-	MOCK_HEADER_NAMES.forEach((name, j) => (data[name] = j * reducedSize + i));
+	const reducedSize: number = MOCK_HEADER_NAMES.length;
 
-	return data;
-});
+	const MOCK_DATA: Array<{ [key: string]: number }> = [...Array(reducedSize)].map((x, i) => {
+		const data: { [key: string]: any } = {};
 
-const MOCK_HEADERS: IHeaderConfig[] = MOCK_HEADER_NAMES.map((name) => ({
-	name,
-	resizable: false,
-	sortable: false,
-	width: Faker.random.number({
-		max: MAX_COLUMN_WIDTH,
-		min: MIN_COLUMN_WIDTH
-	})
-}));
+		MOCK_HEADER_NAMES.forEach((name, j) => (data[name] = j * reducedSize + i));
 
-storiesOf("data-grid", module).add("default", () => {
+		return data;
+	});
+
+	const MOCK_HEADERS: IHeaderConfig[] = MOCK_HEADER_NAMES.map((name) => ({
+		name,
+		resizable: false,
+		sortable: false,
+		width: Faker.random.number({
+			max: MAX_COLUMN_WIDTH,
+			min: MIN_COLUMN_WIDTH
+		})
+	}));
+
 	return (
 		<div
 			style={{
@@ -44,4 +47,4 @@ storiesOf("data-grid", module).add("default", () => {
 			<DataGrid data={MOCK_DATA} headers={MOCK_HEADERS} />
 		</div>
 	);
-});
+};

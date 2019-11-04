@@ -1,9 +1,9 @@
-import { ITheme } from "@/components/root-provider.component";
+import { CustomTheme } from "@/themes";
 import { timingFunctions } from "polished";
 import { createUseStyles } from "react-jss";
 import { ButtonSize } from ".";
 
-export const styles = (theme: ITheme) => ({
+export const styles = (theme: CustomTheme) => ({
 	root: {
 		display: "inline-flex",
 		alignItems: "center",
@@ -52,4 +52,4 @@ export const styles = (theme: ITheme) => ({
 	}
 });
 
-export const useStyles = createUseStyles<ITheme, keyof ReturnType<typeof styles>>(styles);
+export const useStyles = createUseStyles<CustomTheme, keyof ReturnType<typeof styles>>(styles);

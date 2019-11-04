@@ -1,7 +1,7 @@
-import { getZIndex, ITheme } from "@/components/root-provider.component";
+import { CustomTheme, getZIndex } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-const styles = (theme: ITheme) => ({
+const styles = (theme: CustomTheme) => ({
 	headers: {
 		display: "flex",
 		position: "sticky",
@@ -22,4 +22,4 @@ const styles = (theme: ITheme) => ({
 	}
 });
 
-export const useStyles = createUseStyles<ITheme, keyof ReturnType<typeof styles>>(styles);
+export const useStyles = createUseStyles<CustomTheme, keyof ReturnType<typeof styles>>(styles);

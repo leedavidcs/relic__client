@@ -1,17 +1,18 @@
 import { action, HandlerFunction } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
-import { storiesOf } from "@storybook/react";
 import Faker from "faker";
 import React from "react";
 import { Modal } from ".";
 
-Faker.seed(1);
+export default { title: "modal", component: Modal };
 
-const title: string = Faker.lorem.word();
-const heading: string = Faker.lorem.word();
-const paragraph: string = Faker.lorem.paragraph();
+export const standard = () => {
+	Faker.seed(1);
 
-storiesOf("modal", module).add("default", () => {
+	const title: string = Faker.lorem.word();
+	const heading: string = Faker.lorem.word();
+	const paragraph: string = Faker.lorem.paragraph();
+
 	const active: boolean = boolean("active", false);
 	const onClickOutside: HandlerFunction = action("onClickOutside");
 	const onClose: HandlerFunction = action("onClose");
@@ -22,4 +23,4 @@ storiesOf("modal", module).add("default", () => {
 			<p>{paragraph}</p>
 		</Modal>
 	);
-});
+};

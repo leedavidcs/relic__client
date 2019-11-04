@@ -1,9 +1,10 @@
 import { action } from "@storybook/addon-actions";
-import { storiesOf } from "@storybook/react";
 import React from "react";
 import { Button, ButtonSize } from ".";
 
-storiesOf("button", module).add("default", () => {
+export default { title: "button", component: Button };
+
+export const standard = () => {
 	const onClick = action("onClick");
 
 	return (
@@ -17,4 +18,4 @@ storiesOf("button", module).add("default", () => {
 			</Button>
 		</div>
 	);
-});
+};

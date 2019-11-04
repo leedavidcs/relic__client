@@ -1,27 +1,30 @@
-const { TsConfigPathsPlugin } = require("awesome-typescript-loader");
+const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const path = require("path");
-const rewireGqlTag = require("react-app-rewire-graphql-tag");
 
 module.exports = ({ config }) => {
 	config.module.rules.push({
 		test: /\.tsx?$/,
 		include: [path.resolve(__dirname, "../src")],
-		use: {
-			loader: "awesome-typescript-loader"
-		}
+		use: [
+			{
+				loader: "ts-loader",
+				options: {
+					compilerOptions: {
+						noEmit: false
+					}
+				}
+			},
+			{ loader: "react-docgen-typescript-loader" }
+		]
 	});
 
 	config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx");
 
 	config.resolve.plugins = config.resolve.plugins || [
 		new TsConfigPathsPlugin({
-			configFileName: "tsconfig.paths.json"
+			configFile: "tsconfig.json"
 		})
 	];
 
-	config.module.rules.forEach((rule) => (rule.exclude = rule.exclude || []));
-
-	const configWithGql = rewireGqlTag(config);
-
-	return configWithGql;
+	return config;
 };

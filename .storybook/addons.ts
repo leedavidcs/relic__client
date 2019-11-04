@@ -1,7 +1,6 @@
-import "@storybook/addon-a11y/register";
-import "@storybook/addon-actions/register";
+/* tslint:disable:no-import-side-effect */
 import "@storybook/addon-knobs/register";
-import "@storybook/addon-links/register";
 import "@storybook/addon-storysource/register";
 import "@storybook/addon-viewport/register";
 import "storybook-addon-jss-theme/dist/register";
+/* tslint:enable:no-import-side-effect */

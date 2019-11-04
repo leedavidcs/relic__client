@@ -1,7 +1,13 @@
-import { storiesOf } from "@storybook/react";
 import React from "react";
 import { AppBar } from ".";
+import { Background } from "../background.component";
 
-storiesOf("app-bar", module).add("default", () => {
-	return <AppBar title="Title goes here" />;
-});
+export default { title: "app-bar", component: AppBar };
+
+export const standard = () => {
+	return (
+		<Background>
+			<AppBar title="Title goes here" />
+		</Background>
+	);
+};

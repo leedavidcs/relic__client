@@ -2,11 +2,12 @@ import { withInfo } from "@storybook/addon-info";
 import { withKnobs } from "@storybook/addon-knobs";
 import { addDecorator, configure } from "@storybook/react";
 import { withThemesProvider } from "storybook-addon-jss-theme";
+import { standardTheme } from "../src/themes";
 
 const themes = [
 	{
-		name: "DEFAULT",
-		variables: {}
+		name: "standard",
+		variables: standardTheme
 	}
 ];
 
@@ -14,10 +15,11 @@ addDecorator(withInfo);
 addDecorator(withKnobs);
 addDecorator(withThemesProvider(themes));
 
-const req = require.context("../src", true, /\.?stories(\/index)?\.tsx?$/);
+const loadStories = () => {
+	// Dynamically load stories
+	const req = require.context("../src", true, /\.?stories(\/index)?\.tsx?$/);
 
-function loadStories() {
-	req.keys().forEach(req);
-}
+	return req.keys().map(req);
+};
 
 configure(loadStories, module);

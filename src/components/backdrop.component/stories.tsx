@@ -1,10 +1,11 @@
 import { boolean } from "@storybook/addon-knobs";
-import { storiesOf } from "@storybook/react";
 import React from "react";
 import { Backdrop } from ".";
 
-storiesOf("backdrop", module).add("default", () => {
+export default { title: "backdrop", component: Backdrop };
+
+export const standard = () => {
 	const active: boolean = boolean("active", false);
 
 	return <Backdrop active={active} />;
-});
+};

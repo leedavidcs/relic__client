@@ -1,15 +1,16 @@
-import { storiesOf } from "@storybook/react";
 import Faker from "faker";
 import React, { FC } from "react";
 import { Paper } from "../";
 import { useStyles } from "./styles";
 
-Faker.seed(1);
-
-const heading: string = Faker.lorem.word();
-const paragraph: string = Faker.lorem.paragraph();
+export default { title: "paper", component: Paper };
 
 const Story: FC<{}> = () => {
+	Faker.seed(1);
+
+	const heading: string = Faker.lorem.word();
+	const paragraph: string = Faker.lorem.paragraph();
+
 	const classes = useStyles();
 
 	return (
@@ -22,6 +23,4 @@ const Story: FC<{}> = () => {
 	);
 };
 
-storiesOf("paper", module).add("default", () => {
-	return <Story />;
-});
+export const standard = () => <Story />;

@@ -1,13 +1,14 @@
-import { storiesOf } from "@storybook/react";
 import Faker from "faker";
 import React from "react";
 import { TextInput } from ".";
 
-Faker.seed(1);
-
 const MAX_INPUT_LENGTH: number = 5;
 
-storiesOf("text-input", module).add("default", () => {
+export default { title: "form|text-input", component: TextInput };
+
+export const standard = () => {
+	Faker.seed(1);
+
 	const validator = (value: string): string | null => {
 		const isValid: boolean = value.length < MAX_INPUT_LENGTH;
 
@@ -15,4 +16,4 @@ storiesOf("text-input", module).add("default", () => {
 	};
 
 	return <TextInput label={"Must be fewer than 5 chars"} validator={validator} />;
-});
+};

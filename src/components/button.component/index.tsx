@@ -7,7 +7,7 @@ export enum ButtonSize {
 	Large = "Large"
 }
 
-export interface IProps {
+interface IProps {
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 	size?: ButtonSize;
 }

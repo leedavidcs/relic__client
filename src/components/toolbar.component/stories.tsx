@@ -1,12 +1,13 @@
-import { storiesOf } from "@storybook/react";
 import Faker from "faker";
 import React from "react";
 import { Toolbar } from ".";
 
-Faker.seed(1);
+export default { title: "toolbar", components: Toolbar };
 
-const content: string = Faker.lorem.sentence();
+export const standard = () => {
+	Faker.seed(1);
 
-storiesOf("toolbar", module).add("default", () => {
+	const content: string = Faker.lorem.sentence();
+
 	return <Toolbar>{content}</Toolbar>;
-});
+};

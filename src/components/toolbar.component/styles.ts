@@ -1,12 +1,13 @@
-import { ITheme } from "@/components/root-provider.component";
+import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-const styles = (theme: ITheme) => ({
+const styles = (theme: CustomTheme) => ({
 	root: {
 		position: ({ stickTop }) => (stickTop ? "fixed" : "static"),
 		top: 0,
 		left: 0,
 		height: 56,
+		backgroundColor: theme.primary,
 		boxShadow: [
 			"0px 2px 4px -1px rgba(0,0,0,0.2)",
 			"0px 4px 5px 0px rgba(0,0,0,0.14)",
@@ -15,4 +16,4 @@ const styles = (theme: ITheme) => ({
 	}
 });
 
-export const useStyles = createUseStyles<ITheme, keyof ReturnType<typeof styles>>(styles);
+export const useStyles = createUseStyles<CustomTheme, keyof ReturnType<typeof styles>>(styles);

@@ -1,7 +1,7 @@
-import { ITheme } from "@/components/root-provider.component";
+import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-const styles = (themes: ITheme) => ({
+const styles = (themes: CustomTheme) => ({
 	root: {
 		position: "relative",
 		height: 28,
@@ -24,4 +24,4 @@ const styles = (themes: ITheme) => ({
 	}
 });
 
-export const useStyles = createUseStyles<ITheme, keyof ReturnType<typeof styles>>(styles);
+export const useStyles = createUseStyles<CustomTheme, keyof ReturnType<typeof styles>>(styles);
