@@ -3,21 +3,21 @@ import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	root: {
-		position: "fixed",
+		position: "absolute",
+		backgroundColor: theme.onSurface,
 		top: 0,
 		right: 0,
 		bottom: 0,
 		left: 0,
-		width: "100vw",
-		height: "100vh",
-		backgroundColor: theme.onBackground,
-		opacity: 0,
+		height: "100%",
+		width: "100%",
+		pointerEvents: "none",
 		transition: "opacity 0.4s ease",
-		pointerEvents: "none"
+		opacity: 0
 	},
 	active: {
-		opacity: 0.6,
-		pointerEvents: "auto"
+		opacity: ({ opacity }) => opacity,
+		pointerEvents: ({ clickThrough }) => clickThrough ? "none" : "auto"
 	}
 });
 

@@ -1,6 +1,6 @@
 const zIndices = ["data-grid-content", "data-grid-header"] as const;
 
-export const getZIndex = (name: string): number => {
+export const getZIndex = (name: typeof zIndices[number]): number => {
 	const index: number = zIndices.findIndex((componentName) => componentName === name);
 
 	if (index === -1) {
