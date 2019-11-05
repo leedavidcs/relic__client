@@ -19,6 +19,7 @@
 			"options": [100]
 		},
 		"no-console": true,
+		"no-magic-numbers": [true, { "allowed-numbers": [-2, -1, 0, 1, 2] }],
 		"object-literal-sort-keys": false,
 		"semicolon": [true, "always"],
 		"trailing-comma": false

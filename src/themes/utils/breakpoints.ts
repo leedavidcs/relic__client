@@ -1,9 +1,14 @@
+const XS: number = 600;
+const SM: number = 980;
+const MD: number = 1280;
+const LG: number = 1920;
+
 const BreakpointKeyMap = {
-	xs: [0, 600],
-	sm: [600, 980],
-	md: [980, 1280],
-	lg: [1280, 1920],
-	xl: [1920]
+	xs: [0, XS],
+	sm: [XS, SM],
+	md: [SM, MD],
+	lg: [MD, LG],
+	xl: [LG]
 };
 
 const getMediaPx = (width?: number): string => (width === undefined ? "none" : `${width}px`);

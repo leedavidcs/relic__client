@@ -3,6 +3,7 @@ import { timingFunctions, transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 import { ButtonSize, ButtonType } from ".";
 
+/* tslint:disable:no-magic-numbers */
 export const styles = (theme: CustomTheme) => {
 	const getSurfaceColor = (type) => {
 		switch (type) {
