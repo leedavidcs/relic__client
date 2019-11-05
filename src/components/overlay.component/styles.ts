@@ -17,7 +17,7 @@ const styles = (theme: CustomTheme) => ({
 	},
 	active: {
 		opacity: ({ opacity }) => opacity,
-		pointerEvents: ({ clickThrough }) => clickThrough ? "none" : "auto"
+		pointerEvents: ({ clickThrough }) => (clickThrough ? "none" : "auto")
 	}
 });
 
