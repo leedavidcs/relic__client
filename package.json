@@ -40,7 +40,6 @@
 	"dependencies": {
 		"@redux-offline/redux-offline": "^2.5.2",
 		"@types/history": "^4.7.3",
-		"@types/lodash": "^4.14.144",
 		"@types/node": "^12.12.5",
 		"@types/react": "^16.9.11",
 		"@types/react-dom": "^16.9.3",
@@ -63,7 +62,6 @@
 		"graphql-tag": "^2.10.1",
 		"history": "^4.10.1",
 		"http-status": "^1.4.0",
-		"lodash": "^4.17.15",
 		"polished": "^3.4.2",
 		"react": "^16.11.0",
 		"react-apollo": "^3.1.3",
