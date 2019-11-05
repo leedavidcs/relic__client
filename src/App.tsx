@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./App.css";
-import { AppRoutes } from "./components/app-routes.component";
-import { Backdrop } from "./components/backdrop.component";
+import { AppRoutes } from "./app-routes";
+import { Overlay } from "./components/overlay.component";
 import { IRootState } from "./reducers";
 
 const App: React.FC = () => {
@@ -13,7 +12,7 @@ const App: React.FC = () => {
 	return (
 		<div className="App">
 			<AppRoutes />
-			<Backdrop active={backdropActive} />
+			<Overlay active={backdropActive} />
 		</div>
 	);
 };

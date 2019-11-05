@@ -3,6 +3,7 @@ import { createUseStyles } from "react-jss";
 
 export const styles = (theme: CustomTheme) => ({
 	root: {
+		position: "relative",
 		height: "100vh",
 		width: "100vw",
 		boxSizing: "border-box",

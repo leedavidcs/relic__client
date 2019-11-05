@@ -41,8 +41,8 @@ export const styles = (theme: CustomTheme) => {
 				return theme.onSurface;
 		}
 	};
-	
-	return ({
+
+	return {
 		root: {
 			display: "inline-flex",
 			alignItems: "center",
@@ -87,11 +87,13 @@ export const styles = (theme: CustomTheme) => {
 			].join(),
 
 			"&:hover": {
-				borderColor: ({ type }) => transparentize(1 - theme.highEmphasis, getTextColor(type)),
-				backgroundColor: ({ type }) => transparentize(1 - theme.highEmphasis, getSurfaceColor(type))
+				borderColor: ({ type }) =>
+					transparentize(1 - theme.highEmphasis, getTextColor(type)),
+				backgroundColor: ({ type }) =>
+					transparentize(1 - theme.highEmphasis, getSurfaceColor(type))
 			}
 		}
-	});
+	};
 };
 
 export const useStyles = createUseStyles<CustomTheme, keyof ReturnType<typeof styles>>(styles);

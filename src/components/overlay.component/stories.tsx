@@ -1,16 +1,16 @@
 import { Background } from "@/components/background.component";
 import { boolean } from "@storybook/addon-knobs";
 import React from "react";
-import { Backdrop } from ".";
+import { Overlay } from ".";
 
-export default { title: "backdrop", component: Backdrop };
+export default { title: "overlay", component: Overlay };
 
 export const standard = () => {
-	const active: boolean = boolean("active", false);
+	const active: boolean = boolean("active", true);
 
 	return (
 		<Background>
-			<Backdrop active={active} />
+			<Overlay active={active} />
 		</Background>
 	);
 };
