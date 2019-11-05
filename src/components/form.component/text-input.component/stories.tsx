@@ -1,3 +1,5 @@
+import { Background } from "@/components/background.component";
+import { Paper } from "@/components/paper.component";
 import Faker from "faker";
 import React from "react";
 import { TextInput } from ".";
@@ -15,5 +17,11 @@ export const standard = () => {
 		return isValid ? null : "Text is too long";
 	};
 
-	return <TextInput label={"Must be fewer than 5 chars"} validator={validator} />;
+	return (
+		<Background>
+			<Paper>
+				<TextInput label={"Must be fewer than 5 chars"} validator={validator} />
+			</Paper>
+		</Background>
+	);
 };

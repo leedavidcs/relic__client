@@ -7,6 +7,7 @@ const styles = (theme: CustomTheme) => ({
 		top: 0,
 		left: 0,
 		height: 56,
+		width: "100%",
 		backgroundColor: theme.primary,
 		boxShadow: [
 			"0px 2px 4px -1px rgba(0,0,0,0.2)",

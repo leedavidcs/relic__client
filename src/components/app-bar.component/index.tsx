@@ -15,7 +15,7 @@ export const AppBar: FC<IProps> = ({ title }) => {
 	const classes = useStyles();
 
 	return (
-		<Toolbar className={classes.root}>
+		<Toolbar className={classes.root} stickTop={true}>
 			<div className={classes.contentWrapper}>
 				<div className={classes.menuBtnWrapper}>
 					<FaBars size={FA_BARS_SIZE} />

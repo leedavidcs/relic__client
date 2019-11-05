@@ -1,3 +1,4 @@
+import { Background } from "@/components/background.component";
 import { action, HandlerFunction } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import Faker from "faker";
@@ -18,9 +19,11 @@ export const standard = () => {
 	const onClose: HandlerFunction = action("onClose");
 
 	return (
-		<Modal title={title} active={active} onClickOutside={onClickOutside} onClose={onClose}>
-			<h1>{heading}</h1>
-			<p>{paragraph}</p>
-		</Modal>
+		<Background>
+			<Modal title={title} active={active} onClickOutside={onClickOutside} onClose={onClose}>
+				<h1>{heading}</h1>
+				<p>{paragraph}</p>
+			</Modal>
+		</Background>
 	);
 };

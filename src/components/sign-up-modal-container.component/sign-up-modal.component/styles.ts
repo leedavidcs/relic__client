@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 
 export const styles = (theme: CustomTheme) => ({
 	formWrapper: {
-		padding: 32
+		padding: 12
 	},
 	btnContainer: {
 		paddingTop: 8,

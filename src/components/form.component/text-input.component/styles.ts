@@ -1,5 +1,5 @@
 import { CustomTheme } from "@/themes";
-import { timingFunctions } from "polished";
+import { timingFunctions, transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
@@ -11,6 +11,7 @@ const styles = (theme: CustomTheme) => ({
 		height: 48,
 		marginBottom: 4,
 		position: "relative",
+		fontFamily: theme.fontPrimary,
 		fontWeight: 400
 	},
 	label: {
@@ -22,7 +23,7 @@ const styles = (theme: CustomTheme) => ({
 		left: 0,
 		fontSize: "1rem",
 		fontWeight: 400,
-		color: "#40454a",
+		color: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
 		transition: `all 0.3s ${timingFunctions("easeOutQuint")}`,
 		userSelect: "none"
 	},
@@ -30,7 +31,8 @@ const styles = (theme: CustomTheme) => ({
 		top: 0,
 		left: 0,
 		fontSize: "0.625rem",
-		fontWeight: 700
+		fontWeight: 700,
+		color: transparentize(1 - theme.highEmphasis, theme.onSurface)
 	},
 	textInput: {
 		display: "block",
@@ -42,22 +44,22 @@ const styles = (theme: CustomTheme) => ({
 		borderBottom: {
 			width: 1,
 			style: "solid",
-			color: "#d3d3d3"
+			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface)
 		},
 		margin: 0,
 		position: "relative",
 		outline: "none",
 		backgroundColor: "initial",
-		color: "#40454a",
+		color: theme.onSurface,
 		transition: `border-bottom 0.3s ${timingFunctions("easeOutQuint")}`,
 
 		"&:focus:not($invalid)": {
-			borderBottomColor: "#40454a"
+			borderBottomColor: transparentize(1 - theme.highEmphasis, theme.onSurface)
 		}
 	},
 	invalid: {
-		color: "#fa5560",
-		borderBottomColor: "#fa5560"
+		color: theme.warning,
+		borderBottomColor: theme.warning
 	}
 });
 

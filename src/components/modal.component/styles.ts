@@ -9,7 +9,8 @@ const styles = (theme: CustomTheme) => ({
 		transform: "translate(-50%, -110%)",
 		width: 680,
 		maxHeight: "75%",
-		transition: "all 0.2s ease"
+		transition: "all 0.2s ease",
+		fontFamily: theme.fontPrimary
 	},
 	"@media (max-width: 768px)": {
 		root: {

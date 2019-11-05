@@ -8,7 +8,7 @@ export const styles = (theme: CustomTheme) => ({
 		boxSizing: "border-box",
 		backgroundColor: theme.background,
 
-		[breakpoints.down("sm")]: {
+		[breakpoints.up("sm")]: {
 			padding: "96px 25px 0"
 		}
 	}

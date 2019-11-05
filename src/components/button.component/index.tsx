@@ -7,9 +7,20 @@ export enum ButtonSize {
 	Large = "Large"
 }
 
+export enum ButtonType {
+	Primary = "Primary",
+	PrimaryVariant = "PrimaryVariant",
+	Secondary = "Secondary",
+	SecondaryVariant = "SecondaryVariant",
+	Error = "Error",
+	Warning = "Warning",
+	Transparent = "Transparent"
+}
+
 interface IProps {
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 	size?: ButtonSize;
+	type?: ButtonType;
 }
 
 export const Button: FC<IProps> = (props) => {
@@ -25,5 +36,6 @@ export const Button: FC<IProps> = (props) => {
 };
 
 Button.defaultProps = {
-	size: ButtonSize.Medium
+	size: ButtonSize.Medium,
+	type: ButtonType.Primary
 };
