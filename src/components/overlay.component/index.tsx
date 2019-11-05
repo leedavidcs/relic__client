@@ -5,11 +5,11 @@ import { useStyles } from "./styles";
 interface IProps {
 	active?: boolean;
 	className?: string;
-	color?: string;
 	clickThrough?: boolean;
 	opacity?: number;
 }
 
+// !Important: Parent must have position: "relative"
 export const Overlay: FC<IProps> = (props) => {
 	const { active, className } = props;
 
