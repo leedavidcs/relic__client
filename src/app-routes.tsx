@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Route, Switch } from "react-router-dom";
-import { HomePage } from "../home-page.component";
-import { NotFoundPage } from "../not-found-page.component";
+import { HomePage, NotFoundPage } from "./pages";
 
 export const AppRoutes: FC = () => (
 	<Switch>

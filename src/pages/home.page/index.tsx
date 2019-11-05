@@ -1,4 +1,4 @@
-import { Background } from "@/components//background.component";
+import { Background } from "@/components";
 import React, { FC } from "react";
 
 export const HomePage: FC = () => {
