@@ -9,23 +9,18 @@ const styles = (theme: CustomTheme) => ({
 		}
 	},
 	root: {
-		position: "relative",
-		height: "100%",
-		width: "100%",
-		overflow: "hidden"
-	},
-	rippleContainer: {
 		position: "absolute",
 		top: 0,
 		right: 0,
 		bottom: 0,
-		left: 0
+		left: 0,
+		overflow: "hidden"
 	},
 	ripple: {
 		position: "absolute",
 		borderRadius: "100%",
 		backgroundColor: theme.onSurface,
-		opacity: 0.75,
+		opacity: theme.surfaceOverlayPressed,
 		transform: "scale(0)",
 		animation: "$ripple 850ms"
 	}

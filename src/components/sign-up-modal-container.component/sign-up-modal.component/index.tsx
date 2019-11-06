@@ -1,5 +1,4 @@
-import { Button } from "@/components/button.component";
-import { TextInput } from "@/components/form.component";
+import { Button, TextInput } from "@/components/input.component";
 import { Modal } from "@/components/modal.component";
 import { RegisterLocalUserVariables } from "@/graphql";
 import React, { FC, FormEvent, useCallback, useState } from "react";
