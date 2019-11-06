@@ -14,7 +14,7 @@ export const standard = () => {
 	const heading: string = Faker.lorem.word();
 	const paragraph: string = Faker.lorem.paragraph();
 
-	const active: boolean = boolean("active", false);
+	const active: boolean = boolean("active", true);
 	const onClickOutside: HandlerFunction = action("onClickOutside");
 	const onClose: HandlerFunction = action("onClose");
 

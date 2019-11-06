@@ -1,3 +1,4 @@
+import { Background } from "@/components/background.component";
 import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import React from "react";
@@ -13,11 +14,13 @@ export const standard = () => {
 	const active: boolean = boolean("active", true);
 
 	return (
-		<SignUpModal
-			active={active}
-			onClickOutside={onClickOutside}
-			onClose={onClose}
-			onSubmit={onSubmit}
-		/>
+		<Background>
+			<SignUpModal
+				active={active}
+				onClickOutside={onClickOutside}
+				onClose={onClose}
+				onSubmit={onSubmit}
+			/>
+		</Background>
 	);
 };

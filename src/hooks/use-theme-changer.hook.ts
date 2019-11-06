@@ -1,13 +1,13 @@
 import {
 	IJssProviderState,
 	IThemeContextProps,
-	themeContext
+	themeSetterContext
 } from "@/components/root-provider.component";
 import { CustomTheme } from "@/themes";
 import { Dispatch, SetStateAction, useContext } from "react";
 
 export const useThemeChanger = (): IJssProviderState | Dispatch<SetStateAction<CustomTheme>> => {
-	const { setState } = useContext<IThemeContextProps>(themeContext);
+	const { setState } = useContext<IThemeContextProps>(themeSetterContext);
 
 	return setState;
 };

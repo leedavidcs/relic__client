@@ -8,7 +8,7 @@ import React, {
 	SetStateAction,
 	useState
 } from "react";
-import { ThemeProvider } from "react-jss";
+import { createTheming } from "react-jss";
 
 export interface IJssProviderState {
 	theme: CustomTheme;
@@ -16,18 +16,23 @@ export interface IJssProviderState {
 
 export interface IThemeContextProps {
 	setState: IJssProviderState | Dispatch<SetStateAction<CustomTheme>>;
+	useTheme: () => CustomTheme;
 }
 
-export const themeContext: Context<IThemeContextProps> = createContext<IThemeContextProps>({
-	setState: { theme: standardTheme }
+export const themeSetterContext: Context<IThemeContextProps> = createContext<IThemeContextProps>({
+	setState: { theme: standardTheme },
+	useTheme: () => standardTheme
 });
 
 export const JssProvider: FC = ({ children }) => {
 	const [theme, setTheme] = useState<CustomTheme>(standardTheme);
 
+	const themeContext: Context<CustomTheme> = createContext<CustomTheme>(theme);
+	const { ThemeProvider, useTheme } = createTheming(themeContext);
+
 	return (
-		<themeContext.Provider value={{ setState: setTheme }}>
+		<themeSetterContext.Provider value={{ setState: setTheme, useTheme }}>
 			<ThemeProvider theme={theme}>{children as ReactElement}</ThemeProvider>
-		</themeContext.Provider>
+		</themeSetterContext.Provider>
 	);
 };

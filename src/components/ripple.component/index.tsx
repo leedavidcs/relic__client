@@ -42,16 +42,10 @@ export const Ripple: FC<{}> = () => {
 	);
 
 	return (
-		<div className={classes.root}>
-			<div
-				className={classes.rippleContainer}
-				onMouseDown={onMouseDown}
-				onMouseUp={onMouseUp}
-			>
-				{Object.keys(styles).map((key) => (
-					<span className={classes.ripple} key={key} style={styles[key]} />
-				))}
-			</div>
+		<div className={classes.root} onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
+			{Object.keys(styles).map((key) => (
+				<span className={classes.ripple} key={key} style={styles[key]} />
+			))}
 		</div>
 	);
 };

@@ -11,7 +11,7 @@ export const standard = () => {
 	return (
 		<Background>
 			<Paper>
-				<div style={{ height: RIPPLE_CONTAINER_SIZE }}>
+				<div style={{ height: RIPPLE_CONTAINER_SIZE, position: "relative" }}>
 					<Ripple />
 				</div>
 			</Paper>

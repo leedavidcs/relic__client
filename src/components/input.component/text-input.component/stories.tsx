@@ -6,7 +6,7 @@ import { TextInput } from ".";
 
 const MAX_INPUT_LENGTH: number = 5;
 
-export default { title: "form|text-input", component: TextInput };
+export default { title: "input|text-input", component: TextInput };
 
 export const standard = () => {
 	Faker.seed(1);
