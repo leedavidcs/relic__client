@@ -1,23 +1,14 @@
-import { Button, TextInput } from "@/components/input.component";
-import { Modal } from "@/components/modal.component";
+import { Button, Paper, TextInput } from "@/components";
 import { RegisterLocalUserVariables } from "@/graphql";
 import React, { FC, FormEvent, useCallback, useState } from "react";
 import { isEmail } from "validator";
 import { useStyles } from "./styles";
 
 interface IProps {
-	active: boolean;
-	onClickOutside?: () => void;
-	onClose: () => void;
 	onSubmit: (variables: RegisterLocalUserVariables) => void;
 }
 
-export const SignUpModal: FC<IProps> = ({
-	active,
-	onClickOutside,
-	onClose,
-	onSubmit: propsOnSubmit
-}) => {
+export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const classes = useStyles();
 	const [username, setUsername] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
@@ -98,29 +89,23 @@ export const SignUpModal: FC<IProps> = ({
 	);
 
 	return (
-		<Modal title="Sign up" active={active} onClickOutside={onClickOutside} onClose={onClose}>
-			<div className={classes.formWrapper}>
-				<TextInput
-					label="Username"
-					onChange={onChangeUsername}
-					validator={validateUsername}
-				/>
-				<TextInput label="Email" onChange={onChangeEmail} validator={validateEmail} />
-				<TextInput
-					label="Password"
-					password={true}
-					onChange={onChangePassword}
-					validator={validatePassword}
-				/>
-				<TextInput
-					label="Confirm password"
-					password={true}
-					validator={validateConfirmPassword}
-				/>
-				<div className={classes.btnContainer}>
-					<Button onClick={onSubmit}>Submit</Button>
-				</div>
+		<Paper className={classes.root}>
+			<TextInput label="Username" onChange={onChangeUsername} validator={validateUsername} />
+			<TextInput label="Email" onChange={onChangeEmail} validator={validateEmail} />
+			<TextInput
+				label="Password"
+				password={true}
+				onChange={onChangePassword}
+				validator={validatePassword}
+			/>
+			<TextInput
+				label="Confirm password"
+				password={true}
+				validator={validateConfirmPassword}
+			/>
+			<div className={classes.btnContainer}>
+				<Button onClick={onSubmit}>Submit</Button>
 			</div>
-		</Modal>
+		</Paper>
 	);
 };
