@@ -11,6 +11,7 @@ export const standard = () => {
 	return (
 		<Background>
 			<Paper>
+				CLICK BELOW:
 				<div style={{ height: RIPPLE_CONTAINER_SIZE, position: "relative" }}>
 					<Ripple />
 				</div>

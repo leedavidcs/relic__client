@@ -25,7 +25,7 @@ export const useHover = <T extends Element = Element>(
 			elem.removeEventListener("mouseover", onMouseOver);
 			elem.removeEventListener("mouseout", onMouseOut);
 		};
-	}, [hoverRef.current]);
+	}, [hoverRef, onMouseOver, onMouseOut]);
 
 	return [isHovered, hoverRef];
 };
