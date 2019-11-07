@@ -4,5 +4,5 @@ import { StandardStory } from "./standard.story";
 
 export default { title: "list", component: List };
 
-export const selected = SelectableStory;
 export const standard = StandardStory;
+export const selected = SelectableStory;

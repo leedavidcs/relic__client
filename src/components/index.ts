@@ -6,5 +6,4 @@ export * from "./modal.component";
 export * from "./overlay.component";
 export * from "./paper.component";
 export * from "./root-provider.component";
-export * from "./sign-up-modal-container.component";
 export * from "./toolbar.component";
