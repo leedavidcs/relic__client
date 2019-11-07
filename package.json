@@ -40,10 +40,10 @@
 	"dependencies": {
 		"@redux-offline/redux-offline": "^2.5.2",
 		"@types/history": "^4.7.3",
-		"@types/lodash": "^4.14.144",
+		"@types/lodash": "^4.14.145",
 		"@types/node": "^12.12.6",
 		"@types/react": "^16.9.11",
-		"@types/react-dom": "^16.9.3",
+		"@types/react-dom": "^16.9.4",
 		"@types/react-redux": "^7.1.5",
 		"@types/react-router-dom": "^5.1.2",
 		"@types/react-sortable-hoc": "^0.7.1",
@@ -84,8 +84,8 @@
 		"validator": "^12.0.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.7.0",
-		"@babel/preset-typescript": "^7.7.0",
+		"@babel/core": "^7.7.2",
+		"@babel/preset-typescript": "^7.7.2",
 		"@geut/chan": "^2.1.1",
 		"@graphql-codegen/cli": "^1.8.3",
 		"@graphql-codegen/typescript": "^1.8.3",
