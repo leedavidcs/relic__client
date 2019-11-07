@@ -18,6 +18,12 @@ module.exports = ({ config }) => {
 		]
 	});
 
+	config.module.rules.push({
+		test: /\.(graphql|gql)$/,
+		exclude: /node_modules/,
+		loader: "graphql-tag/loader"
+	});
+
 	config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx");
 
 	config.resolve.plugins = config.resolve.plugins || [

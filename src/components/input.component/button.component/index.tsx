@@ -1,6 +1,7 @@
 import { Overlay } from "@/components/overlay.component";
 import { Ripple } from "@/components/ripple.component";
-import React, { ButtonHTMLAttributes, FC, MouseEvent, useCallback, useState } from "react";
+import { useHover } from "@/hooks";
+import React, { ButtonHTMLAttributes, FC } from "react";
 import { useStyles } from "./styles";
 
 const OVERLAY_OPACITY: number = 0.04;
@@ -26,32 +27,12 @@ export const Button: FC<IProps> = (props) => {
 	const { children, onClick } = props;
 
 	const classes = useStyles(props);
-
-	const [hovered, setHovered] = useState<boolean>(false);
-
-	const onMouseOver = useCallback(
-		(event: MouseEvent<HTMLButtonElement>) => {
-			setHovered(true);
-		},
-		[setHovered]
-	);
-
-	const onMouseOut = useCallback(
-		(event: MouseEvent<HTMLButtonElement>) => {
-			setHovered(false);
-		},
-		[setHovered]
-	);
+	const [isHovered, hoverRef] = useHover<HTMLButtonElement>();
 
 	return (
-		<button
-			className={classes.root}
-			onMouseOver={onMouseOver}
-			onMouseOut={onMouseOut}
-			onClick={onClick}
-		>
+		<button ref={hoverRef} className={classes.root} onClick={onClick}>
 			{children}
-			<Overlay active={hovered} opacity={OVERLAY_OPACITY} />
+			<Overlay active={isHovered} opacity={OVERLAY_OPACITY} />
 			<Ripple />
 		</button>
 	);
