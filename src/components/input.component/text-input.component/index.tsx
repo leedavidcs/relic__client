@@ -11,6 +11,8 @@ import React, {
 } from "react";
 import { useStyles } from "./styles";
 
+const variants = ["underlined", "outlined"] as const;
+
 interface IProps {
 	disabled?: boolean;
 	label: string;
@@ -23,22 +25,25 @@ interface IProps {
 	placeholder?: string;
 	spellCheck?: boolean;
 	validator?: (value: string) => string | null;
+	variant?: typeof variants[number];
 }
 
-export const TextInput: FC<IProps> = ({
-	disabled = false,
-	label,
-	onBlur,
-	onChange,
-	onClick,
-	onFocus,
-	onInput: propsOnInput,
-	password = false,
-	placeholder = "",
-	spellCheck = false,
-	validator = () => null
-}) => {
-	const classes = useStyles();
+export const TextInput: FC<IProps> = (props) => {
+	const {
+		disabled = false,
+		label,
+		onBlur,
+		onChange,
+		onClick,
+		onFocus,
+		onInput: propsOnInput,
+		password = false,
+		placeholder = "",
+		spellCheck = false,
+		validator = () => null
+	} = props;
+
+	const classes = useStyles(props);
 	const [hasInput, setHasInput] = useState<boolean>(false);
 	const [isValidInput, setIsValidInput] = useState<boolean>(true);
 	const [labelText, setLabelText] = useState<string>(label);
@@ -98,4 +103,8 @@ export const TextInput: FC<IProps> = ({
 			<div />
 		</div>
 	);
+};
+
+TextInput.defaultProps = {
+	variant: "underlined"
 };
