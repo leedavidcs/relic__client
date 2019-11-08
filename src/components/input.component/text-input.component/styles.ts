@@ -3,20 +3,23 @@ import { timingFunctions, transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => {
-	const getBorderColor = (variant) => ({
-		outlined: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
-		underlined: "transparent"
-	})[variant] || "transparent";
+	const getBorderColor = (variant) =>
+		({
+			outlined: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
+			underlined: "transparent"
+		}[variant] || "transparent");
 
-	const getFocusValidBorderColor = (variant) => ({
-		outlined: theme.secondaryVariant,
-		underlined: "transparent"
-	})[variant] || "transparent";
+	const getFocusValidBorderColor = (variant) =>
+		({
+			outlined: theme.secondaryVariant,
+			underlined: "transparent"
+		}[variant] || "transparent");
 
-	const getErrorBorderColor = (variant) => ({
-		outlined: theme.error,
-		underlined: "transparent"
-	})[variant] || "transparent";
+	const getErrorBorderColor = (variant) =>
+		({
+			outlined: theme.error,
+			underlined: "transparent"
+		}[variant] || "transparent");
 
 	return {
 		root: {
@@ -63,17 +66,18 @@ const styles = (theme: CustomTheme) => {
 			borderLeftColor: ({ variant }) => getBorderColor(variant),
 			borderRightColor: ({ variant }) => getBorderColor(variant),
 			borderBottomColor: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
-			borderRadius: ({ variant }) => ({
-				outlined: 4,
-				underlined: "unset"
-			})[variant] || "unset",
+			borderRadius: ({ variant }) =>
+				({
+					outlined: 4,
+					underlined: "unset"
+				}[variant] || "unset"),
 			margin: 0,
 			position: "relative",
 			outline: "none",
 			backgroundColor: "rgba(0, 0, 0, 0)",
 			color: theme.onSurface,
 			transition: `border 0.3s ${timingFunctions("easeOutQuint")}`,
-	
+
 			"&:focus:not($invalid)": {
 				borderTopColor: ({ variant }) => getFocusValidBorderColor(variant),
 				borderLeftColor: ({ variant }) => getFocusValidBorderColor(variant),

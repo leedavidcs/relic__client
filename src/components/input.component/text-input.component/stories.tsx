@@ -21,7 +21,11 @@ export const standard = () => {
 		<Background>
 			<Paper>
 				<TextInput label={"Must be fewer than 5 chars"} validator={validator} />
-				<TextInput label={"Must be fewer than 5 chars"} validator={validator} variant="outlined" />
+				<TextInput
+					label={"Must be fewer than 5 chars"}
+					validator={validator}
+					variant="outlined"
+				/>
 			</Paper>
 		</Background>
 	);
