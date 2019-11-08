@@ -1,5 +1,4 @@
 import { CustomTheme } from "@/themes";
-import { timingFunctions } from "polished";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
@@ -22,12 +21,7 @@ const styles = (theme: CustomTheme) => ({
 		width: 48,
 		marginRight: 12,
 		borderRadius: 24,
-		cursor: "pointer",
-		transition: `background-color 0.15s ${timingFunctions("easeInOutCubic")}`,
-
-		"&:hover": {
-			backgroundColor: "#dcdcdc"
-		}
+		cursor: "pointer"
 	},
 	title: {
 		flexGrow: 1,
@@ -36,7 +30,13 @@ const styles = (theme: CustomTheme) => ({
 		fontWeight: 500
 	},
 	profileIcon: {
-		marginRight: 10
+		cursor: "pointer"
+	},
+	profileIconWrapper: {
+		height: 32,
+		width: 32,
+		borderRadius: 16,
+		overflow: "hidden"
 	}
 });
 
