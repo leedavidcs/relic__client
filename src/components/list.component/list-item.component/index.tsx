@@ -1,4 +1,5 @@
 import { Overlay } from "@/components/overlay.component";
+import { Ripple } from "@/components/ripple.component";
 import { useHover } from "@/hooks";
 import React, { FC, MouseEvent } from "react";
 import { useStyles } from "./styles";
@@ -29,6 +30,7 @@ export const ListItem: FC<IProps> = (props) => {
 				active={isSelectable && (isHovered || selected)}
 				opacity={selected ? OVERLAY_FOCUS_OPACITY : OVERLAY_HOVER_OPACITY}
 			/>
+			{isSelectable && <Ripple />}
 		</li>
 	);
 };
