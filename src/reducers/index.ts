@@ -13,9 +13,8 @@ export const DEFAULT_ROOT_STATE: IRootState = {
 	backdrop: DEFAULT_BACKDROP_STATE
 };
 
-export const createRootReducer = (history: History) => {
-	return combineReducers({
+export const createRootReducer = (history: History) =>
+	combineReducers({
 		backdrop: backdropReducer,
 		router: connectRouter(history)
 	});
-};

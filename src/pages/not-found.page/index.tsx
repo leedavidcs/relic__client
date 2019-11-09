@@ -3,3 +3,5 @@ import React, { FC } from "react";
 export const NotFoundPage: FC = () => {
 	return <div>Not found page works!</div>;
 };
+
+export default NotFoundPage;
