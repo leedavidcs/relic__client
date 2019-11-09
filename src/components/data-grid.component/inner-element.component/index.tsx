@@ -23,9 +23,8 @@ const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
 
 type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-export const InnerElement: ForwardRefExoticComponent<
-	RefAttributes<HTMLDivElement> & Props
-> = forwardRef<HTMLDivElement, Props>(({ children, ...rest }, ref) => {
+export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElement> &
+	Props> = forwardRef<HTMLDivElement, Props>(({ children, ...rest }, ref) => {
 	const classes = useStyles();
 	const { data, headers, setData, setHeaders } = useContext(DataGridContext);
 

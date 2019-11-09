@@ -1,7 +1,8 @@
+import { TextInput } from "@/components/input.component";
 import { Toolbar } from "@/components/toolbar.component";
 import { Tooltip } from "@/components/tooltip.component";
 import React, { FC, useCallback, useState } from "react";
-import { FaBars, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaSearch, FaUserCircle } from "react-icons/fa";
 import { ProfileMenu } from "./profile-menu.component";
 import { useStyles } from "./styles";
 
@@ -34,6 +35,9 @@ export const AppBar: FC<IProps> = ({ title }) => {
 					<FaBars size={FA_BARS_SIZE} />
 				</div>
 				<h6 className={classes.title}>{title}</h6>
+				<div className={classes.searchWrapper}>
+					<TextInput startIcon={<FaSearch />} label="Search" variant="outlined" />
+				</div>
 				<div>
 					<Tooltip
 						active={selectedIndex === 0}

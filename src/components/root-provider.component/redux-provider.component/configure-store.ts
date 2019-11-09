@@ -13,10 +13,7 @@ const composeEnhancer = (middlewares?: Middleware[]): StoreEnhancer => {
 	const devMiddleware: Middleware[] = process.env.NODE_ENV === "development" ? [logger] : [];
 
 	const enhancer: StoreEnhancer = composeWithDevTools(
-		compose(
-			applyMiddleware(...middlewares, ...devMiddleware),
-			offline(offlineConfig)
-		)
+		compose(applyMiddleware(...middlewares, ...devMiddleware), offline(offlineConfig))
 	);
 
 	return enhancer;
