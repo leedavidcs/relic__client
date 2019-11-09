@@ -1,6 +1,7 @@
 import { TextInput } from "@/components/input.component";
 import { Toolbar } from "@/components/toolbar.component";
 import { Tooltip } from "@/components/tooltip.component";
+import { User } from "@/graphql";
 import React, { FC, useCallback, useState } from "react";
 import { FaBars, FaSearch, FaUserCircle } from "react-icons/fa";
 import { ProfileMenu } from "./profile-menu.component";
@@ -11,9 +12,14 @@ const FA_USER_CIRCLE_SIZE: number = 32;
 
 interface IProps {
 	title: string;
+	onClickSignIn?: () => void;
+	onClickSignOut?: () => void;
+	user: User | null;
 }
 
-export const AppBar: FC<IProps> = ({ title }) => {
+export const AppBar: FC<IProps> = (props) => {
+	const { onClickSignIn, onClickSignOut, title, user } = props;
+
 	const classes = useStyles();
 	const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
@@ -44,7 +50,13 @@ export const AppBar: FC<IProps> = ({ title }) => {
 						direction={"left-start"}
 						onClick={onClickRightIcon(0)}
 						onClickOut={onClickOut}
-						tooltip={<ProfileMenu />}
+						tooltip={
+							<ProfileMenu
+								onClickSignIn={onClickSignIn}
+								onClickSignOut={onClickSignOut}
+								user={user}
+							/>
+						}
 					>
 						<FaUserCircle className={classes.profileIcon} size={FA_USER_CIRCLE_SIZE} />
 					</Tooltip>

@@ -1,10 +1,7 @@
-import { Background } from "@/components";
 import React, { FC } from "react";
 
 export const HomePage: FC = () => {
-	return (
-		<Background>
-			<div>Home page works~!</div>
-		</Background>
-	);
+	return <div>Home page works~!</div>;
 };
+
+export default HomePage;
