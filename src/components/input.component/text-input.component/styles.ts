@@ -23,43 +23,12 @@ const styles = (theme: CustomTheme) => {
 
 	return {
 		root: {
+			position: "relative",
 			display: "flex",
 			flexDirection: "row",
 			alignItems: "center",
 			width: "100%",
 			height: 48,
-			marginBottom: 4,
-			position: "relative",
-			backgroundColor: theme.surface,
-			fontFamily: theme.fontPrimary,
-			fontWeight: 400
-		},
-		label: {
-			display: "inline-block",
-			position: "absolute",
-			top: 18,
-			left: 6,
-			fontSize: "1rem",
-			fontWeight: 400,
-			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
-			transition: `all 0.3s ${timingFunctions("easeOutQuint")}`,
-			userSelect: "none"
-		},
-		labelActive: {
-			top: 0,
-			left: 6,
-			padding: "0 4px",
-			backgroundColor: theme.surface,
-			fontSize: "0.625rem",
-			fontWeight: 700,
-			color: transparentize(1 - theme.highEmphasis, theme.onSurface),
-			zIndex: getZIndex("text-input-label")
-		},
-		textInput: {
-			display: "block",
-			width: "100%",
-			height: 36,
-			padding: "4px 0 0 6px",
 			borderWidth: 1,
 			borderStyle: "solid",
 			borderTopColor: ({ variant }) => getBorderColor(variant),
@@ -71,19 +40,63 @@ const styles = (theme: CustomTheme) => {
 					outlined: 4,
 					underlined: "unset"
 				}[variant] || "unset"),
-			margin: 0,
-			position: "relative",
-			outline: "none",
-			backgroundColor: "rgba(0, 0, 0, 0)",
-			color: theme.onSurface,
-			transition: `border 0.3s ${timingFunctions("easeOutQuint")}`,
-
-			"&:focus:not($invalid)": {
+			backgroundColor: theme.surface,
+			fontFamily: theme.fontPrimary,
+			fontWeight: 400,
+			transition: `border 0.3s ${timingFunctions("easeOutQuint")}`
+		},
+		focused: {
+			"&:not($invalid)": {
 				borderTopColor: ({ variant }) => getFocusValidBorderColor(variant),
 				borderLeftColor: ({ variant }) => getFocusValidBorderColor(variant),
 				borderRightColor: ({ variant }) => getFocusValidBorderColor(variant),
 				borderBottomColor: theme.secondaryVariant
 			}
+		},
+		label: {
+			display: "inline-block",
+			position: "absolute",
+			top: 18,
+			left: 12,
+			fontSize: "1rem",
+			fontWeight: 400,
+			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
+			transition: `all 0.3s ${timingFunctions("easeOutQuint")}`,
+			userSelect: "none"
+		},
+		labelActive: {
+			top: 0,
+			left: 8,
+			padding: "0 4px",
+			transform: "translate(0, -50%)",
+			backgroundColor: theme.surface,
+			fontSize: "0.625rem",
+			fontWeight: 700,
+			color: transparentize(1 - theme.highEmphasis, theme.onSurface),
+			zIndex: getZIndex("text-input-label")
+		},
+		startIconWrapper: {
+			display: "flex",
+			marginLeft: 12
+		},
+		textInputWrapper: {
+			position: "relative",
+			display: "flex",
+			height: "100%",
+			flexGrow: 1,
+			alignItems: "center"
+		},
+		textInput: {
+			position: "relative",
+			display: "block",
+			width: "100%",
+			height: 36,
+			border: "none",
+			padding: "4px 0 0 12px",
+			margin: 0,
+			outline: "none",
+			backgroundColor: "rgba(0, 0, 0, 0)",
+			color: theme.onSurface
 		},
 		invalid: {
 			color: theme.warning,
