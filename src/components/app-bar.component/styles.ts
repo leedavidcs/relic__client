@@ -3,7 +3,8 @@ import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	root: {
-		backgroundColor: theme.primary
+		backgroundColor: theme.surface,
+		color: theme.onSurface
 	},
 	contentWrapper: {
 		display: "flex",
@@ -24,7 +25,6 @@ const styles = (theme: CustomTheme) => ({
 		cursor: "pointer"
 	},
 	title: {
-		flexGrow: 1,
 		fontFamily: theme.fontPrimary,
 		fontSize: "1.25rem",
 		fontWeight: 500
@@ -37,6 +37,12 @@ const styles = (theme: CustomTheme) => ({
 		width: 32,
 		borderRadius: 16,
 		overflow: "hidden"
+	},
+	searchWrapper: {
+		display: "flex",
+		flexGrow: 1,
+		width: "auto",
+		margin: "0 20px"
 	}
 });
 

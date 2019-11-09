@@ -21,9 +21,8 @@ const defaultFunc = () => {
 	return;
 };
 
-export const ClickOutside: ForwardRefExoticComponent<
-	IProps & RefAttributes<HTMLDivElement>
-> = forwardRef<HTMLDivElement, IProps>(
+export const ClickOutside: ForwardRefExoticComponent<IProps &
+	RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, IProps>(
 	({ children, onClick = defaultFunc, onClickOut, ...divProps }, ref: Ref<HTMLDivElement>) => {
 		const innerRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 		const unifiedRef: MutableRefObject<HTMLDivElement | null> = useUnifiedRef(ref, innerRef);
