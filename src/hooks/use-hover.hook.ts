@@ -1,9 +1,10 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 export const useHover = <T extends Element = Element>(
+	initial: boolean,
 	ref?: RefObject<T>
 ): [boolean, RefObject<T>] => {
-	const [isHovered, setIsHovered] = useState<boolean>(false);
+	const [isHovered, setIsHovered] = useState<boolean>(initial);
 
 	const createdRef: RefObject<T> = useRef<T>(null);
 	const hoverRef: RefObject<T> = ref || createdRef;

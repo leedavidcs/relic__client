@@ -27,7 +27,7 @@ export const Button: FC<IProps> = (props) => {
 	const { children, onClick } = props;
 
 	const classes = useStyles(props);
-	const [isHovered, hoverRef] = useHover<HTMLButtonElement>();
+	const [isHovered, hoverRef] = useHover<HTMLButtonElement>(false);
 
 	return (
 		<button ref={hoverRef} className={classes.root} onClick={onClick}>

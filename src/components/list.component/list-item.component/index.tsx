@@ -19,7 +19,7 @@ export const ListItem: FC<IProps> = (props) => {
 	const { children, onClick, selected } = props;
 
 	const classes = useStyles(props);
-	const [isHovered, hoverRef] = useHover<HTMLLIElement>();
+	const [isHovered, hoverRef] = useHover<HTMLLIElement>(false);
 
 	const isSelectable: boolean = typeof selected === "boolean";
 
