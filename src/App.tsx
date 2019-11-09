@@ -1,8 +1,8 @@
+import { AppRoutes } from "@/app-routes";
+import { AppBar, Background, Overlay } from "@/components";
+import { IRootState } from "@/reducers";
 import React from "react";
 import { useSelector } from "react-redux";
-import { AppRoutes } from "./app-routes";
-import { Overlay } from "./components/overlay.component";
-import { IRootState } from "./reducers";
 
 const App: React.FC = () => {
 	const backdropActive: boolean = useSelector<IRootState, boolean>(
@@ -10,10 +10,11 @@ const App: React.FC = () => {
 	);
 
 	return (
-		<div className="App">
+		<Background>
+			<AppBar title="TheBrand Inc." user={null} />
 			<AppRoutes />
 			<Overlay active={backdropActive} />
-		</div>
+		</Background>
 	);
 };
 
