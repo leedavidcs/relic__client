@@ -59,10 +59,30 @@ const onRefreshToken = new Observable<string | null>((subscriber) => {
 		.catch(subscriber.error);
 });
 
-const handleNetworkError = ({
-	statusCode
-}: ServerError | ServerParseError): Observable<string | null> | null => {
-	return statusCode === HttpStatus.UNAUTHORIZED ? onRefreshToken : null;
+const handleNetworkError = (
+	networkError: ServerError | ServerParseError
+): Observable<string | null> | null => {
+	const { statusCode } = networkError;
+
+	if (statusCode === HttpStatus.UNAUTHORIZED) {
+		return onRefreshToken;
+	}
+
+	/* tslint:disable:no-console */
+	console.error(`[Network error]: ${networkError}`);
+	/* tslint:enable:no-console */
+
+	return null;
+};
+
+const handleGraphQLErrors = (graphqlErrors: ReadonlyArray<any>): void => {
+	graphqlErrors.forEach(({ message, locations, path }) => {
+		/* tslint:disable:no-console */
+		console.error(
+			`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+		);
+		/* tslint:enable:no-console */
+	});
 };
 
 const setNewAuthorizationHeader = (operation: Operation, newToken: string): void => {
@@ -76,22 +96,26 @@ const setNewAuthorizationHeader = (operation: Operation, newToken: string): void
 	});
 };
 
-export const ErrorLink: ApolloLink = onError(({ operation, forward, networkError }): Observable<
-	FetchResult
-> | void => {
-	if (networkError && isServerError(networkError)) {
-		const networkErrorResult: Observable<string | null> | null = handleNetworkError(
-			networkError
-		);
+export const ErrorLink: ApolloLink = onError(
+	({ operation, forward, graphQLErrors, networkError }): Observable<FetchResult> | void => {
+		if (graphQLErrors) {
+			handleGraphQLErrors(graphQLErrors);
+		}
 
-		if (networkErrorResult) {
-			return networkErrorResult.flatMap((newToken) => {
-				if (newToken) {
-					setNewAuthorizationHeader(operation, newToken);
-				}
+		if (networkError && isServerError(networkError)) {
+			const networkErrorResult: Observable<string | null> | null = handleNetworkError(
+				networkError
+			);
 
-				return forward(operation);
-			});
+			if (networkErrorResult) {
+				return networkErrorResult.flatMap((newToken) => {
+					if (newToken) {
+						setNewAuthorizationHeader(operation, newToken);
+					}
+
+					return forward(operation);
+				});
+			}
 		}
 	}
-});
+);
