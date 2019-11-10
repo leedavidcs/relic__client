@@ -21,3 +21,11 @@ declare module "*/register-local-user.mutation.graphql" {
 
 	export default defaultDocument;
 }
+
+declare module "*/get-user.query.graphql" {
+	import { DocumentNode } from "graphql";
+	const defaultDocument: DocumentNode;
+	export const GetUser: DocumentNode;
+
+	export default defaultDocument;
+}

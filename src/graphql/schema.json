@@ -132,6 +132,18 @@
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
+					},
+					{
+						"name": "user",
+						"description": null,
+						"args": [],
+						"type": {
+							"kind": "OBJECT",
+							"name": "User",
+							"ofType": null
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
 					}
 				],
 				"inputFields": null,
@@ -1160,22 +1172,6 @@
 						"deprecationReason": null
 					},
 					{
-						"name": "password",
-						"description": "The user's encoded password",
-						"args": [],
-						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "SCALAR",
-								"name": "String",
-								"ofType": null
-							}
-						},
-						"isDeprecated": false,
-						"deprecationReason": null
-					},
-					{
 						"name": "username",
 						"description": "The user's username",
 						"args": [],
@@ -1614,6 +1610,37 @@
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
+					},
+					{
+						"name": "setUser",
+						"description": null,
+						"args": [
+							{
+								"name": "user",
+								"description": null,
+								"type": {
+									"kind": "NON_NULL",
+									"name": null,
+									"ofType": {
+										"kind": "INPUT_OBJECT",
+										"name": "UserInput",
+										"ofType": null
+									}
+								},
+								"defaultValue": null
+							}
+						],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "User",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
 					}
 				],
 				"inputFields": null,
@@ -1781,6 +1808,73 @@
 										"ofType": null
 									}
 								}
+							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "INPUT_OBJECT",
+				"name": "UserInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "id",
+						"description": "The id of the user",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "ID",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "email",
+						"description": "The user's email",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "EmailAddress",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "emailVerified",
+						"description": "Whether the user verified their email address",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "username",
+						"description": "The user's encoded password",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
 							}
 						},
 						"defaultValue": null
@@ -3132,80 +3226,9 @@
 			},
 			{
 				"name": "client",
-				"description": "Direct the client to resolve this field locally, either from the cache or local resolvers.",
-				"locations": ["FIELD", "FRAGMENT_DEFINITION", "INLINE_FRAGMENT"],
-				"args": [
-					{
-						"name": "always",
-						"description": "When true, the client will never use the cache for this value. See\nhttps://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true",
-						"type": {
-							"kind": "SCALAR",
-							"name": "Boolean",
-							"ofType": null
-						},
-						"defaultValue": null
-					}
-				]
-			},
-			{
-				"name": "export",
-				"description": "Export this locally resolved field as a variable to be used in the remainder of this query. See\nhttps://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables",
+				"description": null,
 				"locations": ["FIELD"],
-				"args": [
-					{
-						"name": "as",
-						"description": "The variable name to export this field as.",
-						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "SCALAR",
-								"name": "String",
-								"ofType": null
-							}
-						},
-						"defaultValue": null
-					}
-				]
-			},
-			{
-				"name": "connection",
-				"description": "Specify a custom store key for this result. See\nhttps://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive",
-				"locations": ["FIELD"],
-				"args": [
-					{
-						"name": "key",
-						"description": "Specify the store key.",
-						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "SCALAR",
-								"name": "String",
-								"ofType": null
-							}
-						},
-						"defaultValue": null
-					},
-					{
-						"name": "filter",
-						"description": "An array of query argument names to include in the generated custom store key.",
-						"type": {
-							"kind": "LIST",
-							"name": null,
-							"ofType": {
-								"kind": "NON_NULL",
-								"name": null,
-								"ofType": {
-									"kind": "SCALAR",
-									"name": "String",
-									"ofType": null
-								}
-							}
-						},
-						"defaultValue": null
-					}
-				]
+				"args": []
 			}
 		]
 	}

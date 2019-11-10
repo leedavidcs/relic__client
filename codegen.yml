@@ -1,10 +1,13 @@
-schema: http://localhost:3031/graphql
-documents:
-  - src/**/*.{gql,graphql}
+schema: 
+  - http://localhost:3031/graphql
+  - ./src/graphql/schemas/*.graphql
 generates:
   ./src/typings-graphql.d.ts:
+    documents:
+      - src/**/*.{gql,graphql}
     plugins:
       - typescript-graphql-files-modules
-  ./src/graphql/types/custom-types.ts:
+  ./src/graphql/types/generated.types/custom-types.ts:
     plugins:
       - typescript
+      - typescript-operations

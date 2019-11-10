@@ -6,7 +6,6 @@ mutation RegisterLocalUser($email: EmailAddress!, $password: String!, $username:
 			id
 			email
 			emailVerified
-			password
 			username
 		}
 	}

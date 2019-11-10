@@ -1,6 +1,6 @@
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
-export interface Scalars {
+export type Scalars = {
 	ID: string;
 	String: string;
 	Boolean: boolean;
@@ -82,10 +82,10 @@ export interface Scalars {
 	URL: any;
 	/** A currency string, such as $21.25 */
 	USCurrency: any;
-}
+};
 
 /** Search items based on a connection property */
-export interface ConnectionInput {
+export type ConnectionInput = {
 	/** An array of IDs. Returns items such that this property contains some of specified IDs */
 	someOf?: Maybe<Array<Scalars["ID"]>>;
 	/** An array of IDs. Returns items such that this property contains all of specified IDs */
@@ -94,7 +94,7 @@ export interface ConnectionInput {
 	size?: Maybe<Scalars["Int"]>;
 	/** Returns items based on whether or not this property is empty */
 	empty?: Maybe<Scalars["Boolean"]>;
-}
+};
 
 /** The dataKey property of a stock portfolio header, that determines what data is pulled */
 export enum DataKey {
@@ -197,7 +197,7 @@ export enum DataKey_Provider {
 }
 
 /** A single data key option that can be selected for a stock portfolio header */
-export interface DataKeyOption {
+export type DataKeyOption = {
 	__typename?: "DataKeyOption";
 	/** A more normal name. This can be shown to users. */
 	name: Scalars["String"];
@@ -207,10 +207,10 @@ export interface DataKeyOption {
 	description: Scalars["String"];
 	/** The name of the provider */
 	provider: DataKey_Provider;
-}
+};
 
 /** Search items based on date-time property */
-export interface DateTimeInput {
+export type DateTimeInput = {
 	/** Milliseconds of the second (can be from 0-999) */
 	milliseconds?: Maybe<Scalars["Int"]>;
 	/** Seconds of the minute (can be 0-59) */
@@ -225,10 +225,10 @@ export interface DateTimeInput {
 	month?: Maybe<Scalars["Int"]>;
 	/** Date: YYYY in (MM/DD/YYYY), indexed from 1 */
 	year: Scalars["Int"];
-}
+};
 
 /** Root mutation type */
-export interface Mutation {
+export type Mutation = {
 	__typename?: "Mutation";
 	/** The viewer of this request */
 	viewer?: Maybe<Viewer>;
@@ -244,40 +244,46 @@ export interface Mutation {
 	updateStockPortfolio?: Maybe<StockPortfolio>;
 	/** Deletes a stock portfolio */
 	deleteStockPortfolio?: Maybe<StockPortfolio>;
-}
+	setUser: User;
+};
 
 /** Root mutation type */
-export interface MutationLoginLocalUserArgs {
+export type MutationLoginLocalUserArgs = {
 	userIdentifier: Scalars["String"];
 	password: Scalars["String"];
-}
+};
 
 /** Root mutation type */
-export interface MutationRefreshAccessTokenArgs {
+export type MutationRefreshAccessTokenArgs = {
 	refreshToken: Scalars["String"];
-}
+};
 
 /** Root mutation type */
-export interface MutationRegisterLocalUserArgs {
+export type MutationRegisterLocalUserArgs = {
 	email: Scalars["EmailAddress"];
 	password: Scalars["String"];
 	username: Scalars["String"];
-}
+};
 
 /** Root mutation type */
-export interface MutationUpdateStockPortfolioArgs {
+export type MutationUpdateStockPortfolioArgs = {
 	id?: Maybe<Scalars["ID"]>;
-	headers?: Maybe<StockPortfolioHeaderInput[]>;
+	headers?: Maybe<Array<StockPortfolioHeaderInput>>;
 	tickers?: Maybe<Array<Scalars["String"]>>;
-}
+};
 
 /** Root mutation type */
-export interface MutationDeleteStockPortfolioArgs {
+export type MutationDeleteStockPortfolioArgs = {
 	id?: Maybe<Scalars["ID"]>;
-}
+};
+
+/** Root mutation type */
+export type MutationSetUserArgs = {
+	user: UserInput;
+};
 
 /** Pagination info, to show if other pages exist */
-export interface PageInfo {
+export type PageInfo = {
 	__typename?: "PageInfo";
 	/** Pagination info, whether there is more data going forward */
 	hasNextPage: Scalars["Boolean"];
@@ -289,36 +295,37 @@ export interface PageInfo {
 	startCursor?: Maybe<Scalars["Cursor"]>;
 	/** The cursor for the last item in this page */
 	endCursor?: Maybe<Scalars["Cursor"]>;
-}
+};
 
 /** Root query type */
-export interface Query {
+export type Query = {
 	__typename?: "Query";
 	/** The viewer of this request */
 	viewer?: Maybe<Viewer>;
 	/** Retrieves the list of data key options for a stock portfolio header. All filters are OR'ed. */
-	dataKeyOptions: DataKeyOption[];
+	dataKeyOptions: Array<DataKeyOption>;
 	/** Gets a paginated list of stock portfolios based on filters */
 	stockPortfolios?: Maybe<StockPortfolioConnection>;
-}
+	user?: Maybe<User>;
+};
 
 /** Root query type */
-export interface QueryDataKeyOptionsArgs {
+export type QueryDataKeyOptionsArgs = {
 	name?: Maybe<Scalars["String"]>;
 	dataKey?: Maybe<DataKey>;
 	provider?: Maybe<DataKey_Provider>;
-}
+};
 
 /** Root query type */
-export interface QueryStockPortfoliosArgs {
+export type QueryStockPortfoliosArgs = {
 	first?: Maybe<Scalars["Int"]>;
 	last?: Maybe<Scalars["Int"]>;
 	before?: Maybe<Scalars["Cursor"]>;
 	after?: Maybe<Scalars["Cursor"]>;
-}
+};
 
 /** The response object from a local register user request */
-export interface RegisterLocalUserResponse {
+export type RegisterLocalUserResponse = {
 	__typename?: "RegisterLocalUserResponse";
 	/** Whether the registration successfully created a user or not */
 	success: Scalars["Boolean"];
@@ -326,45 +333,45 @@ export interface RegisterLocalUserResponse {
 	error?: Maybe<Scalars["String"]>;
 	/** The user object */
 	user?: Maybe<User>;
-}
+};
 
 /** StockPortfolio entity. This is what gets shown on the data grid */
-export interface StockPortfolio {
+export type StockPortfolio = {
 	__typename?: "StockPortfolio";
 	/** The ID of the stock portfolio */
 	id: Scalars["ID"];
 	/** The user that this stock portfolio belongs to. Also the creator */
 	user: User;
 	/** The headers (configs) for this data grid, including how data is resolved */
-	headers: StockPortfolioHeader[];
+	headers: Array<StockPortfolioHeader>;
 	/** The tickers that are the rows for this data grid */
 	tickers: Array<Scalars["String"]>;
 	/** The data that gets resolved based on headers and tickers */
 	data: Scalars["JSON"];
-}
+};
 
 /** The stock portfolio connection, from which pagination and resource info can be gotten */
-export interface StockPortfolioConnection {
+export type StockPortfolioConnection = {
 	__typename?: "StockPortfolioConnection";
 	/** Holds cursor and resource information */
-	edges: StockPortfolioEdge[];
+	edges: Array<StockPortfolioEdge>;
 	/** Convenience property to avoid nesting */
-	nodes: StockPortfolio[];
+	nodes: Array<StockPortfolio>;
 	/** Pagination info, on whether there is more data */
 	pageInfo: PageInfo;
-}
+};
 
 /** Connection edges, which hold cursor and resource information */
-export interface StockPortfolioEdge {
+export type StockPortfolioEdge = {
 	__typename?: "StockPortfolioEdge";
 	/** Cursor for pagination */
 	cursor: Scalars["Cursor"];
 	/** The actual stock portfolio data */
 	node: StockPortfolio;
-}
+};
 
 /** A column configuration for the stock portfolio on the data grid */
-export interface StockPortfolioHeader {
+export type StockPortfolioHeader = {
 	__typename?: "StockPortfolioHeader";
 	/** The name displayed for this column header */
 	name: Scalars["String"];
@@ -374,26 +381,26 @@ export interface StockPortfolioHeader {
 	width: Scalars["Int"];
 	/** Whether this column should be resizable */
 	resizable: Scalars["Boolean"];
-}
+};
 
-export interface StockPortfolioHeaderInput {
+export type StockPortfolioHeaderInput = {
 	name: Scalars["String"];
 	dataKey: Scalars["String"];
 	width: Scalars["Int"];
 	tickers: Array<Scalars["String"]>;
-}
+};
 
 /** The response from a successful login or token refresh request */
-export interface TokenResponse {
+export type TokenResponse = {
 	__typename?: "TokenResponse";
 	/** JSON web token to authenticate API requests */
 	token: Scalars["String"];
 	/** JSON web token to refresh the token */
 	refreshToken: Scalars["String"];
-}
+};
 
 /** Basic user of the application */
-export interface User {
+export type User = {
 	__typename?: "User";
 	/** The id of the user */
 	id: Scalars["ID"];
@@ -401,24 +408,33 @@ export interface User {
 	email: Scalars["EmailAddress"];
 	/** Whether the user verified their email address */
 	emailVerified: Scalars["String"];
-	/** The user's encoded password */
-	password: Scalars["String"];
 	/** The user's username */
 	username: Scalars["String"];
-}
+};
+
+export type UserInput = {
+	/** The id of the user */
+	id: Scalars["ID"];
+	/** The user's email */
+	email: Scalars["EmailAddress"];
+	/** Whether the user verified their email address */
+	emailVerified: Scalars["String"];
+	/** The user's encoded password */
+	username: Scalars["String"];
+};
 
 /** Search items based on a range, or fuzzy date */
-export interface VariableDateTimeInput {
+export type VariableDateTimeInput = {
 	/** Returns items such that this property comes before the specified date-time */
 	before?: Maybe<DateTimeInput>;
 	/** Returns items such that this property comes after the specified date-time */
 	after?: Maybe<DateTimeInput>;
 	/** Returns items such that this property's date-time contains exactly the fields as specifed */
 	equal?: Maybe<DateTimeInput>;
-}
+};
 
 /** The viewer of this request */
-export interface Viewer {
+export type Viewer = {
 	__typename?: "Viewer";
 	/** The viewer's id */
 	id: Scalars["ID"];
@@ -426,4 +442,4 @@ export interface Viewer {
 	email: Scalars["String"];
 	/** The viewer's username */
 	username: Scalars["String"];
-}
+};

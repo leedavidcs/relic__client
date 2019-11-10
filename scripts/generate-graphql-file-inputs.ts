@@ -6,12 +6,15 @@ DotEnv.config();
 /* tslint:disable:no-console */
 
 const strOptions = {
-	includes: "src/**/*.{gql,graphql}",
+	endpoint: `${process.env.REACT_APP_API_BASE_URL}/graphql`,
+	includes: "src/graphql/{mutations,queries}/*.{gql,graphql}",
 	localSchemaFile: "src/graphql/schema.json",
 	target: "typescript"
 };
 
 const boolOptions = ["addTypename", "outputFlat", "useReadOnlyTypes"];
+
+const outputDir: string = "src/graphql/types/generated.types/typings-graphql-inputs.ts";
 
 const buildStrOptions = (): string => {
 	return Object.keys(strOptions)
@@ -28,7 +31,7 @@ const buildBoolOptions = (): string => {
 const buildOptions = () => `${buildStrOptions()} ${buildBoolOptions()}`;
 
 exec(
-	`apollo client:codegen ${buildOptions()} src/graphql/types/typings-grapqhl-inputs.ts`,
+	`apollo client:codegen ${buildOptions()} ${outputDir}`,
 	(err, stdout, stderr) => {
 		if (err) {
 			console.error(err);

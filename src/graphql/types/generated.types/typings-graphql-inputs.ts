@@ -84,10 +84,6 @@ export interface RegisterLocalUser_registerLocalUser_user {
 	 */
 	readonly emailVerified: string;
 	/**
-	 * The user's encoded password
-	 */
-	readonly password: string;
-	/**
 	 * The user's username
 	 */
 	readonly username: string;
@@ -120,6 +116,38 @@ export interface RegisterLocalUserVariables {
 	readonly email: any;
 	readonly password: string;
 	readonly username: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetUser
+// ====================================================
+
+export interface GetUser_user {
+	readonly __typename: "User";
+	/**
+	 * The id of the user
+	 */
+	readonly id: string;
+	/**
+	 * The user's email
+	 */
+	readonly email: any;
+	/**
+	 * Whether the user verified their email address
+	 */
+	readonly emailVerified: string;
+	/**
+	 * The user's username
+	 */
+	readonly username: string;
+}
+
+export interface GetUser {
+	readonly user: GetUser_user | null;
 }
 
 /* tslint:disable */
