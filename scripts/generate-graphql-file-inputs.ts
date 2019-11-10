@@ -39,8 +39,13 @@ exec(
 			process.exit(1);
 		}
 
-		console.log(`stdout:\n${stdout}`);
-		console.log(`stderr:\n${stderr}`);
+		if (stdout) {
+			console.log(`stdout:\n${stdout}`);
+		}
+
+		if (stderr) {
+			console.log(`stderr:\n${stderr}`);
+		}
 
 		process.exit(0);
 	}
