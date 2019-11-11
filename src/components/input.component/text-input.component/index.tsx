@@ -19,6 +19,7 @@ import { useStyles } from "./styles";
 const variants = ["underlined", "outlined"] as const;
 
 interface IProps {
+	className?: string;
 	disabled?: boolean;
 	label: string;
 	onBlur?: (event: FormEvent<HTMLInputElement>) => void;
@@ -31,12 +32,14 @@ interface IProps {
 	spellCheck?: boolean;
 	startIcon?: ReactElement;
 	style?: CSSProperties;
-	validator?: (value: string) => string | null;
+	validator?: string | null | ((value: string) => string | null);
+	value: string;
 	variant?: typeof variants[number];
 }
 
 export const TextInput: FC<IProps> = (props) => {
 	const {
+		className,
 		disabled = false,
 		label,
 		onBlur,
@@ -49,11 +52,13 @@ export const TextInput: FC<IProps> = (props) => {
 		spellCheck = false,
 		startIcon: propsStartIcon,
 		style,
+		value,
 		validator = () => null
 	} = props;
 
 	const classes = useStyles(props);
 
+	const [dirty, setDirty] = useState<boolean>(false);
 	const [hasInput, setHasInput] = useState<boolean>(false);
 	const [isValidInput, setIsValidInput] = useState<boolean>(true);
 	const [labelText, setLabelText] = useState<string>(label);
@@ -66,21 +71,29 @@ export const TextInput: FC<IProps> = (props) => {
 
 	const onInput = useCallback(
 		(event: FormEvent<HTMLInputElement>): void => {
-			const { value } = event.currentTarget;
-			const validatorMessage: string | null = validator(value);
-			const isValid: boolean = validatorMessage === null;
-
-			setLabelText(validatorMessage === null ? label : validatorMessage);
-
-			setIsValidInput(isValid);
-			setHasInput(value.length > 0);
-
 			if (propsOnInput) {
 				propsOnInput(event);
 			}
+
+			setDirty(true);
 		},
-		[propsOnInput, validator, setLabelText, label]
+		[propsOnInput, setDirty]
 	);
+
+	useEffect(() => {
+		if (!dirty) {
+			return;
+		}
+
+		const validatorMessage: string | null =
+			typeof validator === "function" ? validator(value) : validator;
+		const isValid: boolean = validatorMessage === null;
+
+		setLabelText(validatorMessage === null ? label : validatorMessage);
+
+		setIsValidInput(isValid);
+		setHasInput(value.length > 0);
+	}, [dirty, validator, setLabelText, label, value]);
 
 	useEffect(() => {
 		const labelDiv: HTMLDivElement | null = labelRef.current;
@@ -116,7 +129,7 @@ export const TextInput: FC<IProps> = (props) => {
 	return (
 		<div
 			ref={rootRef}
-			className={classnames(classes.root, {
+			className={classnames(classes.root, className, {
 				[classes.invalid]: !isValidInput
 			})}
 			style={style}
@@ -145,6 +158,7 @@ export const TextInput: FC<IProps> = (props) => {
 					onFocus={onFocus}
 					onInput={onInput}
 					spellCheck={spellCheck}
+					value={value}
 				/>
 				<div />
 			</div>
