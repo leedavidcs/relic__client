@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 import { SignUpDisplay } from "../sign-up-display.component";
 
-export default { title: "form|sign-up-modal", component: SignUpDisplay };
+export default { title: "form|sign-up", component: SignUpDisplay };
 
 export const standard = () => {
 	const onSubmit = action("onSubmit");

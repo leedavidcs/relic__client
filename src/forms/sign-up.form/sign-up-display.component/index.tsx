@@ -135,7 +135,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 				value={confirmPassword}
 			/>
 			<div className={classes.btnContainer}>
-				<Button onClick={onSubmit}>Submit</Button>
+				<Button onClick={onSubmit}>Sign up</Button>
 			</div>
 		</div>
 	);
