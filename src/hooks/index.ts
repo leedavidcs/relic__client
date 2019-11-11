@@ -1,4 +1,5 @@
 export * from "./use-focus.hook";
 export * from "./use-hover.hook";
+export * from "./use-set-user.hook";
 export * from "./use-theme-changer.hook";
 export * from "./use-unified-ref.hook";
