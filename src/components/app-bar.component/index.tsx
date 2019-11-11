@@ -2,6 +2,7 @@ import { TextInput } from "@/components/input.component";
 import { Toolbar } from "@/components/toolbar.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { User } from "@/graphql";
+import { onInputValueChanged } from "@/utils";
 import React, { FC, useCallback, useState } from "react";
 import { FaBars, FaSearch, FaUserCircle } from "react-icons/fa";
 import { ProfileMenu } from "./profile-menu.component";
@@ -14,14 +15,22 @@ interface IProps {
 	title: string;
 	onClickSignIn?: () => void;
 	onClickSignOut?: () => void;
+	onSearch?: (text: string) => void;
 	user: User | null;
 }
 
 export const AppBar: FC<IProps> = (props) => {
-	const { onClickSignIn, onClickSignOut, title, user } = props;
+	const {
+		onClickSignIn,
+		onClickSignOut,
+		onSearch: propsOnSearch = () => void 0,
+		title,
+		user
+	} = props;
 
 	const classes = useStyles();
 	const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+	const [searchText, setSearchText] = useState<string>("");
 
 	const onClickRightIcon = useCallback(
 		(index: number) => () => {
@@ -34,6 +43,15 @@ export const AppBar: FC<IProps> = (props) => {
 
 	const onClickOut = useCallback(() => setSelectedIndex(-1), [setSelectedIndex]);
 
+	const onSearch = useCallback(
+		onInputValueChanged((value) => {
+			propsOnSearch(value);
+
+			setSearchText(value);
+		}),
+		[propsOnSearch, setSearchText]
+	);
+
 	return (
 		<Toolbar className={classes.root} stickTop={true}>
 			<div className={classes.contentWrapper}>
@@ -42,7 +60,13 @@ export const AppBar: FC<IProps> = (props) => {
 				</div>
 				<h6 className={classes.title}>{title}</h6>
 				<div className={classes.searchWrapper}>
-					<TextInput startIcon={<FaSearch />} label="Search" variant="outlined" />
+					<TextInput
+						startIcon={<FaSearch />}
+						label="Search"
+						onChange={onSearch}
+						variant="outlined"
+						value={searchText}
+					/>
 				</div>
 				<div>
 					<Tooltip
