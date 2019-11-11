@@ -1,1 +1,2 @@
+export * from "./on-input-value-changed.util";
 export * from "./toggle-class.util";

@@ -1,7 +1,7 @@
 import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-export const styles = (theme: CustomTheme) => ({
+const styles = (theme: CustomTheme) => ({
 	root: {},
 	btnContainer: {
 		paddingTop: 8,
