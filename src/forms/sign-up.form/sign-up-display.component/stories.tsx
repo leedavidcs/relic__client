@@ -1,4 +1,4 @@
-import { Background } from "@/components";
+import { Background, Paper } from "@/components";
 import { action } from "@storybook/addon-actions";
 import React from "react";
 import { SignUpDisplay } from "../sign-up-display.component";
@@ -10,7 +10,9 @@ export const standard = () => {
 
 	return (
 		<Background>
-			<SignUpDisplay onSubmit={onSubmit} />
+			<Paper>
+				<SignUpDisplay onSubmit={onSubmit} />
+			</Paper>
 		</Background>
 	);
 };

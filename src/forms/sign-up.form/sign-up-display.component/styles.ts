@@ -2,12 +2,13 @@ import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
 export const styles = (theme: CustomTheme) => ({
-	root: {
-		padding: 12
-	},
+	root: {},
 	btnContainer: {
 		paddingTop: 8,
 		textAlign: "right"
+	},
+	textInput: {
+		marginBottom: 16
 	}
 });
 
