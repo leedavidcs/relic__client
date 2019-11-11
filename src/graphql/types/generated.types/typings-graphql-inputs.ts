@@ -123,6 +123,42 @@ export interface RegisterLocalUserVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: SetUser
+// ====================================================
+
+export interface SetUser_setUser {
+	readonly __typename: "User";
+	/**
+	 * The id of the user
+	 */
+	readonly id: string;
+	/**
+	 * The user's email
+	 */
+	readonly email: any;
+	/**
+	 * Whether the user verified their email address
+	 */
+	readonly emailVerified: string;
+	/**
+	 * The user's username
+	 */
+	readonly username: string;
+}
+
+export interface SetUser {
+	readonly setUser: SetUser_setUser;
+}
+
+export interface SetUserVariables {
+	readonly user: UserInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetUser
 // ====================================================
 
@@ -154,9 +190,51 @@ export interface GetUser {
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL query operation: GetViewer
+// ====================================================
+
+export interface GetViewer_viewer {
+	readonly __typename: "Viewer";
+	/**
+	 * The viewer's id
+	 */
+	readonly id: string;
+	/**
+	 * The viewer's email
+	 */
+	readonly email: string;
+	/**
+	 * Whether this viewer verified their email address
+	 */
+	readonly emailVerified: string;
+	/**
+	 * The viewer's username
+	 */
+	readonly username: string;
+}
+
+export interface GetViewer {
+	/**
+	 * The viewer of this request
+	 */
+	readonly viewer: GetViewer_viewer | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export interface UserInput {
+	readonly id: string;
+	readonly email: any;
+	readonly emailVerified: string;
+	readonly username: string;
+}
 
 //==============================================================
 // END Enums and Input Objects

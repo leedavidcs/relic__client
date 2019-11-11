@@ -8,8 +8,11 @@ export const cache = new InMemoryCache({
 	dataIdFromObject: defaultDataIdFromObject
 });
 
+const isDevelopmentMode: boolean = process.env.NODE_ENV === "development";
+
 export const Client = new ApolloClient({
 	cache,
+	connectToDevTools: isDevelopmentMode,
 	link,
 	resolvers,
 	typeDefs

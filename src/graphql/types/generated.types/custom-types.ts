@@ -440,6 +440,8 @@ export type Viewer = {
 	id: Scalars["ID"];
 	/** The viewer's email */
 	email: Scalars["String"];
+	/** Whether this viewer verified their email address */
+	emailVerified: Scalars["String"];
 	/** The viewer's username */
 	username: Scalars["String"];
 };

@@ -189,6 +189,22 @@
 						"deprecationReason": null
 					},
 					{
+						"name": "emailVerified",
+						"description": "Whether this viewer verified their email address",
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
 						"name": "username",
 						"description": "The viewer's username",
 						"args": [],

@@ -13,6 +13,11 @@ const styles = (theme: CustomTheme) => ({
 		textAlign: "left",
 		padding: "8px 16px",
 		cursor: ({ selected }) => (typeof selected === "boolean" ? "pointer" : "unset")
+	},
+	link: {
+		display: "flex",
+		color: "unset",
+		textDecoration: "none"
 	}
 });
 

@@ -2,6 +2,7 @@ import { withInfo } from "@storybook/addon-info";
 import { withKnobs } from "@storybook/addon-knobs";
 import { addDecorator, configure } from "@storybook/react";
 import { withThemesProvider } from "storybook-addon-jss-theme";
+import withStoryRouter from "storybook-react-router";
 import { standardTheme } from "../src/themes";
 
 const themes = [
@@ -13,6 +14,7 @@ const themes = [
 
 addDecorator(withInfo);
 addDecorator(withKnobs);
+addDecorator(withStoryRouter());
 addDecorator(withThemesProvider(themes));
 
 const loadStories = () => {

@@ -26,7 +26,7 @@ export const ProfileMenu: FC<IProps> = ({
 				</ListItemIcon>
 				<ListItemText primary="Your profile" />
 			</ListItem>
-			<ListItem selected={false} onClick={onClickAuthOption}>
+			<ListItem href={user ? "" : "/sign-in"} selected={false} onClick={onClickAuthOption}>
 				<ListItemIcon>
 					<FaBacon />
 				</ListItemIcon>
