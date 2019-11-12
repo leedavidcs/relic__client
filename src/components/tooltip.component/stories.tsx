@@ -73,7 +73,7 @@ export const Standard = () => {
 							</List>
 						}
 					>
-						<Button>Toggle Tooltip</Button>
+						<Button>Toggle</Button>
 					</Tooltip>
 				</div>
 			</Paper>
