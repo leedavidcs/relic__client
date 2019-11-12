@@ -30,6 +30,22 @@ declare module "*/set-user.mutation.graphql" {
 	export default defaultDocument;
 }
 
+declare module "*/toggle-modal.mutation.graphql" {
+	import { DocumentNode } from "graphql";
+	const defaultDocument: DocumentNode;
+	export const ToggleModal: DocumentNode;
+
+	export default defaultDocument;
+}
+
+declare module "*/get-modal.query.graphql" {
+	import { DocumentNode } from "graphql";
+	const defaultDocument: DocumentNode;
+	export const GetModal: DocumentNode;
+
+	export default defaultDocument;
+}
+
 declare module "*/get-user.query.graphql" {
 	import { DocumentNode } from "graphql";
 	const defaultDocument: DocumentNode;

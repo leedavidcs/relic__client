@@ -22,7 +22,7 @@ export interface LoginLocalUser {
 	/**
 	 * Logins in the user, and returns an expiring access token
 	 */
-	readonly loginLocalUser: LoginLocalUser_loginLocalUser | null;
+	readonly loginLocalUser: LoginLocalUser_loginLocalUser;
 }
 
 export interface LoginLocalUserVariables {
@@ -54,7 +54,7 @@ export interface RefreshAccessToken {
 	/**
 	 * Refreshes the currently logged-in user's access token
 	 */
-	readonly refreshAccessToken: RefreshAccessToken_refreshAccessToken | null;
+	readonly refreshAccessToken: RefreshAccessToken_refreshAccessToken;
 }
 
 export interface RefreshAccessTokenVariables {
@@ -109,7 +109,7 @@ export interface RegisterLocalUser {
 	/**
 	 * Performs local authentication (custom username + password)
 	 */
-	readonly registerLocalUser: RegisterLocalUser_registerLocalUser | null;
+	readonly registerLocalUser: RegisterLocalUser_registerLocalUser;
 }
 
 export interface RegisterLocalUserVariables {
@@ -152,6 +152,34 @@ export interface SetUser {
 
 export interface SetUserVariables {
 	readonly user: UserInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: ToggleModal
+// ====================================================
+
+export interface ToggleModal {
+	readonly toggleModal: boolean;
+}
+
+export interface ToggleModalVariables {
+	readonly force?: boolean | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetModal
+// ====================================================
+
+export interface GetModal {
+	readonly modal: boolean;
 }
 
 /* tslint:disable */

@@ -20,6 +20,7 @@ export const Client = new ApolloClient({
 
 cache.writeData<IClientState>({
 	data: {
+		modal: false,
 		user: null
 	}
 });
