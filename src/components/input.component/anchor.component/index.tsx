@@ -6,22 +6,20 @@ import { useStyles } from "./styles";
 interface IProps {
 	className?: string;
 	href?: string;
-	onClick?: (value: string) => void;
+	onClick?: () => void;
 	value: string;
 }
 
 export const Anchor: FC<IProps> = ({
 	className,
 	href,
-	onClick: propsOnClick = () => void 0,
+	onClick,
 	value
 }) => {
 	const classes = useStyles();
 
 	const ref = useRef(null);
 	const [isHovered] = useHover(false, ref);
-
-	const onClick = useCallback(() => propsOnClick(value), [propsOnClick, value]);
 
 	const Wrapper = typeof href === "string" ? "a" : "button";
 

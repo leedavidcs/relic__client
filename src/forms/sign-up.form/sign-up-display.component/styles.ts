@@ -4,8 +4,10 @@ import { createUseStyles } from "react-jss";
 export const styles = (theme: CustomTheme) => ({
 	root: {},
 	btnContainer: {
-		paddingTop: 8,
-		textAlign: "right"
+		paddingTop: 8
+	},
+	signUpBtn: {
+		width: 140
 	},
 	textInput: {
 		marginBottom: 16
