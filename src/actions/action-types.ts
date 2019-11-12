@@ -1,7 +1,0 @@
-export const ActionTypes = {};
-
-export const BackdropAction = {
-	DECREMENT_DEPENDANTS: "DECREMENT_DEPENDANTS",
-	FORCE_CLOSE: "FORCE_CLOSE",
-	INCREMENT_DEPENDANTS: "INCREMENT_DEPENDANTS"
-};
