@@ -414,7 +414,7 @@ export type User = {
 	/** The user's email */
 	email: Scalars["EmailAddress"];
 	/** Whether the user verified their email address */
-	emailVerified: Scalars["String"];
+	emailVerified: Scalars["Boolean"];
 	/** The user's username */
 	username: Scalars["String"];
 };
@@ -425,7 +425,7 @@ export type UserInput = {
 	/** The user's email */
 	email: Scalars["EmailAddress"];
 	/** Whether the user verified their email address */
-	emailVerified: Scalars["String"];
+	emailVerified: Scalars["Boolean"];
 	/** The user's encoded password */
 	username: Scalars["String"];
 };
@@ -448,7 +448,7 @@ export type Viewer = {
 	/** The viewer's email */
 	email: Scalars["String"];
 	/** Whether this viewer verified their email address */
-	emailVerified: Scalars["String"];
+	emailVerified: Scalars["Boolean"];
 	/** The viewer's username */
 	username: Scalars["String"];
 };

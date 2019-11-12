@@ -82,7 +82,7 @@ export interface RegisterLocalUser_registerLocalUser_user {
 	/**
 	 * Whether the user verified their email address
 	 */
-	readonly emailVerified: string;
+	readonly emailVerified: boolean;
 	/**
 	 * The user's username
 	 */
@@ -139,7 +139,7 @@ export interface SetUser_setUser {
 	/**
 	 * Whether the user verified their email address
 	 */
-	readonly emailVerified: string;
+	readonly emailVerified: boolean;
 	/**
 	 * The user's username
 	 */
@@ -203,7 +203,7 @@ export interface GetUser_user {
 	/**
 	 * Whether the user verified their email address
 	 */
-	readonly emailVerified: string;
+	readonly emailVerified: boolean;
 	/**
 	 * The user's username
 	 */
@@ -235,7 +235,7 @@ export interface GetViewer_viewer {
 	/**
 	 * Whether this viewer verified their email address
 	 */
-	readonly emailVerified: string;
+	readonly emailVerified: boolean;
 	/**
 	 * The viewer's username
 	 */
@@ -260,7 +260,7 @@ export interface GetViewer {
 export interface UserInput {
 	readonly id: string;
 	readonly email: any;
-	readonly emailVerified: string;
+	readonly emailVerified: boolean;
 	readonly username: string;
 }
 
