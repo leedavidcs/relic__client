@@ -1,4 +1,4 @@
-import { TextInput } from "@/components/input.component";
+import { Button, TextInput } from "@/components/input.component";
 import { Toolbar } from "@/components/toolbar.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { User } from "@/graphql";
@@ -15,6 +15,7 @@ interface IProps {
 	title: string;
 	onClickSignIn?: () => void;
 	onClickSignOut?: () => void;
+	onClickSignUp?: () => void;
 	onSearch?: (text: string) => void;
 	user: User | null;
 }
@@ -23,6 +24,7 @@ export const AppBar: FC<IProps> = (props) => {
 	const {
 		onClickSignIn,
 		onClickSignOut,
+		onClickSignUp,
 		onSearch: propsOnSearch = () => void 0,
 		title,
 		user
@@ -68,7 +70,21 @@ export const AppBar: FC<IProps> = (props) => {
 						value={searchText}
 					/>
 				</div>
-				<div>
+				{user ? (
+					<div className={classes.authBtnWrapper}>
+						<Button
+							className={classes.authBtn}
+							onClick={onClickSignIn}
+							color="transparent"
+						>
+							SIGN IN
+						</Button>
+						<Button className={classes.authBtn} onClick={onClickSignUp}>
+							SIGN UP
+						</Button>
+					</div>
+				) : null}
+				<div className={classes.tooltipWrapper}>
 					<Tooltip
 						active={selectedIndex === 0}
 						direction={"left-start"}

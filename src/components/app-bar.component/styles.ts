@@ -1,4 +1,4 @@
-import { CustomTheme } from "@/themes";
+import { breakpoints, CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
@@ -29,20 +29,37 @@ const styles = (theme: CustomTheme) => ({
 		fontSize: "1.25rem",
 		fontWeight: 500
 	},
-	profileIcon: {
-		cursor: "pointer"
-	},
-	profileIconWrapper: {
-		height: 32,
-		width: 32,
-		borderRadius: 16,
-		overflow: "hidden"
-	},
 	searchWrapper: {
 		display: "flex",
 		flexGrow: 1,
 		width: "auto",
 		margin: "0 20px"
+	},
+	authBtnWrapper: {
+		display: "flex",
+		alignItems: "center",
+		flexDirection: "row",
+		marginRight: 12
+	},
+	authBtn: {
+		marginLeft: 4,
+		color: theme.onSurface,
+
+		"&:last-child": {
+			color: theme.onPrimary
+		},
+
+		[breakpoints.up("md")]: {
+			minWidth: 120,
+
+			"&:last-child": {
+				marginLeft: 12
+			}
+		}
+	},
+	tooltipWrapper: {},
+	profileIcon: {
+		cursor: "pointer"
 	}
 });
 
