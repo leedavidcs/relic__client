@@ -2,7 +2,9 @@ import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
-	root: {},
+	root: {
+		paddingTop: 20
+	},
 	btnContainer: {
 		paddingTop: 8,
 		textAlign: "right"
