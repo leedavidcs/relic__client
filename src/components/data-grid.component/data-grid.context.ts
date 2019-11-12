@@ -12,12 +12,8 @@ export const DataGridContext: Context<IDataGridContextProps> = createContext<IDa
 	{
 		data: [] as Array<{ [key: string]: any }>,
 		headers: [] as IHeaderConfig[],
-		setData: () => {
-			return;
-		},
-		setHeaders: () => {
-			return;
-		}
+		setData: () => void 0,
+		setHeaders: () => void 0
 	}
 );
 
