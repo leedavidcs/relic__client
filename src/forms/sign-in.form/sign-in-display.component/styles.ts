@@ -6,11 +6,20 @@ const styles = (theme: CustomTheme) => ({
 		paddingTop: 20
 	},
 	btnContainer: {
-		paddingTop: 8,
-		textAlign: "right"
+		paddingTop: 8
+	},
+	signInBtn: {
+		width: 140
 	},
 	textInput: {
 		marginBottom: 16
+	},
+	forgotPassword: {
+		marginTop: 10
+	},
+	signUpWrapper: {
+		marginTop: 28,
+		fontSize: 14
 	}
 });
 

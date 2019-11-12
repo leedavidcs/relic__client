@@ -8,14 +8,23 @@ const App: React.FC = () => {
 	const { setContent, toggle } = useModal();
 	const [user, doneFetchingUser] = useSetUser();
 
+	const onClickForgotPassword = useCallback(() => void 0, []);
+
+	const onClickSignUp = useCallback(() => void 0, []);
+
 	const onClickSignIn = useCallback(() => {
 		setContent({
 			title: "Sign in",
-			body: <SignInForm />
+			body: (
+				<SignInForm
+					onClickForgotPassword={onClickForgotPassword}
+					onClickSignUp={onClickSignUp}
+				/>
+			)
 		});
 
 		toggle(true);
-	}, [setContent, toggle]);
+	}, [setContent, toggle, onClickForgotPassword, onClickSignUp]);
 
 	const onClickSignOut = useCallback(() => void 0, []);
 
