@@ -8,9 +8,6 @@ export default { title: "form|sign-in", component: SignInDisplay };
 export const Standard = () => {
 	const submitAction = action("onSubmit");
 
-	const onClickForgotPassword = action("onClickForgotPassword");
-	const onClickSignUp = action("onClickSignIn");
-
 	const onSubmit = useCallback(
 		(values) => {
 			submitAction(values);
@@ -23,11 +20,7 @@ export const Standard = () => {
 	return (
 		<Background>
 			<Paper>
-				<SignInDisplay
-					onClickForgotPassword={onClickForgotPassword}
-					onClickSignUp={onClickSignUp}
-					onSubmit={onSubmit}
-				/>
+				<SignInDisplay onSubmit={onSubmit} />
 			</Paper>
 		</Background>
 	);

@@ -1,5 +1,7 @@
-import { Button, TextInput } from "@/components";
+import { Anchor, Button, TextInput } from "@/components";
+import { SignInForm } from "@/forms/sign-in.form";
 import { RegisterLocalUserVariables } from "@/graphql";
+import { useModal } from "@/hooks";
 import { onInputValueChanged } from "@/utils";
 import React, { FC, useCallback, useState } from "react";
 import { isEmail } from "validator";
@@ -11,6 +13,8 @@ interface IProps {
 
 export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const classes = useStyles();
+
+	const { setContent, toggle } = useModal();
 
 	const [username, setUsername] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
@@ -98,46 +102,60 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 		[password, setIsValidConfirmPassword]
 	);
 
+	const onClickSignIn = useCallback(() => {
+		setContent({
+			title: "Sign in",
+			body: <SignInForm />
+		});
+
+		toggle(true);
+	}, [setContent, toggle]);
+
 	return (
 		<div className={classes.root}>
-			<TextInput
-				className={classes.textInput}
-				label="Username"
-				onChange={onChangeUsername}
-				validator={validateUsername}
-				variant="outlined"
-				value={username}
-			/>
-			<TextInput
-				className={classes.textInput}
-				label="Email"
-				onChange={onChangeEmail}
-				validator={validateEmail}
-				variant="outlined"
-				value={email}
-			/>
-			<TextInput
-				className={classes.textInput}
-				label="Password"
-				password={true}
-				onChange={onChangePassword}
-				validator={validatePassword}
-				variant="outlined"
-				value={password}
-			/>
-			<TextInput
-				className={classes.textInput}
-				label="Confirm password"
-				password={true}
-				onChange={onChangeConfirmPassword}
-				validator={validateConfirmPassword}
-				variant="outlined"
-				value={confirmPassword}
-			/>
-			<div className={classes.btnContainer}>
-				<Button className={classes.signUpBtn} onClick={onSubmit}>
-					Sign up
-				</Button>
+			<div>
+				<TextInput
+					className={classes.textInput}
+					label="Username"
+					onChange={onChangeUsername}
+					validator={validateUsername}
+					variant="outlined"
+					value={username}
+				/>
+				<TextInput
+					className={classes.textInput}
+					label="Email"
+					onChange={onChangeEmail}
+					validator={validateEmail}
+					variant="outlined"
+					value={email}
+				/>
+				<TextInput
+					className={classes.textInput}
+					label="Password"
+					password={true}
+					onChange={onChangePassword}
+					validator={validatePassword}
+					variant="outlined"
+					value={password}
+				/>
+				<TextInput
+					className={classes.textInput}
+					label="Confirm password"
+					password={true}
+					onChange={onChangeConfirmPassword}
+					validator={validateConfirmPassword}
+					variant="outlined"
+					value={confirmPassword}
+				/>
+				<div className={classes.btnContainer}>
+					<Button className={classes.signUpBtn} onClick={onSubmit}>
+						SIGN UP
+					</Button>
+				</div>
+			</div>
+			<div className={classes.signInWrapper}>
+				Already a member? {<Anchor value="SIGN IN" onClick={onClickSignIn} />}
 			</div>
 		</div>
 	);

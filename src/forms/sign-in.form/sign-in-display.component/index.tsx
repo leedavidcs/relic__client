@@ -1,22 +1,20 @@
 import { Anchor, Button, TextInput } from "@/components";
+import { SignUpForm } from "@/forms/sign-up.form";
 import { LoginLocalUserVariables } from "@/graphql";
+import { useModal } from "@/hooks";
 import { onInputValueChanged } from "@/utils";
 import React, { FC, useCallback, useState } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
-	onClickForgotPassword: () => void;
-	onClickSignUp: () => void;
 	/* Returns whether the operation was successful */
 	onSubmit: (variables: LoginLocalUserVariables) => Promise<boolean> | boolean;
 }
 
-export const SignInDisplay: FC<IProps> = ({
-	onClickForgotPassword,
-	onClickSignUp,
-	onSubmit: propsOnSubmit
-}) => {
+export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const classes = useStyles();
+
+	const { setContent, toggle } = useModal();
 
 	const [userIdentifier, setUserIdentifier] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
@@ -54,6 +52,17 @@ export const SignInDisplay: FC<IProps> = ({
 		return isValid ? null : "Password is invalid";
 	}, [didSubmit, didSucceed]);
 
+	const onClickForgotPassword = useCallback(() => void 0, []);
+
+	const onClickSignUp = useCallback(() => {
+		setContent({
+			title: "Sign up",
+			body: <SignUpForm />
+		});
+
+		toggle(true);
+	}, [setContent, toggle]);
+
 	return (
 		<div className={classes.root}>
 			<div>
@@ -75,7 +84,7 @@ export const SignInDisplay: FC<IProps> = ({
 				/>
 				<div className={classes.btnContainer}>
 					<Button className={classes.signInBtn} onClick={onSubmit}>
-						Sign in
+						SIGN IN
 					</Button>
 				</div>
 			</div>
@@ -85,7 +94,7 @@ export const SignInDisplay: FC<IProps> = ({
 				onClick={onClickForgotPassword}
 			/>
 			<div className={classes.signUpWrapper}>
-				First time here? {<Anchor value="SIGN UP" onClick={onClickSignUp} />}
+				First time here? <Anchor value="SIGN UP" onClick={onClickSignUp} />
 			</div>
 		</div>
 	);

@@ -13,6 +13,10 @@ export const styles = (theme: CustomTheme) => ({
 	},
 	textInput: {
 		marginBottom: 16
+	},
+	signInWrapper: {
+		marginTop: 28,
+		fontSize: 14
 	}
 });
 
