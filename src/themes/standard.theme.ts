@@ -9,6 +9,7 @@ export const standardTheme = {
 	onSurface: "#FFFFFF",
 	error: "#CF6679",
 	warning: "#FF5C01",
+	transparent: "rgba(0, 0, 0, 0)",
 	onPrimary: "#000000",
 	onSecondary: "#000000",
 	onError: "#000000",

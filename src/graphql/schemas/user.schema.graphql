@@ -4,7 +4,7 @@ input UserInput {
 	"The user's email"
 	email: EmailAddress!
 	"Whether the user verified their email address"
-	emailVerified: String!
+	emailVerified: Boolean!
 	"The user's encoded password"
 	username: String!
 }

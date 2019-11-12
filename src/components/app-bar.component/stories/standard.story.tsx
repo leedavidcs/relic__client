@@ -1,11 +1,9 @@
+import { Background } from "@/components/background.component";
 import { action } from "@storybook/addon-actions";
 import React from "react";
-import { AppBar } from ".";
-import { Background } from "../background.component";
+import { AppBar } from "../";
 
-export default { title: "app-bar", component: AppBar };
-
-export const standard = () => {
+export const StandardStory = () => {
 	const onClickSignIn = action("sign in");
 	const onClickSignOut = action("sign out");
 

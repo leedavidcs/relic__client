@@ -4,7 +4,6 @@ import { createUseStyles } from "react-jss";
 const styles = (theme: CustomTheme) => ({
 	root: {
 		position: "absolute",
-		backgroundColor: theme.onSurface,
 		top: 0,
 		right: 0,
 		bottom: 0,
@@ -16,6 +15,7 @@ const styles = (theme: CustomTheme) => ({
 		opacity: 0
 	},
 	active: {
+		backgroundColor: theme.onSurface,
 		opacity: ({ opacity }) => opacity,
 		pointerEvents: ({ clickThrough }) => (clickThrough ? "none" : "auto")
 	}
