@@ -10,12 +10,7 @@ interface IProps {
 	value: string;
 }
 
-export const Anchor: FC<IProps> = ({
-	className,
-	href,
-	onClick,
-	value
-}) => {
+export const Anchor: FC<IProps> = ({ className, href, onClick, value }) => {
 	const classes = useStyles();
 
 	const ref = useRef(null);

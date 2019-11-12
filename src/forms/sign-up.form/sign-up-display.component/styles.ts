@@ -5,14 +5,24 @@ export const styles = (theme: CustomTheme) => ({
 	root: {
 		paddingTop: 20
 	},
+	formWrapper: {
+		maxWidth: 320
+	},
 	btnContainer: {
 		paddingTop: 8
+	},
+	textInput: {
+		marginBottom: 16
+	},
+	passwordStrength: {
+		marginBottom: 20
 	},
 	signUpBtn: {
 		width: 140
 	},
-	textInput: {
-		marginBottom: 16
+	signInWrapper: {
+		marginTop: 28,
+		fontSize: 14
 	}
 });
 

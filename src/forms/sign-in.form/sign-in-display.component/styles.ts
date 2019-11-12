@@ -8,11 +8,14 @@ const styles = (theme: CustomTheme) => ({
 	btnContainer: {
 		paddingTop: 8
 	},
-	signInBtn: {
-		width: 140
+	formWrapper: {
+		maxWidth: 320
 	},
 	textInput: {
 		marginBottom: 16
+	},
+	signInBtn: {
+		width: 140
 	},
 	forgotPassword: {
 		marginTop: 10

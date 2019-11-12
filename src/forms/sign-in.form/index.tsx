@@ -3,12 +3,7 @@ import React, { FC, useCallback } from "react";
 import { useMutation } from "react-apollo";
 import { SignInDisplay } from "./sign-in-display.component";
 
-interface IProps {
-	onClickForgotPassword: () => void;
-	onClickSignUp: () => void;
-}
-
-export const SignInForm: FC<IProps> = ({ onClickForgotPassword, onClickSignUp }) => {
+export const SignInForm: FC<{}> = () => {
 	const [loginUser] = useMutation<TokenResponse, LoginLocalUserVariables>(
 		Mutations.LoginLocalUser
 	);
@@ -31,11 +26,5 @@ export const SignInForm: FC<IProps> = ({ onClickForgotPassword, onClickSignUp })
 		[loginUser]
 	);
 
-	return (
-		<SignInDisplay
-			onClickForgotPassword={onClickForgotPassword}
-			onClickSignUp={onClickSignUp}
-			onSubmit={onSubmit}
-		/>
-	);
+	return <SignInDisplay onSubmit={onSubmit} />;
 };

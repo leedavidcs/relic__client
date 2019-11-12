@@ -14,6 +14,7 @@ export const standardTheme = {
 	onSecondary: "#000000",
 	onError: "#000000",
 	onWarning: "#000000",
+	success: "#A6E22E",
 	link: "#90CAF9",
 	highEmphasis: 0.87,
 	mediumEmphasis: 0.6,

@@ -8,8 +8,6 @@ const App: React.FC = () => {
 	const { setContent, toggle } = useModal();
 	const [user, doneFetchingUser] = useSetUser();
 
-	const onClickForgotPassword = useCallback(() => void 0, []);
-
 	const onClickSignUp = useCallback(() => {
 		setContent({
 			title: "Sign up",
@@ -22,16 +20,11 @@ const App: React.FC = () => {
 	const onClickSignIn = useCallback(() => {
 		setContent({
 			title: "Sign in",
-			body: (
-				<SignInForm
-					onClickForgotPassword={onClickForgotPassword}
-					onClickSignUp={onClickSignUp}
-				/>
-			)
+			body: <SignInForm />
 		});
 
 		toggle(true);
-	}, [setContent, toggle, onClickForgotPassword, onClickSignUp]);
+	}, [setContent, toggle]);
 
 	const onClickSignOut = useCallback(() => void 0, []);
 
@@ -44,6 +37,7 @@ const App: React.FC = () => {
 						user={user}
 						onClickSignIn={onClickSignIn}
 						onClickSignOut={onClickSignOut}
+						onClickSignUp={onClickSignUp}
 					/>
 					<AppRoutes />
 				</Fragment>
