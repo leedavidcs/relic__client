@@ -6,5 +6,6 @@ export interface IClientContext {
 }
 
 export interface IClientState {
+	modal: boolean;
 	user: User | null;
 }

@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemIcon, ListItemText } from "@/components/list.component";
 import { User } from "@/graphql";
-import React, { FC, useCallback } from "react";
+import React, { FC } from "react";
 import { FaBacon } from "react-icons/fa";
 
 interface IProps {
@@ -14,9 +14,7 @@ export const ProfileMenu: FC<IProps> = ({
 	onClickSignOut = () => void 0,
 	user
 }) => {
-	const onClickAuthOption = useCallback(() => {
-		user ? onClickSignOut() : onClickSignIn();
-	}, [user, onClickSignIn, onClickSignOut]);
+	const onClickAuthOption: () => void = user ? onClickSignOut : onClickSignIn;
 
 	return (
 		<List>
@@ -26,7 +24,7 @@ export const ProfileMenu: FC<IProps> = ({
 				</ListItemIcon>
 				<ListItemText primary="Your profile" />
 			</ListItem>
-			<ListItem href={user ? "" : "/sign-in"} selected={false} onClick={onClickAuthOption}>
+			<ListItem selected={false} onClick={onClickAuthOption}>
 				<ListItemIcon>
 					<FaBacon />
 				</ListItemIcon>

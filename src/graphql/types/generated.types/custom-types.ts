@@ -233,17 +233,18 @@ export type Mutation = {
 	/** The viewer of this request */
 	viewer?: Maybe<Viewer>;
 	/** Logins in the user, and returns an expiring access token */
-	loginLocalUser?: Maybe<TokenResponse>;
+	loginLocalUser: TokenResponse;
 	/** Refreshes the currently logged-in user's access token */
-	refreshAccessToken?: Maybe<TokenResponse>;
+	refreshAccessToken: TokenResponse;
 	/** Performs local authentication (custom username + password) */
-	registerLocalUser?: Maybe<RegisterLocalUserResponse>;
+	registerLocalUser: RegisterLocalUserResponse;
 	/** Creates an empty stock portfolio */
-	createStockPortfolio?: Maybe<StockPortfolio>;
+	createStockPortfolio: StockPortfolio;
 	/** Updates a stock portfolio */
-	updateStockPortfolio?: Maybe<StockPortfolio>;
+	updateStockPortfolio: StockPortfolio;
 	/** Deletes a stock portfolio */
-	deleteStockPortfolio?: Maybe<StockPortfolio>;
+	deleteStockPortfolio: StockPortfolio;
+	toggleModal: Scalars["Boolean"];
 	setUser: User;
 };
 
@@ -278,6 +279,11 @@ export type MutationDeleteStockPortfolioArgs = {
 };
 
 /** Root mutation type */
+export type MutationToggleModalArgs = {
+	force?: Maybe<Scalars["Boolean"]>;
+};
+
+/** Root mutation type */
 export type MutationSetUserArgs = {
 	user: UserInput;
 };
@@ -305,7 +311,8 @@ export type Query = {
 	/** Retrieves the list of data key options for a stock portfolio header. All filters are OR'ed. */
 	dataKeyOptions: Array<DataKeyOption>;
 	/** Gets a paginated list of stock portfolios based on filters */
-	stockPortfolios?: Maybe<StockPortfolioConnection>;
+	stockPortfolios: StockPortfolioConnection;
+	modal: Scalars["Boolean"];
 	user?: Maybe<User>;
 };
 

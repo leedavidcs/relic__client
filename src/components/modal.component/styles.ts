@@ -7,6 +7,7 @@ const styles = (theme: CustomTheme) => ({
 		top: "0%",
 		left: "50%",
 		transform: "translate(-50%, -110%)",
+		padding: 0,
 		width: 680,
 		maxHeight: "75%",
 		transition: "all 0.2s ease",
@@ -31,6 +32,9 @@ const styles = (theme: CustomTheme) => ({
 		},
 		textAlign: "center",
 		lineHeight: "36px"
+	},
+	content: {
+		padding: "0 20px 20px"
 	},
 	closeBtn: {
 		display: "flex",
