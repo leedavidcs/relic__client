@@ -1,15 +1,10 @@
-import React, { FC } from "react";
-import { SortableContainer } from "react-sortable-hoc";
-import { compose } from "redux";
+import React, { ComponentClass } from "react";
+import { SortableContainer, SortableContainerProps } from "react-sortable-hoc";
 
-interface IProps {
+interface IProps extends SortableContainerProps {
 	className?: string;
 }
 
-export const BaseComponent: FC<IProps> = ({ children, className }) => {
+export const DataGridBody: ComponentClass<IProps> = SortableContainer(({ children, className }) => {
 	return <div className={className}>{children}</div>;
-};
-
-const enhance = compose(SortableContainer);
-
-export const DataGridBody = enhance(BaseComponent);
+});
