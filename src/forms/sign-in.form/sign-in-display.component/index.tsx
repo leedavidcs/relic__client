@@ -65,7 +65,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 
 	return (
 		<div className={classes.root}>
-			<div>
+			<div className={classes.formWrapper}>
 				<TextInput
 					className={classes.textInput}
 					label="Username or Email"

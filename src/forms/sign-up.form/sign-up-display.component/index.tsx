@@ -1,4 +1,4 @@
-import { Anchor, Button, TextInput } from "@/components";
+import { Anchor, Button, PasswordStrength, TextInput } from "@/components";
 import { SignInForm } from "@/forms/sign-in.form";
 import { RegisterLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
@@ -113,7 +113,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 
 	return (
 		<div className={classes.root}>
-			<div>
+			<div className={classes.formWrapper}>
 				<TextInput
 					className={classes.textInput}
 					label="Username"
@@ -139,6 +139,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 					variant="outlined"
 					value={password}
 				/>
+				<PasswordStrength className={classes.passwordStrength} password={password} />
 				<TextInput
 					className={classes.textInput}
 					label="Confirm password"
