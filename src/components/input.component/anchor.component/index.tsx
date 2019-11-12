@@ -1,6 +1,6 @@
 import { useHover } from "@/hooks";
 import classnames from "classnames";
-import React, { FC, useCallback, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
