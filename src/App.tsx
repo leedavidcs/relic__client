@@ -26,7 +26,10 @@ const App: React.FC = () => {
 		toggle(true);
 	}, [setContent, toggle]);
 
-	const onClickSignOut = useCallback(() => void 0, []);
+	const onClickSignOut = useCallback(() => {
+		localStorage.removeItem("token");
+		localStorage.removeItem("refreshToken");
+	}, []);
 
 	return (
 		<Background>
