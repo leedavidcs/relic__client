@@ -1,12 +1,13 @@
 import { AppRoutes } from "@/app-routes";
 import { AppBar, Background } from "@/components";
 import React, { Fragment, useCallback } from "react";
-import { useSetUser } from "./hooks";
+import { useModal, useSetUser } from "./hooks";
 
 const App: React.FC = () => {
+	const { toggle } = useModal();
 	const [user, doneFetchingUser] = useSetUser();
 
-	const onClickSignIn = useCallback(() => void 0, []);
+	const onClickSignIn = useCallback(() => toggle(true), [toggle]);
 
 	const onClickSignOut = useCallback(() => void 0, []);
 

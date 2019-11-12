@@ -1,7 +1,10 @@
+import { ClickOutside } from "@/components/click-outside.component";
 import { Paper } from "@/components/paper.component";
 import React, { FC, RefObject, useCallback, useEffect, useRef } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useStyles } from "./styles";
+
+export * from "./modal.context";
 
 interface IProps {
 	active: boolean;
@@ -29,7 +32,11 @@ export const Modal: FC<IProps> = ({
 	}, [propsOnClose]);
 
 	const onClickOutside = useCallback(
-		({ target }: MouseEvent): void => {
+		({ target }: MouseEvent | TouchEvent): void => {
+			if (!active) {
+				return;
+			}
+
 			const paperDiv: HTMLDivElement = paperRef.current!;
 
 			if (paperDiv.contains(target as HTMLElement)) {
@@ -38,16 +45,8 @@ export const Modal: FC<IProps> = ({
 
 			propsOnClickOutside();
 		},
-		[propsOnClickOutside]
+		[active, propsOnClickOutside]
 	);
-
-	useEffect(() => {
-		window.addEventListener("click", onClickOutside);
-
-		return () => {
-			window.removeEventListener("click", onClickOutside);
-		};
-	});
 
 	useEffect(() => {
 		const paperDiv: HTMLDivElement = paperRef.current!;
@@ -56,14 +55,16 @@ export const Modal: FC<IProps> = ({
 	}, [active, classes.active]);
 
 	return (
-		<Paper className={classes.root} ref={paperRef}>
-			<div className={classes.title}>
-				{title}
-				<div className={classes.closeBtn} onClick={onClose}>
-					<FaRegWindowClose />
+		<ClickOutside onClickOut={onClickOutside}>
+			<Paper className={classes.root} ref={paperRef}>
+				<div className={classes.title}>
+					{title}
+					<div className={classes.closeBtn} onClick={onClose}>
+						<FaRegWindowClose />
+					</div>
 				</div>
-			</div>
-			{children}
-		</Paper>
+				<div className={classes.content}>{children}</div>
+			</Paper>
+		</ClickOutside>
 	);
 };
