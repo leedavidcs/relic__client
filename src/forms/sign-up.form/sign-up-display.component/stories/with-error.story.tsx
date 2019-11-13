@@ -1,11 +1,10 @@
 import { Background, Paper } from "@/components";
 import { action } from "@storybook/addon-actions";
 import React, { useCallback } from "react";
-import { SignUpDisplay } from "../sign-up-display.component";
+import { SignUpDisplay } from "..";
 
-export default { title: "form|sign-up", component: SignUpDisplay };
-
-export const Standard = () => {
+export const WithErrorStory = () => {
+	const onClickResend = action("onClickResend");
 	const onSubmitAction = action("onSubmit");
 
 	const onSubmit = useCallback(
@@ -23,7 +22,7 @@ export const Standard = () => {
 	return (
 		<Background>
 			<Paper>
-				<SignUpDisplay onSubmit={onSubmit} />
+				<SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />
 			</Paper>
 		</Background>
 	);

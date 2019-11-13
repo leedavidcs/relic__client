@@ -9,12 +9,13 @@ import { isEmail } from "validator";
 import { useStyles } from "./styles";
 
 interface IProps {
+	onClickResend: () => void;
 	onSubmit: (
 		variables: RegisterLocalUserVariables
 	) => Promise<{ success: boolean; error: string | null }>;
 }
 
-export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
+export const SignUpDisplay: FC<IProps> = ({ onClickResend, onSubmit: propsOnSubmit }) => {
 	const classes = useStyles();
 
 	const { setContent, toggle } = useModal();
@@ -122,13 +123,13 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	}, [setContent, toggle]);
 
 	useLayoutEffect(() => {
-		if (!didSubmit && !didSucceed) {
+		if (!didSubmit || !didSucceed) {
 			return;
 		}
 
 		setContent({
-			title: "Confirm email",
-			body: <VerifyEmail />
+			title: "Confirm your email address",
+			body: <VerifyEmail email={email} onClickResend={onClickResend} />
 		});
 
 		toggle(true);

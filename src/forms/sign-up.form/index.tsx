@@ -8,6 +8,8 @@ export const SignUpForm: FC<{}> = () => {
 		Mutations.RegisterLocalUser
 	);
 
+	const onClickResend = useCallback(() => void 0, []);
+
 	const onSubmit = useCallback(
 		async (variables: RegisterLocalUserVariables) => {
 			const { data, errors } = await registerUser({ variables });
@@ -25,5 +27,5 @@ export const SignUpForm: FC<{}> = () => {
 		[registerUser]
 	);
 
-	return <SignUpDisplay onSubmit={onSubmit} />;
+	return <SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />;
 };
