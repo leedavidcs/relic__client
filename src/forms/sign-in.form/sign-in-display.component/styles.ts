@@ -17,6 +17,11 @@ const styles = (theme: CustomTheme) => ({
 	signInBtn: {
 		width: 140
 	},
+	successSignIn: {
+		marginTop: 10,
+		marginBottom: 18,
+		fontSize: 14
+	},
 	forgotPassword: {
 		marginTop: 10
 	},

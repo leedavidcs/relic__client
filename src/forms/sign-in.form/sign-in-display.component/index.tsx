@@ -3,8 +3,10 @@ import { SignUpForm } from "@/forms/sign-up.form";
 import { LoginLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
 import { onInputValueChanged } from "@/utils";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useLayoutEffect, useState } from "react";
 import { useStyles } from "./styles";
+
+const ON_SUCCESS_NAVIGATE_DELAY: number = 1000;
 
 interface IProps {
 	/* Returns whether the operation was successful */
@@ -63,6 +65,14 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 		toggle(true);
 	}, [setContent, toggle]);
 
+	useLayoutEffect(() => {
+		if (!didSubmit || !didSucceed) {
+			return;
+		}
+
+		setTimeout(() => void 0, ON_SUCCESS_NAVIGATE_DELAY);
+	}, [didSubmit, didSucceed]);
+
 	return (
 		<div className={classes.root}>
 			<div className={classes.formWrapper}>
@@ -88,6 +98,11 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 					</Button>
 				</div>
 			</div>
+			{didSubmit && didSucceed ? (
+				<div className={classes.successSignIn}>
+					You are now logged in. Redirecting you now.
+				</div>
+			) : null}
 			<Anchor
 				className={classes.forgotPassword}
 				value="Forgot password?"
