@@ -1,14 +1,26 @@
-import { Mutations, RegisterLocalUserVariables } from "@/graphql";
+import { Mutations, RegisterLocalUser, RegisterLocalUserVariables } from "@/graphql";
 import React, { FC, useCallback } from "react";
 import { useMutation } from "react-apollo";
 import { SignUpDisplay } from "./sign-up-display.component";
 
 export const SignUpForm: FC<{}> = () => {
-	const [registerUser] = useMutation(Mutations.RegisterLocalUser);
+	const [registerUser] = useMutation<RegisterLocalUser, RegisterLocalUserVariables>(
+		Mutations.RegisterLocalUser
+	);
 
 	const onSubmit = useCallback(
-		(variables: RegisterLocalUserVariables) => {
-			registerUser({ variables });
+		async (variables: RegisterLocalUserVariables) => {
+			const { data, errors } = await registerUser({ variables });
+
+			if (!data || errors) {
+				return { success: false, error: "Unexpected error. Please try again" };
+			}
+
+			const {
+				registerLocalUser: { success, error }
+			} = data;
+
+			return { success, error };
 		},
 		[registerUser]
 	);

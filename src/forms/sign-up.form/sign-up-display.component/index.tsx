@@ -1,14 +1,17 @@
 import { Anchor, Button, PasswordStrength, TextInput } from "@/components";
 import { SignInForm } from "@/forms/sign-in.form";
+import { VerifyEmail } from "@/forms/sign-up.form/verify-email.component";
 import { RegisterLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
 import { onInputValueChanged } from "@/utils";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useLayoutEffect, useState } from "react";
 import { isEmail } from "validator";
 import { useStyles } from "./styles";
 
 interface IProps {
-	onSubmit: (variables: RegisterLocalUserVariables) => void;
+	onSubmit: (
+		variables: RegisterLocalUserVariables
+	) => Promise<{ success: boolean; error: string | null }>;
 }
 
 export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
@@ -24,6 +27,9 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
 	const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
 	const [isValidConfirmPassword, setIsValidConfirmPassword] = useState<boolean>(false);
+	const [didSubmit, setDidSubmit] = useState<boolean>(false);
+	const [didSucceed, setDidSucceed] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const onChangeUsername = useCallback(onInputValueChanged(setUsername), [setUsername]);
 
@@ -40,7 +46,11 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 			return;
 		}
 
-		propsOnSubmit({ email, password, username });
+		propsOnSubmit({ email, password, username }).then((result) => {
+			setDidSubmit(true);
+			setDidSucceed(result.success);
+			setError(result.error);
+		});
 	}, [
 		propsOnSubmit,
 		email,
@@ -111,6 +121,19 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 		toggle(true);
 	}, [setContent, toggle]);
 
+	useLayoutEffect(() => {
+		if (!didSubmit && !didSucceed) {
+			return;
+		}
+
+		setContent({
+			title: "Confirm email",
+			body: <VerifyEmail />
+		});
+
+		toggle(true);
+	}, [didSubmit, didSucceed]);
+
 	return (
 		<div className={classes.root}>
 			<div className={classes.formWrapper}>
@@ -155,6 +178,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 					</Button>
 				</div>
 			</div>
+			{error ? <div className={classes.error}>{error}</div> : null}
 			<div className={classes.signInWrapper}>
 				Already a member? {<Anchor value="SIGN IN" onClick={onClickSignIn} />}
 			</div>

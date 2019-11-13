@@ -20,6 +20,11 @@ export const styles = (theme: CustomTheme) => ({
 	signUpBtn: {
 		width: 140
 	},
+	error: {
+		marginTop: 10,
+		color: theme.error,
+		fontSize: 14
+	},
 	signInWrapper: {
 		marginTop: 28,
 		fontSize: 14
