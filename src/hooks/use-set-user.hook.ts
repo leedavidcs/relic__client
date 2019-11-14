@@ -1,55 +1,58 @@
-import { GetUser, GetViewer, Mutations, Queries, SetUserVariables, User, Viewer } from "@/graphql";
-import { useEffect, useMemo } from "react";
-import { useMutation, useQuery } from "react-apollo";
+import { GetUser, GetViewer, Mutations, Queries, SetUser, SetUserVariables, User } from "@/graphql";
+import { useCallback, useState } from "react";
+import { useLazyQuery, useMutation, useQuery } from "react-apollo";
 
-export const useSetUser = (): [User | null, boolean] => {
-	const [setUser, { called, loading: userLoading, data: userData }] = useMutation<
-		GetUser,
-		SetUserVariables
-	>(Mutations.SetUser);
-	const { error, loading: viewerLoading, data: viewerData } = useQuery<GetViewer>(
-		Queries.GetViewer,
-		{ skip: Boolean(userData) }
+type SetUserResultsTuple = [() => void, { user: User | null; called: boolean; loading: boolean }];
+
+interface IUseSetUserOptions {
+	onCompleted?: (user: User | null) => any;
+}
+
+export const useSetUser = (options?: IUseSetUserOptions): SetUserResultsTuple => {
+	const { onCompleted: optOnCompleted = () => void 0 } = options || {};
+
+	const [called, setCalled] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(false);
+
+	const { data } = useQuery<GetUser>(Queries.GetUser);
+
+	const user: User | null = data ? data.user : null;
+
+	const onSetUserCompleted = useCallback(() => {
+		setLoading(false);
+
+		optOnCompleted(user);
+	}, [setLoading, optOnCompleted, user]);
+
+	const [setUser] = useMutation<SetUser, SetUserVariables>(Mutations.SetUser, {
+		awaitRefetchQueries: true,
+		refetchQueries: [{ query: Queries.GetUser }],
+		onCompleted: onSetUserCompleted
+	});
+
+	const onCompleted = useCallback(
+		({ viewer }: GetViewer) => {
+			setUser({ variables: { user: viewer } });
+		},
+		[setUser]
 	);
 
-	const doneFetchingViewer: boolean = Boolean(error) || !viewerLoading;
+	const onError = useCallback(() => {
+		setUser({ variables: { user: null } });
+	}, [setUser]);
 
-	const finalViewer: Viewer | null = useMemo(() => {
-		if (!doneFetchingViewer) {
-			return null;
-		}
+	const [getViewer] = useLazyQuery<GetViewer>(Queries.GetViewer, {
+		fetchPolicy: "no-cache",
+		onCompleted,
+		onError
+	});
 
-		return (viewerData && viewerData.viewer) || null;
-	}, [doneFetchingViewer, viewerData]);
+	const outputSetUser = useCallback(() => {
+		getViewer();
 
-	const doneFetchingUser: boolean =
-		(doneFetchingViewer && !finalViewer) || (called && !userLoading);
+		setCalled(true);
+		setLoading(true);
+	}, [setCalled, setLoading, getViewer]);
 
-	const finalUser: User | null = useMemo(() => {
-		if (!doneFetchingUser) {
-			return null;
-		}
-
-		return (userData && userData.user) || null;
-	}, [doneFetchingUser, userData]);
-
-	useEffect(() => {
-		if (!finalViewer) {
-			return;
-		}
-
-		setUser({ variables: { user: finalViewer } });
-	}, [finalViewer, setUser]);
-
-	useEffect(() => {
-		if (!error) {
-			return;
-		}
-
-		/* tslint:disable:no-console */
-		console.error("Could not get user information. Please login again.", error);
-		/* tslint:enable:no-console */
-	}, [error]);
-
-	return [finalUser, doneFetchingUser];
+	return [outputSetUser, { called, loading, user }];
 };
