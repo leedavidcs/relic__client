@@ -1,47 +1,32 @@
 import { AppRoutes } from "@/app-routes";
 import { AppBar, Background } from "@/components";
-import { SignInForm, SignUpForm } from "@/forms";
-import React, { Fragment, useCallback } from "react";
-import { useModal, useSetUser } from "./hooks";
+import { useAuth, useSetUser } from "@/hooks";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 
 const App: React.FC = () => {
-	const { setContent, toggle } = useModal();
-	const [user, doneFetchingUser] = useSetUser();
+	const { logout } = useAuth();
+	const [setUser, { called, loading, user }] = useSetUser();
 
-	const onClickSignUp = useCallback(() => {
-		setContent({
-			title: "Sign up",
-			body: <SignUpForm />
-		});
-
-		toggle(true);
-	}, [setContent, toggle]);
-
-	const onClickSignIn = useCallback(() => {
-		setContent({
-			title: "Sign in",
-			body: <SignInForm />
-		});
-
-		toggle(true);
-	}, [setContent, toggle]);
+	const [loaded, setLoaded] = useState<boolean>(false);
 
 	const onClickSignOut = useCallback(() => {
-		localStorage.removeItem("token");
-		localStorage.removeItem("refreshToken");
-	}, []);
+		logout();
+		setUser();
+	}, [logout, setUser]);
+
+	useEffect(() => setUser(), [setUser]);
+
+	useEffect(() => {
+		if (called && !loading) {
+			setLoaded(true);
+		}
+	}, [called, loading, setLoaded]);
 
 	return (
 		<Background>
-			{doneFetchingUser ? (
+			{loaded ? (
 				<Fragment>
-					<AppBar
-						title="TheBrand Inc."
-						user={user}
-						onClickSignIn={onClickSignIn}
-						onClickSignOut={onClickSignOut}
-						onClickSignUp={onClickSignUp}
-					/>
+					<AppBar title="TheBrand Inc." user={user} onClickSignOut={onClickSignOut} />
 					<AppRoutes />
 				</Fragment>
 			) : null}

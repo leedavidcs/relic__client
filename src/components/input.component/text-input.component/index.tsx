@@ -5,6 +5,7 @@ import React, {
 	CSSProperties,
 	FC,
 	FormEvent,
+	KeyboardEvent,
 	MouseEvent,
 	ReactElement,
 	RefObject,
@@ -27,6 +28,7 @@ interface IProps {
 	onClick?: (event: MouseEvent<HTMLInputElement>) => void;
 	onFocus?: (event: FormEvent<HTMLInputElement>) => void;
 	onInput?: (event: FormEvent<HTMLInputElement>) => void;
+	onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 	password?: boolean;
 	placeholder?: string;
 	spellCheck?: boolean;
@@ -47,6 +49,7 @@ export const TextInput: FC<IProps> = (props) => {
 		onClick,
 		onFocus,
 		onInput: propsOnInput,
+		onKeyDown,
 		password = false,
 		placeholder = "",
 		spellCheck = false,
@@ -157,6 +160,7 @@ export const TextInput: FC<IProps> = (props) => {
 					onClick={onClick}
 					onFocus={onFocus}
 					onInput={onInput}
+					onKeyDown={onKeyDown}
 					spellCheck={spellCheck}
 					value={value}
 				/>
