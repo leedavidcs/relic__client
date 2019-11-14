@@ -1,4 +1,4 @@
-mutation SetUser($user: UserInput!) {
+mutation SetUser($user: UserInput) {
 	setUser(user: $user) @client {
 		id
 		email

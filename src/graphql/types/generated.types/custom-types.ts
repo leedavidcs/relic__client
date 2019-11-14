@@ -238,6 +238,8 @@ export type Mutation = {
 	refreshAccessToken: TokenResponse;
 	/** Performs local authentication (custom username + password) */
 	registerLocalUser: RegisterLocalUserResponse;
+	/** Resends the account verification email to the logged-in user */
+	resendVerifyEmail: Scalars["Boolean"];
 	/** Creates an empty stock portfolio */
 	createStockPortfolio: StockPortfolio;
 	/** Updates a stock portfolio */
@@ -245,7 +247,7 @@ export type Mutation = {
 	/** Deletes a stock portfolio */
 	deleteStockPortfolio: StockPortfolio;
 	toggleModal: Scalars["Boolean"];
-	setUser: User;
+	setUser?: Maybe<User>;
 };
 
 /** Root mutation type */
@@ -285,7 +287,7 @@ export type MutationToggleModalArgs = {
 
 /** Root mutation type */
 export type MutationSetUserArgs = {
-	user: UserInput;
+	user?: Maybe<UserInput>;
 };
 
 /** Pagination info, to show if other pages exist */

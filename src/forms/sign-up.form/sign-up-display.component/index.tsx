@@ -1,14 +1,17 @@
 import { Anchor, Button, PasswordStrength, TextInput } from "@/components";
-import { SignInForm } from "@/forms/sign-in.form";
 import { RegisterLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
+import { SignInModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
 import React, { FC, useCallback, useState } from "react";
 import { isEmail } from "validator";
 import { useStyles } from "./styles";
 
 interface IProps {
-	onSubmit: (variables: RegisterLocalUserVariables) => void;
+	onClickResend: () => void;
+	onSubmit: (
+		variables: RegisterLocalUserVariables
+	) => Promise<{ success: boolean; error: string | null }>;
 }
 
 export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
@@ -24,6 +27,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
 	const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
 	const [isValidConfirmPassword, setIsValidConfirmPassword] = useState<boolean>(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const onChangeUsername = useCallback(onInputValueChanged(setUsername), [setUsername]);
 
@@ -40,7 +44,9 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 			return;
 		}
 
-		propsOnSubmit({ email, password, username });
+		propsOnSubmit({ email, password, username }).then((result) => {
+			setError(result.error);
+		});
 	}, [
 		propsOnSubmit,
 		email,
@@ -103,10 +109,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	);
 
 	const onClickSignIn = useCallback(() => {
-		setContent({
-			title: "Sign in",
-			body: <SignInForm />
-		});
+		setContent({ title: "Sign in", body: <SignInModal /> });
 
 		toggle(true);
 	}, [setContent, toggle]);
@@ -155,6 +158,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 					</Button>
 				</div>
 			</div>
+			{error ? <div className={classes.error}>{error}</div> : null}
 			<div className={classes.signInWrapper}>
 				Already a member? {<Anchor value="SIGN IN" onClick={onClickSignIn} />}
 			</div>

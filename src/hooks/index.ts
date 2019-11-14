@@ -1,3 +1,4 @@
+export * from "./use-auth.hook";
 export * from "./use-focus.hook";
 export * from "./use-hover.hook";
 export * from "./use-modal.hook";

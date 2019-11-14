@@ -10,7 +10,7 @@ input UserInput {
 }
 
 extend type Mutation {
-	setUser(user: UserInput!): User!
+	setUser(user: UserInput): User
 }
 
 extend type Query {

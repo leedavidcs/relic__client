@@ -8,11 +8,9 @@ export const ModalProvider: FC = ({ children }) => {
 	const { data } = useQuery<GetModal>(Queries.GetModal);
 	const [toggleModal] = useMutation<ToggleModal, ToggleModalVariables>(Mutations.ToggleModal);
 
-	const [{ title, body }, setContent] = useState<{ title: string; body: ReactNode }>({
-		title: "",
-		body: null
-	});
+	const [content, setContent] = useState<{ title: string; body: ReactNode } | null>(null);
 
+	const { title, body } = content || { title: "", body: null };
 	const active: boolean = data ? data.modal : false;
 
 	const toggle = useCallback(
@@ -22,9 +20,15 @@ export const ModalProvider: FC = ({ children }) => {
 		[toggleModal]
 	);
 
-	const onClose = useCallback(() => toggle(false), [toggle]);
+	const onClose = useCallback(() => {
+		setContent(null);
+		toggle(false);
+	}, [setContent, toggle]);
 
-	const onClickOutside = useCallback(() => toggle(false), [toggle]);
+	const onClickOutside = useCallback(() => {
+		setContent(null);
+		toggle(false);
+	}, [setContent, toggle]);
 
 	return (
 		<ModalContext.Provider value={{ active, setContent, toggle }}>

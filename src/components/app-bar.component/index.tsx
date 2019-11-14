@@ -2,6 +2,8 @@ import { Button, TextInput } from "@/components/input.component";
 import { Toolbar } from "@/components/toolbar.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { User } from "@/graphql";
+import { useModal } from "@/hooks";
+import { SignInModal, SignUpModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
 import React, { FC, useCallback, useState } from "react";
 import { FaBars, FaSearch, FaUserCircle } from "react-icons/fa";
@@ -13,26 +15,33 @@ const FA_USER_CIRCLE_SIZE: number = 32;
 
 interface IProps {
 	title: string;
-	onClickSignIn?: () => void;
 	onClickSignOut?: () => void;
-	onClickSignUp?: () => void;
 	onSearch?: (text: string) => void;
 	user: User | null;
 }
 
-export const AppBar: FC<IProps> = (props) => {
-	const {
-		onClickSignIn,
-		onClickSignOut,
-		onClickSignUp,
-		onSearch: propsOnSearch = () => void 0,
-		title,
-		user
-	} = props;
-
+export const AppBar: FC<IProps> = ({
+	onClickSignOut: propsOnClickSignOut = () => void 0,
+	onSearch: propsOnSearch = () => void 0,
+	title,
+	user
+}) => {
 	const classes = useStyles();
+
+	const { setContent, toggle } = useModal();
+
 	const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 	const [searchText, setSearchText] = useState<string>("");
+
+	const onClickSignIn = useCallback(() => {
+		setContent({ title: "Sign in", body: <SignInModal /> });
+		toggle(true);
+	}, [setContent, toggle]);
+
+	const onClickSignUp = useCallback(() => {
+		setContent({ title: "Sign up", body: <SignUpModal /> });
+		toggle(true);
+	}, [setContent, toggle]);
 
 	const onClickRightIcon = useCallback(
 		(index: number) => () => {
@@ -54,6 +63,12 @@ export const AppBar: FC<IProps> = (props) => {
 		[propsOnSearch, setSearchText]
 	);
 
+	const onClickSignOut = useCallback(() => {
+		propsOnClickSignOut();
+
+		setSelectedIndex(-1);
+	}, [propsOnClickSignOut]);
+
 	return (
 		<Toolbar className={classes.root} stickTop={true}>
 			<div className={classes.contentWrapper}>
@@ -70,7 +85,7 @@ export const AppBar: FC<IProps> = (props) => {
 						value={searchText}
 					/>
 				</div>
-				{user ? (
+				{user ? null : (
 					<div className={classes.authBtnWrapper}>
 						<Button
 							className={classes.authBtn}
@@ -83,7 +98,7 @@ export const AppBar: FC<IProps> = (props) => {
 							SIGN UP
 						</Button>
 					</div>
-				) : null}
+				)}
 				<div className={classes.tooltipWrapper}>
 					<Tooltip
 						active={selectedIndex === 0}

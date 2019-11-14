@@ -2,7 +2,7 @@ import { Context, createContext, ReactNode } from "react";
 
 interface IModalContextProps {
 	active: boolean;
-	setContent: (content: { title: string; body: ReactNode }) => void;
+	setContent: (content: { title: string; body: ReactNode } | null) => void;
 	toggle: (force?: boolean) => void;
 }
 
