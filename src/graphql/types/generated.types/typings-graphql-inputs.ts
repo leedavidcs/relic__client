@@ -123,6 +123,21 @@ export interface RegisterLocalUserVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: ResendVerifyEmail
+// ====================================================
+
+export interface ResendVerifyEmail {
+	/**
+	 * Resends the account verification email to the logged-in user
+	 */
+	readonly resendVerifyEmail: boolean;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: SetUser
 // ====================================================
 
@@ -147,11 +162,11 @@ export interface SetUser_setUser {
 }
 
 export interface SetUser {
-	readonly setUser: SetUser_setUser;
+	readonly setUser: SetUser_setUser | null;
 }
 
 export interface SetUserVariables {
-	readonly user: UserInput;
+	readonly user?: UserInput | null;
 }
 
 /* tslint:disable */

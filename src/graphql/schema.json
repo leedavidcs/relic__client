@@ -1566,6 +1566,22 @@
 						"deprecationReason": null
 					},
 					{
+						"name": "resendVerifyEmail",
+						"description": "Resends the account verification email to the logged-in user",
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "Boolean",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
 						"name": "createStockPortfolio",
 						"description": "Creates an empty stock portfolio",
 						"args": [],
@@ -1706,25 +1722,17 @@
 								"name": "user",
 								"description": null,
 								"type": {
-									"kind": "NON_NULL",
-									"name": null,
-									"ofType": {
-										"kind": "INPUT_OBJECT",
-										"name": "UserInput",
-										"ofType": null
-									}
+									"kind": "INPUT_OBJECT",
+									"name": "UserInput",
+									"ofType": null
 								},
 								"defaultValue": null
 							}
 						],
 						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "User",
-								"ofType": null
-							}
+							"kind": "OBJECT",
+							"name": "User",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null

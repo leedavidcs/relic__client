@@ -22,6 +22,14 @@ declare module "*/register-local-user.mutation.graphql" {
 	export default defaultDocument;
 }
 
+declare module "*/resend-verify-email.mutation.graphql" {
+	import { DocumentNode } from "graphql";
+	const defaultDocument: DocumentNode;
+	export const ResendVerifyEmail: DocumentNode;
+
+	export default defaultDocument;
+}
+
 declare module "*/set-user.mutation.graphql" {
 	import { DocumentNode } from "graphql";
 	const defaultDocument: DocumentNode;
