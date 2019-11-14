@@ -1,4 +1,5 @@
 import { Mutations } from "@/graphql";
+import { Logger } from "@/utils";
 import { ApolloLink, FetchResult, Observable, Operation } from "apollo-boost";
 import { onError } from "apollo-link-error";
 import { ServerError, ServerParseError } from "apollo-link-http-common";
@@ -47,16 +48,18 @@ const doRefreshToken = async (): Promise<string | null> => {
 };
 
 const onRefreshToken = new Observable<string | null>((subscriber) => {
-	doRefreshToken()
-		.then((value) => {
-			if (subscriber.closed) {
-				return;
-			}
+	const performRefreshToken = async () => {
+		try {
+			const value = await doRefreshToken();
 
 			subscriber.next(value);
 			subscriber.complete();
-		})
-		.catch(subscriber.error);
+		} catch (err) {
+			subscriber.error(err);
+		}
+	};
+
+	performRefreshToken();
 });
 
 const handleNetworkError = (
@@ -68,32 +71,21 @@ const handleNetworkError = (
 		return onRefreshToken;
 	}
 
-	/* tslint:disable:no-console */
-	console.error(`[Network error]: ${networkError}`);
-	/* tslint:enable:no-console */
+	Logger.error(`[Network error]: ${networkError}`);
 
 	return null;
 };
 
 const handleGraphQLErrors = (graphqlErrors: ReadonlyArray<any>): void => {
 	graphqlErrors.forEach(({ message, locations, path }) => {
-		/* tslint:disable:no-console */
-		console.error(
-			`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-		);
-		/* tslint:enable:no-console */
+		Logger.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
 	});
 };
 
 const setNewAuthorizationHeader = (operation: Operation, newToken: string): void => {
 	const oldHeaders = operation.getContext().headers;
 
-	operation.setContext({
-		headers: {
-			...oldHeaders,
-			Authorization: `Bearer ${newToken}`
-		}
-	});
+	operation.setContext({ headers: { ...oldHeaders, Authorization: `Bearer ${newToken}` } });
 };
 
 export const ErrorLink: ApolloLink = onError(
@@ -102,20 +94,24 @@ export const ErrorLink: ApolloLink = onError(
 			handleGraphQLErrors(graphQLErrors);
 		}
 
-		if (networkError && isServerError(networkError)) {
-			const networkErrorResult: Observable<string | null> | null = handleNetworkError(
-				networkError
-			);
-
-			if (networkErrorResult) {
-				return networkErrorResult.flatMap((newToken) => {
-					if (newToken) {
-						setNewAuthorizationHeader(operation, newToken);
-					}
-
-					return forward(operation);
-				});
-			}
+		if (!networkError || !isServerError(networkError)) {
+			return;
 		}
+
+		const networkErrorResult: Observable<string | null> | null = handleNetworkError(
+			networkError
+		);
+
+		if (!networkErrorResult) {
+			return;
+		}
+
+		return networkErrorResult.flatMap((newToken) => {
+			if (newToken) {
+				setNewAuthorizationHeader(operation, newToken);
+			}
+
+			return forward(operation);
+		});
 	}
 );

@@ -1,10 +1,9 @@
 import { Anchor, Button, PasswordStrength, TextInput } from "@/components";
-import { SignInForm } from "@/forms/sign-in.form";
-import { VerifyEmail } from "@/forms/sign-up.form/verify-email.component";
 import { RegisterLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
+import { SignInModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
-import React, { FC, useCallback, useLayoutEffect, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { isEmail } from "validator";
 import { useStyles } from "./styles";
 
@@ -15,7 +14,7 @@ interface IProps {
 	) => Promise<{ success: boolean; error: string | null }>;
 }
 
-export const SignUpDisplay: FC<IProps> = ({ onClickResend, onSubmit: propsOnSubmit }) => {
+export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const classes = useStyles();
 
 	const { setContent, toggle } = useModal();
@@ -28,8 +27,6 @@ export const SignUpDisplay: FC<IProps> = ({ onClickResend, onSubmit: propsOnSubm
 	const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
 	const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
 	const [isValidConfirmPassword, setIsValidConfirmPassword] = useState<boolean>(false);
-	const [didSubmit, setDidSubmit] = useState<boolean>(false);
-	const [didSucceed, setDidSucceed] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 
 	const onChangeUsername = useCallback(onInputValueChanged(setUsername), [setUsername]);
@@ -48,8 +45,6 @@ export const SignUpDisplay: FC<IProps> = ({ onClickResend, onSubmit: propsOnSubm
 		}
 
 		propsOnSubmit({ email, password, username }).then((result) => {
-			setDidSubmit(true);
-			setDidSucceed(result.success);
 			setError(result.error);
 		});
 	}, [
@@ -114,26 +109,10 @@ export const SignUpDisplay: FC<IProps> = ({ onClickResend, onSubmit: propsOnSubm
 	);
 
 	const onClickSignIn = useCallback(() => {
-		setContent({
-			title: "Sign in",
-			body: <SignInForm />
-		});
+		setContent({ title: "Sign in", body: <SignInModal /> });
 
 		toggle(true);
 	}, [setContent, toggle]);
-
-	useLayoutEffect(() => {
-		if (!didSubmit || !didSucceed) {
-			return;
-		}
-
-		setContent({
-			title: "Confirm your email address",
-			body: <VerifyEmail email={email} onClickResend={onClickResend} />
-		});
-
-		toggle(true);
-	}, [didSubmit, didSucceed]);
 
 	return (
 		<div className={classes.root}>

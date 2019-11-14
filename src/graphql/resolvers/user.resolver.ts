@@ -1,15 +1,15 @@
-import { IClientContext, UserInput } from "@/graphql/types";
+import { IClientContext, SetUserVariables } from "@/graphql/types";
 
-const setUser: LocalResolver<any, IClientContext, { user: UserInput }> = (
+const setUser: LocalResolver<any, IClientContext, SetUserVariables> = (
 	parent,
 	{ user },
 	{ cache }
 ) => {
 	const data = {
-		user: { ...user, __typename: "User" }
+		user: user ? { ...user, __typename: "User" } : null
 	};
 
-	cache.writeData({ data, id: user.id });
+	cache.writeData({ data });
 
 	return user;
 };

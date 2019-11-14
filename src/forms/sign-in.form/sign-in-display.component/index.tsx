@@ -1,9 +1,10 @@
 import { Anchor, Button, TextInput } from "@/components";
-import { SignUpForm } from "@/forms/sign-up.form";
 import { LoginLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
+import { SignUpModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
-import React, { FC, useCallback, useLayoutEffect, useState } from "react";
+import Keycode from "keycode";
+import React, { FC, KeyboardEvent, useCallback, useLayoutEffect, useState } from "react";
 import { useStyles } from "./styles";
 
 const ON_SUCCESS_NAVIGATE_DELAY: number = 1000;
@@ -59,11 +60,22 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	const onClickSignUp = useCallback(() => {
 		setContent({
 			title: "Sign up",
-			body: <SignUpForm />
+			body: <SignUpModal />
 		});
 
 		toggle(true);
 	}, [setContent, toggle]);
+
+	const onEnterKey = useCallback(
+		(event: KeyboardEvent<HTMLInputElement>) => {
+			if (event.keyCode !== Keycode("Enter")) {
+				return;
+			}
+
+			onSubmit();
+		},
+		[onSubmit]
+	);
 
 	useLayoutEffect(() => {
 		if (!didSubmit || !didSucceed) {
@@ -88,6 +100,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 					label="Password"
 					password={true}
 					onChange={onChangePassword}
+					onKeyDown={onEnterKey}
 					validator={validatePassword}
 					value={password}
 					variant="outlined"
@@ -99,9 +112,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 				</div>
 			</div>
 			{didSubmit && didSucceed ? (
-				<div className={classes.successSignIn}>
-					You are now logged in. Redirecting you now.
-				</div>
+				<div className={classes.successSignIn}>You are now logged in.</div>
 			) : null}
 			<Anchor
 				className={classes.forgotPassword}

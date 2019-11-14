@@ -1,29 +1,30 @@
-import { LoginLocalUserVariables, Mutations, TokenResponse } from "@/graphql";
+import { LoginLocalUserVariables } from "@/graphql";
+import { useAuth, useModal, useSetUser } from "@/hooks";
 import React, { FC, useCallback } from "react";
-import { useMutation } from "react-apollo";
 import { SignInDisplay } from "./sign-in-display.component";
 
 export const SignInForm: FC<{}> = () => {
-	const [loginUser] = useMutation<TokenResponse, LoginLocalUserVariables>(
-		Mutations.LoginLocalUser
-	);
+	const { login } = useAuth();
+	const { setContent, toggle } = useModal();
+
+	const onCompleted = useCallback(() => {
+		toggle(false);
+		setContent(null);
+	}, [setContent, toggle]);
+
+	const [setUser] = useSetUser({ onCompleted });
 
 	const onSubmit = useCallback(
 		async (variables: LoginLocalUserVariables): Promise<boolean> => {
-			const result = await loginUser({ variables });
+			const result = await login({ variables });
 
-			const didSucceed: boolean = !result.errors && Boolean(result.data);
-
-			if (result.data) {
-				const { token, refreshToken } = result.data;
-
-				localStorage.setItem("refreshToken", refreshToken);
-				localStorage.setItem("token", token);
+			if (result) {
+				setUser();
 			}
 
-			return didSucceed;
+			return Boolean(result);
 		},
-		[loginUser]
+		[login, setUser]
 	);
 
 	return <SignInDisplay onSubmit={onSubmit} />;
