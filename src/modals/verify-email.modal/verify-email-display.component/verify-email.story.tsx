@@ -1,8 +1,8 @@
 import { Background, Paper } from "@/components";
-import { VerifyEmail } from "@/forms/sign-up.form/verify-email.component";
 import { action } from "@storybook/addon-actions";
 import { text } from "@storybook/addon-knobs";
 import React from "react";
+import { VerifyEmailDisplay } from ".";
 
 export const VerifyEmailStory = () => {
 	const email: string = text("email", "test@test.com");
@@ -12,7 +12,7 @@ export const VerifyEmailStory = () => {
 	return (
 		<Background>
 			<Paper>
-				<VerifyEmail email={email} onClickResend={onClickResend} />
+				<VerifyEmailDisplay email={email} onClickResend={onClickResend} />
 			</Paper>
 		</Background>
 	);

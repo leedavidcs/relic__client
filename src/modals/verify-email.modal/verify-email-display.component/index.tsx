@@ -7,14 +7,14 @@ interface IProps {
 	onClickResend: () => void;
 }
 
-export const VerifyEmail: FC<IProps> = ({ email, onClickResend }) => {
+export const VerifyEmailDisplay: FC<IProps> = ({ email, onClickResend }) => {
 	const classes = useStyles();
 
 	return (
 		<div className={classes.root}>
 			<p>
 				A confirmation email has been sent to{" "}
-				{<strong className={classes.email}>{email}</strong>}.
+				<strong className={classes.email}>{email}</strong>.
 			</p>
 			<p>
 				If you don't see a message in your inbox, make sure that the email address above is
