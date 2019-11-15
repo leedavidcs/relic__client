@@ -1,13 +1,11 @@
 import { lighten } from "polished";
 
-const surface = "#121212";
-
-const GRID_ODD: number = 0.1;
-const GRID_EVEN: number = 0.05;
+const GRID_ODD: number = 0.16;
+const GRID_EVEN: number = 0.1;
 
 export const standardTheme = {
 	background: "#121212",
-	surface,
+	surface: "#121212",
 	primary: "#BB86FC",
 	primaryVariant: "#3700B3",
 	secondary: "#03DAC6",
@@ -40,6 +38,7 @@ export const standardTheme = {
 		"Segoe UI",
 		"sans-serif"
 	].join(),
-	gridOdd: lighten(GRID_ODD, surface),
-	gridEven: lighten(GRID_EVEN, surface)
+	gridOdd: lighten(GRID_ODD, "#000"),
+	gridEven: lighten(GRID_EVEN, "#000"),
+	gridSelected: "#00B0FF"
 };
