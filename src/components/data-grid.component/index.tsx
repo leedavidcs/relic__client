@@ -28,6 +28,7 @@ export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader }) 
 	const classes = useStyles();
 	const [data, setData] = useState<ReadonlyArray<{ [key: string]: any }>>(propsData);
 	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(propsHeader);
+	const [selectedCell, setSelectedCell] = useState<{ x: number; y: number } | null>(null);
 
 	const ref: MutableRefObject<VariableSizeGrid | null> = useRef(null);
 
@@ -60,7 +61,17 @@ export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader }) 
 	);
 
 	return (
-		<DataGridContext.Provider value={{ data, headers, setData, setHeaders, setHeaderWidth }}>
+		<DataGridContext.Provider
+			value={{
+				data,
+				headers,
+				selectedCell,
+				setData,
+				setHeaders,
+				setHeaderWidth,
+				setSelectedCell
+			}}
+		>
 			<div className={classes.root}>
 				<AutoSizer>
 					{({ height, width }) => {
