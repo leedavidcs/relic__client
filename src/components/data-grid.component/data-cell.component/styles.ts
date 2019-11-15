@@ -1,4 +1,5 @@
-import { CustomTheme } from "@/themes";
+import { CustomTheme, getZIndex } from "@/themes";
+import { transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
@@ -10,7 +11,7 @@ const styles = (theme: CustomTheme) => ({
 		borderBottom: {
 			width: 1,
 			style: "solid",
-			color: "#000"
+			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface)
 		},
 		backgroundColor: theme.gridOdd,
 		color: theme.onSurface,
@@ -24,6 +25,14 @@ const styles = (theme: CustomTheme) => ({
 	},
 	evenItem: {
 		backgroundColor: theme.gridEven
+	},
+	selected: {
+		border: {
+			color: theme.gridSelected,
+			style: "solid",
+			width: 1
+		},
+		zIndex: getZIndex("data-grid-selected-cell")
 	}
 });
 

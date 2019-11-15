@@ -1,4 +1,9 @@
-const zIndices = ["data-grid-content", "data-grid-header", "text-input-label"] as const;
+const zIndices = [
+	"data-grid-content",
+	"data-grid-selected-cell",
+	"data-grid-header",
+	"text-input-label"
+] as const;
 
 export const getZIndex = (name: typeof zIndices[number]): number => {
 	const index: number = zIndices.findIndex((componentName) => componentName === name);
