@@ -1,16 +1,15 @@
+import { Background } from "@/components/background.component";
 import Faker from "faker";
 import { uniq } from "lodash";
 import React from "react";
-import { DataGrid } from ".";
-import { IHeaderConfig } from "./inner-element.component";
+import { DataGrid } from "..";
+import { IHeaderConfig } from "..";
 
-const MAX_DATA_SIZE: number = 30;
+const MAX_DATA_SIZE: number = 100;
 const MAX_COLUMN_WIDTH: number = 80;
 const MIN_COLUMN_WIDTH: number = 30;
 
-export default { title: "data-grid", component: DataGrid };
-
-export const standard = () => {
+export const StandardStory = () => {
 	Faker.seed(1);
 
 	const MOCK_HEADER_NAMES: string[] = uniq(
@@ -38,13 +37,10 @@ export const standard = () => {
 	}));
 
 	return (
-		<div
-			style={{
-				height: 500,
-				width: 500
-			}}
-		>
-			<DataGrid data={MOCK_DATA} headers={MOCK_HEADERS} />
-		</div>
+		<Background>
+			<div style={{ height: 500 }}>
+				<DataGrid data={MOCK_DATA} headers={MOCK_HEADERS} />
+			</div>
+		</Background>
 	);
 };

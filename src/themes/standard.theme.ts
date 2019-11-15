@@ -1,6 +1,13 @@
+import { lighten } from "polished";
+
+const surface = "#121212";
+
+const GRID_ODD: number = 0.1;
+const GRID_EVEN: number = 0.05;
+
 export const standardTheme = {
 	background: "#121212",
-	surface: "#1D1D1D",
+	surface,
 	primary: "#BB86FC",
 	primaryVariant: "#3700B3",
 	secondary: "#03DAC6",
@@ -25,5 +32,14 @@ export const standardTheme = {
 	surfaceOverlayFocused: 0.12,
 	surfaceOverlayPressed: 0.1,
 	surfaceOverlayDragged: 0.08,
-	fontPrimary: ["Helvetica Neue", "Helvetica", "Arial", "Roboto", "Segoe UI", "sans-serif"].join()
+	fontPrimary: [
+		"Helvetica Neue",
+		"Helvetica",
+		"Arial",
+		"Roboto",
+		"Segoe UI",
+		"sans-serif"
+	].join(),
+	gridOdd: lighten(GRID_ODD, surface),
+	gridEven: lighten(GRID_EVEN, surface)
 };

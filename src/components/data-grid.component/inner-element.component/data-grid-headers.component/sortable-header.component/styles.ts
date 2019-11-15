@@ -1,16 +1,18 @@
 import { CustomTheme } from "@/themes";
+import { transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 
-const styles = (themes: CustomTheme) => ({
+const styles = (theme: CustomTheme) => ({
 	root: {
 		position: "relative",
 		height: 28,
 		outline: {
 			width: 1,
 			style: "solid",
-			color: "#000"
+			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface)
 		},
-		backgroundColor: "#fff",
+		backgroundColor: theme.surface,
+		color: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
 		cursor: "pointer"
 	},
 	content: {

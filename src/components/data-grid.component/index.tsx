@@ -1,29 +1,35 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, MutableRefObject, useCallback, useRef, useState } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeGrid } from "react-window";
 import { DataCell } from "./data-cell.component";
 import { DataGridContext } from "./data-grid.context";
-import { IHeaderConfig, InnerElement } from "./inner-element.component";
+import { InnerElement } from "./inner-element.component";
 import { useStyles } from "./styles";
 
 export * from "./data-grid.context";
 
 const DEFAULT_ROW_HEIGHT: number = 28;
 
-interface IProps {
-	data: Array<{ [key: string]: any }>;
-	headers: IHeaderConfig[];
-	itemKey?: (params: {
-		columnIndex: number;
-		data: { [key: string]: any };
-		rowIndex: number;
-	}) => string;
+export interface IHeaderConfig {
+	name: string;
+	width: number;
+	sortable: boolean;
+	resizable: boolean;
 }
 
-export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader, itemKey }) => {
+interface IProps {
+	/** Entities array */
+	data: ReadonlyArray<{ [key: string]: any }>;
+	/** Column data is: `data[headers[i].name]` */
+	headers: ReadonlyArray<IHeaderConfig>;
+}
+
+export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader }) => {
 	const classes = useStyles();
-	const [data, setData] = useState<Array<{ [key: string]: any }>>(propsData);
-	const [headers, setHeaders] = useState<IHeaderConfig[]>(propsHeader);
+	const [data, setData] = useState<ReadonlyArray<{ [key: string]: any }>>(propsData);
+	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(propsHeader);
+
+	const ref: MutableRefObject<VariableSizeGrid | null> = useRef(null);
 
 	const getColumnWidth = useCallback((columnIndex: number) => headers[columnIndex].width, [
 		headers
@@ -32,27 +38,50 @@ export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader, it
 	const columnCount: number = headers.length;
 	const rowCount: number = data.length;
 
+	const setHeaderWidth = useCallback(
+		(width: number, index: number) => {
+			const grid: VariableSizeGrid | null = ref.current;
+
+			if (!grid) {
+				return;
+			}
+
+			const updatedHeader: IHeaderConfig = { ...headers[index], width };
+			const newHeaders: ReadonlyArray<IHeaderConfig> = [
+				...headers.slice(0, index),
+				updatedHeader,
+				...headers.slice(index + 1)
+			];
+			grid.resetAfterColumnIndex(index);
+
+			setHeaders(newHeaders);
+		},
+		[headers]
+	);
+
 	return (
-		<div className={classes.root}>
-			<DataGridContext.Provider value={{ data, headers, setData, setHeaders }}>
+		<DataGridContext.Provider value={{ data, headers, setData, setHeaders, setHeaderWidth }}>
+			<div className={classes.root}>
 				<AutoSizer>
-					{({ height, width }) => (
-						<VariableSizeGrid
-							columnWidth={getColumnWidth}
-							rowHeight={getRowHeight}
-							height={height}
-							width={width}
-							columnCount={columnCount}
-							rowCount={rowCount}
-							itemData={data}
-							itemKey={itemKey}
-							innerElementType={InnerElement}
-						>
-							{DataCell}
-						</VariableSizeGrid>
-					)}
+					{({ height, width }) => {
+						return (
+							<VariableSizeGrid
+								ref={ref}
+								columnWidth={getColumnWidth}
+								rowHeight={getRowHeight}
+								height={height}
+								width={width}
+								columnCount={columnCount}
+								rowCount={rowCount}
+								itemData={data}
+								innerElementType={InnerElement}
+							>
+								{DataCell}
+							</VariableSizeGrid>
+						);
+					}}
 				</AutoSizer>
-			</DataGridContext.Provider>
-		</div>
+			</div>
+		</DataGridContext.Provider>
 	);
 };
