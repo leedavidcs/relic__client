@@ -1,4 +1,5 @@
 import { CustomTheme } from "@/themes";
+import { transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
@@ -7,10 +8,12 @@ const styles = (theme: CustomTheme) => ({
 		height: "100%",
 		width: "100%",
 		outline: {
-			width: 1,
 			style: "solid",
-			color: "#000"
-		}
+			width: 1,
+			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface)
+		},
+		fontFamily: theme.fontPrimary,
+		fontSize: 14
 	}
 });
 

@@ -12,7 +12,8 @@ const styles = (theme: CustomTheme) => ({
 			style: "solid",
 			color: "#000"
 		},
-		backgroundColor: "#fff",
+		backgroundColor: theme.gridOdd,
+		color: theme.onSurface,
 		whiteSpace: "nowrap",
 		overflow: "hidden",
 		textOverflow: "ellipsis"
@@ -22,7 +23,7 @@ const styles = (theme: CustomTheme) => ({
 		paddingLeft: 0
 	},
 	evenItem: {
-		backgroundColor: "#f3f3f3"
+		backgroundColor: theme.gridEven
 	}
 });
 

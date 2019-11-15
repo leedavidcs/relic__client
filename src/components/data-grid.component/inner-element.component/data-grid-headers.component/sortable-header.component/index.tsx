@@ -6,15 +6,18 @@ import { useStyles } from "./styles";
 interface IProps extends SortableElementProps {
 	name: string;
 	width: number;
+	i: number;
 }
 
-export const SortableHeader: ComponentClass<IProps> = SortableElement(({ index, name, width }) => {
-	const classes = useStyles();
+export const SortableHeader: ComponentClass<IProps> = SortableElement<IProps>(
+	({ i, name, width }: IProps) => {
+		const classes = useStyles();
 
-	return (
-		<div className={classes.root} style={{ minWidth: width }}>
-			<div className={classes.content}>{name}</div>
-			<ResizeHandle index={index} />
-		</div>
-	);
-});
+		return (
+			<div className={classes.root} style={{ minWidth: width }}>
+				<div className={classes.content}>{name}</div>
+				<ResizeHandle index={i} />
+			</div>
+		);
+	}
+);
