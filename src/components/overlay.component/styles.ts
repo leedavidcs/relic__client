@@ -11,7 +11,7 @@ const styles = (theme: CustomTheme) => ({
 		height: "100%",
 		width: "100%",
 		pointerEvents: "none",
-		transition: "opacity 0.4s ease",
+		transition: ({ animate }) => (animate ? "opacity 0.4s ease" : "all 0s ease 0s"),
 		opacity: 0
 	},
 	active: {

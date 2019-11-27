@@ -5,6 +5,7 @@ import { useStyles } from "./styles";
 
 interface IProps {
 	active?: boolean;
+	animate?: boolean;
 	className?: string;
 	clickThrough?: boolean;
 	opacity?: number;
@@ -30,6 +31,7 @@ export const Overlay: FC<IProps> = (props) => {
 
 Overlay.defaultProps = {
 	active: false,
+	animate: true,
 	clickThrough: false,
 	opacity: 0.6
 };
