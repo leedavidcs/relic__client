@@ -25,16 +25,11 @@ export const ModalProvider: FC = ({ children }) => {
 		toggle(false);
 	}, [setContent, toggle]);
 
-	const onClickOutside = useCallback(() => {
-		setContent(null);
-		toggle(false);
-	}, [setContent, toggle]);
-
 	return (
 		<ModalContext.Provider value={{ active, setContent, toggle }}>
 			{children}
 			<Overlay active={active} clickThrough={false} />
-			<Modal active={active} onClose={onClose} onClickOutside={onClickOutside} title={title}>
+			<Modal active={active} onClose={onClose} onClickOutside={onClose} title={title}>
 				{body}
 			</Modal>
 		</ModalContext.Provider>

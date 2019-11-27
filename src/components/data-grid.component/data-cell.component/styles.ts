@@ -20,8 +20,10 @@ const styles = (theme: CustomTheme) => ({
 		textOverflow: "ellipsis"
 	},
 	sortable: {
-		composes: "$item",
 		paddingLeft: 0
+	},
+	select: {
+		padding: 0
 	},
 	evenItem: {
 		backgroundColor: theme.gridEven

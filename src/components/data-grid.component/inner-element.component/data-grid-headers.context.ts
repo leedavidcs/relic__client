@@ -7,9 +7,7 @@ interface IDataGridHeadersContext {
 }
 
 export const DataGridHeadersContext = createContext<IDataGridHeadersContext>({
-	onResize: () => {
-		return;
-	},
+	onResize: () => void 0,
 	resizeHandleClassName: ""
 });
 

@@ -7,9 +7,9 @@ import { ModalProvider } from "./modal-provider.component";
 export * from "./jss-provider.component";
 
 export const RootProvider: FC = ({ children }) => (
-	<JssProvider>
-		<ApolloProvider client={Client}>
+	<ApolloProvider client={Client}>
+		<JssProvider>
 			<ModalProvider>{children}</ModalProvider>
-		</ApolloProvider>
-	</JssProvider>
+		</JssProvider>
+	</ApolloProvider>
 );

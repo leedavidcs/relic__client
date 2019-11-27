@@ -1,7 +1,9 @@
+import { ClickOutside } from "@/components/click-outside.component";
 import classnames from "classnames";
-import React, { FC, useCallback, useContext, useMemo } from "react";
+import React, { FC, useCallback, useContext, useMemo, useState } from "react";
 import { GridChildComponentProps } from "react-window";
-import { DataGridContext } from "..";
+import { DataGridContext } from "../data-grid.context";
+import { DataCellSelect } from "./data-cell-select.component";
 import { SortableDataCell } from "./sortable-data-cell.component";
 import { useStyles } from "./styles";
 
@@ -13,12 +15,16 @@ interface IProps extends GridChildComponentProps {
 
 export const DataCell: FC<IProps> = ({ columnIndex, data, rowIndex, style }) => {
 	const classes = useStyles();
+
 	const { headers, selectedCell, setSelectedCell } = useContext(DataGridContext);
 
-	const { name } = headers[columnIndex];
+	const [isSelect, setIsSelect] = useState<boolean>(false);
+
+	const { value } = headers[columnIndex];
 	const rowData: { [key: string]: any } = data[rowIndex];
-	const cellData: any = rowData[name];
-	const isEven: boolean = rowIndex % EVEN === 0;
+	const cellData: any = rowData[value];
+
+	const onClickOut = useCallback(() => setIsSelect(false), [setIsSelect]);
 
 	const onClick = useCallback(() => {
 		setSelectedCell({
@@ -26,6 +32,12 @@ export const DataCell: FC<IProps> = ({ columnIndex, data, rowIndex, style }) => 
 			y: rowIndex
 		});
 	}, [columnIndex, rowIndex, setSelectedCell]);
+
+	const onDoubleClick = useCallback(() => setIsSelect(true), [setIsSelect]);
+
+	const onChange = useCallback(() => {
+		console.log("CHANGED");
+	}, []);
 
 	const isSelected: boolean = useMemo(() => {
 		if (selectedCell === null) {
@@ -40,27 +52,34 @@ export const DataCell: FC<IProps> = ({ columnIndex, data, rowIndex, style }) => 
 		return isSelectedColumn && isSelectedRow;
 	}, [columnIndex, rowIndex, selectedCell]);
 
-	return columnIndex === 0 ? (
-		<SortableDataCell
-			className={classnames(classes.sortable, {
-				[classes.evenItem]: isEven,
-				[classes.selected]: isSelected
-			})}
-			index={rowIndex}
-			onClick={onClick}
-			style={style}
-			value={cellData}
-		/>
-	) : (
-		<div
-			className={classnames(classes.item, {
-				[classes.evenItem]: isEven,
-				[classes.selected]: isSelected
-			})}
-			onClick={onClick}
-			style={style}
-		>
-			{cellData}
-		</div>
+	const isEven: boolean = rowIndex % EVEN === 0;
+	const isFirstColumn: boolean = columnIndex === 0;
+	const ComponentType = isFirstColumn ? SortableDataCell : "div";
+
+	return (
+		<ClickOutside onClickOut={onClickOut}>
+			<ComponentType
+				className={classnames(classes.item, {
+					[classes.sortable]: isFirstColumn,
+					[classes.select]: isSelect,
+					[classes.evenItem]: isEven,
+					[classes.selected]: isSelected
+				})}
+				onClick={onClick}
+				onDoubleClick={onDoubleClick}
+				style={style}
+				index={rowIndex}
+			>
+				{isSelect ? (
+					<DataCellSelect
+						onChange={onChange}
+						options={[{ label: "SELECT", value: "ASDF" }]}
+						value="ASDF"
+					/>
+				) : (
+					cellData
+				)}
+			</ComponentType>
+		</ClickOutside>
 	);
 };
