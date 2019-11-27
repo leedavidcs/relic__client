@@ -1,13 +1,19 @@
 import { CustomTheme, getZIndex } from "@/themes";
+import { transparentize } from "polished";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	headers: {
 		display: "flex",
+		borderBottom: {
+			color: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
+			style: "solid",
+			width: 1
+		},
 		position: "sticky",
 		top: 0,
 		left: 0,
-		backgroundColor: "#fff",
+		backgroundColor: theme.surface,
 		zIndex: getZIndex("data-grid-header")
 	},
 	body: {

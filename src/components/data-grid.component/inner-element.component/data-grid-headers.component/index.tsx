@@ -12,9 +12,19 @@ export const DataGridHeaders: ComponentClass<IProps> = SortableContainer<IProps>
 	({ className = "", headers }: IProps) => {
 		return (
 			<div className={className}>
-				{headers.map(({ name, width }, i) => (
-					<SortableHeader key={name} name={name} width={width} index={i} i={i} />
-				))}
+				{headers.map((header, i) => {
+					const { value, sortable } = header;
+
+					return (
+						<SortableHeader
+							key={value}
+							sortIndex={i}
+							index={i}
+							disabled={sortable}
+							{...header}
+						/>
+					);
+				})}
 			</div>
 		);
 	}

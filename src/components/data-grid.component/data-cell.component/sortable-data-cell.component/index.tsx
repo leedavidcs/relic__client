@@ -1,19 +1,16 @@
-import React, { ComponentClass, CSSProperties } from "react";
+import React, { ComponentClass, HTMLAttributes } from "react";
 import { SortableElement, SortableElementProps } from "react-sortable-hoc";
 import { DragHandle } from "./drag-handle.component";
 
-interface IProps extends SortableElementProps {
-	className: string;
-	onClick?: () => void;
-	style: CSSProperties;
-	value: any;
-}
+interface IProps extends SortableElementProps, HTMLAttributes<HTMLDivElement> {}
 
 export const SortableDataCell: ComponentClass<IProps> = SortableElement(
-	({ className, onClick, style, value }) => (
-		<div className={className} style={style} onClick={onClick}>
-			<DragHandle />
-			{value}
-		</div>
-	)
+	({ children, ...props }) => {
+		return (
+			<div {...props}>
+				<DragHandle />
+				{children}
+			</div>
+		);
+	}
 );

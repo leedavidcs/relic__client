@@ -4,6 +4,7 @@ import { IHeaderConfig } from ".";
 interface IDataGridContextProps {
 	data: ReadonlyArray<{ [key: string]: any }>;
 	headers: ReadonlyArray<IHeaderConfig>;
+	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 	selectedCell: { x: number; y: number } | null;
 	setData: Dispatch<SetStateAction<ReadonlyArray<{ [key: string]: any }>>>;
 	setHeaders: Dispatch<SetStateAction<ReadonlyArray<IHeaderConfig>>>;
@@ -13,8 +14,9 @@ interface IDataGridContextProps {
 
 export const DataGridContext: Context<IDataGridContextProps> = createContext<IDataGridContextProps>(
 	{
-		data: [] as ReadonlyArray<{ [key: string]: any }>,
-		headers: [] as IHeaderConfig[],
+		data: [],
+		headers: [],
+		onHeadersChange: () => void 0,
 		selectedCell: null,
 		setData: () => void 0,
 		setHeaders: () => void 0,

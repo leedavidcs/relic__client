@@ -10,21 +10,38 @@ export * from "./data-grid.context";
 
 const DEFAULT_ROW_HEIGHT: number = 28;
 
-export interface IHeaderConfig {
-	name: string;
+export interface IHeaderOption {
+	/** The text that gets displayed on the data-grid header */
+	label: string;
+	/** The key of the data that is fetched for this column */
+	value: string;
+}
+
+export interface IHeaderConfig extends IHeaderOption {
+	/** The width of this column */
 	width: number;
+	/** Whether this column can be dragged (for re-sorting) */
 	sortable: boolean;
+	/** Whether this column can be resized */
 	resizable: boolean;
+	/** If supplied, headers are selected by a dropdown, else this is just a plain-text input */
+	options: ReadonlyArray<IHeaderOption> | null;
 }
 
 interface IProps {
 	/** Entities array */
 	data: ReadonlyArray<{ [key: string]: any }>;
-	/** Column data is: `data[headers[i].name]` */
+	/** Column data is: `data[headers[i].value]` */
 	headers: ReadonlyArray<IHeaderConfig>;
+	/** `headers` is a controlled property, to be set externally through `onHeadersChange` */
+	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 }
 
-export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader }) => {
+export const DataGrid: FC<IProps> = ({
+	data: propsData,
+	headers: propsHeader,
+	onHeadersChange
+}) => {
 	const classes = useStyles();
 	const [data, setData] = useState<ReadonlyArray<{ [key: string]: any }>>(propsData);
 	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(propsHeader);
@@ -65,6 +82,7 @@ export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader }) 
 			value={{
 				data,
 				headers,
+				onHeadersChange,
 				selectedCell,
 				setData,
 				setHeaders,
@@ -74,23 +92,21 @@ export const DataGrid: FC<IProps> = ({ data: propsData, headers: propsHeader }) 
 		>
 			<div className={classes.root}>
 				<AutoSizer>
-					{({ height, width }) => {
-						return (
-							<VariableSizeGrid
-								ref={ref}
-								columnWidth={getColumnWidth}
-								rowHeight={getRowHeight}
-								height={height}
-								width={width}
-								columnCount={columnCount}
-								rowCount={rowCount}
-								itemData={data}
-								innerElementType={InnerElement}
-							>
-								{DataCell}
-							</VariableSizeGrid>
-						);
-					}}
+					{({ height, width }) => (
+						<VariableSizeGrid
+							ref={ref}
+							columnWidth={getColumnWidth}
+							rowHeight={getRowHeight}
+							height={height}
+							width={width}
+							columnCount={columnCount}
+							rowCount={rowCount}
+							itemData={data}
+							innerElementType={InnerElement}
+						>
+							{DataCell}
+						</VariableSizeGrid>
+					)}
 				</AutoSizer>
 			</div>
 		</DataGridContext.Provider>
