@@ -23,10 +23,8 @@ interface IProps {
 	className?: string;
 	disabled?: boolean;
 	label: string;
-	onBlur?: (event: FormEvent<HTMLInputElement>) => void;
 	onChange?: (event: FormEvent<HTMLInputElement>) => void;
 	onClick?: (event: MouseEvent<HTMLInputElement>) => void;
-	onFocus?: (event: FormEvent<HTMLInputElement>) => void;
 	onInput?: (event: FormEvent<HTMLInputElement>) => void;
 	onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 	password?: boolean;
@@ -44,10 +42,8 @@ export const TextInput: FC<IProps> = (props) => {
 		className,
 		disabled = false,
 		label,
-		onBlur,
 		onChange,
 		onClick,
-		onFocus,
 		onInput: propsOnInput,
 		onKeyDown,
 		password = false,
@@ -155,10 +151,8 @@ export const TextInput: FC<IProps> = (props) => {
 					type={password ? "password" : "text"}
 					placeholder={placeholder}
 					disabled={disabled}
-					onBlur={onBlur}
 					onChange={onChange}
 					onClick={onClick}
-					onFocus={onFocus}
 					onInput={onInput}
 					onKeyDown={onKeyDown}
 					spellCheck={spellCheck}
