@@ -5,7 +5,7 @@ const GRID_EVEN: number = 0.1;
 
 export const standardTheme = {
 	background: "#121212",
-	surface: "#121212",
+	surface: "#1D1D1D",
 	primary: "#BB86FC",
 	primaryVariant: "#3700B3",
 	secondary: "#03DAC6",
