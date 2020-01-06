@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React, { FC, Fragment, ReactElement, useCallback } from "react";
+import React, { FC, ReactElement, useCallback, CSSProperties } from "react";
 import { Manager, Popper, PopperChildrenProps, Reference } from "react-popper";
 import { ClickOutside } from "../click-outside.component";
 import { useStyles } from "./styles";
@@ -8,8 +8,9 @@ interface IProps {
 	active?: boolean;
 	className?: string;
 	direction: PopperChildrenProps["placement"];
-	onClick?: () => void;
+	onClick?: (event) => void;
 	onClickOut?: () => void;
+	style?: CSSProperties;
 	tooltip?: ReactElement;
 }
 
@@ -24,6 +25,7 @@ export const Tooltip: FC<IProps> = (props) => {
 		onClickOut = () => {
 			return;
 		},
+		style: propsStyle,
 		tooltip
 	} = props;
 
@@ -31,8 +33,8 @@ export const Tooltip: FC<IProps> = (props) => {
 
 	const referenceOnClick = useCallback(
 		(scheduleUpdate: () => void) => {
-			return () => {
-				onClick();
+			return (event) => {
+				onClick(event);
 				scheduleUpdate();
 			};
 		},
@@ -45,26 +47,25 @@ export const Tooltip: FC<IProps> = (props) => {
 				{({ ref }) => (
 					<Popper placement={direction}>
 						{({ scheduleUpdate, ref: popperRef, style, placement, arrowProps }) => (
-							<Fragment>
-								<ClickOutside onClickOut={onClickOut}>
-									<div
-										ref={ref}
-										onClick={referenceOnClick(scheduleUpdate)}
-										className={classnames(classes.reference, className)}
-									>
-										{children}
-									</div>
-									<div
-										ref={popperRef}
-										className={classes.popper}
-										style={style}
-										data-placement={placement}
-									>
-										{tooltip}
-										<div ref={arrowProps.ref} style={arrowProps.style} />
-									</div>
-								</ClickOutside>
-							</Fragment>
+							<ClickOutside onClickOut={onClickOut}>
+								<div
+									ref={ref}
+									onClick={referenceOnClick(scheduleUpdate)}
+									className={classnames(classes.reference, className)}
+									style={propsStyle}
+								>
+									{children}
+								</div>
+								<div
+									ref={popperRef}
+									className={classes.popper}
+									style={style}
+									data-placement={placement}
+								>
+									{tooltip}
+									<div ref={arrowProps.ref} style={arrowProps.style} />
+								</div>
+							</ClickOutside>
 						)}
 					</Popper>
 				)}
