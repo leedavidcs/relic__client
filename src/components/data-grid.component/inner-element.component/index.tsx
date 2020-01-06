@@ -21,6 +21,8 @@ export * from "./data-grid-headers.component";
 export * from "./data-grid-headers.context";
 
 const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
+// Required in order to invoke click handlers, since sortable drag events block click events
+const SORTABLE_HEADER_PRESS_DELAY: number = 100;
 
 type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
@@ -90,6 +92,7 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 					lockAxis="x"
 					shouldCancelStart={shouldCancelStart}
 					helperClass={classes.dragHeadersHelper}
+					pressDelay={SORTABLE_HEADER_PRESS_DELAY}
 				/>
 			</DataGridHeadersContext.Provider>
 			<DataGridBody
