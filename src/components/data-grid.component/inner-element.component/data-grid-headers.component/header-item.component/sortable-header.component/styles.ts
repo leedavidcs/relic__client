@@ -4,6 +4,7 @@ import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	root: {
+		display: "flex",
 		position: "relative",
 		height: 28,
 		outline: {
