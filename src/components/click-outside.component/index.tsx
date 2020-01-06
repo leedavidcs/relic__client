@@ -13,8 +13,8 @@ import React, {
 
 interface IProps
 	extends Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "onClick"> {
-	onClick?: (event: MouseEvent | TouchEvent, key?: string | number) => void;
-	onClickOut: (event: MouseEvent | TouchEvent, key?: string | number) => void;
+	onClick?: (event: React.MouseEvent | React.TouchEvent) => void;
+	onClickOut: (event: MouseEvent | TouchEvent) => void;
 }
 
 const defaultFunc = () => {
@@ -32,7 +32,7 @@ export const ClickOutside: ForwardRefExoticComponent<IProps &
 
 			const listener = (event: MouseEvent | TouchEvent) => {
 				if (elem === null || elem.contains(event.target as Node | null)) {
-					onClick(event);
+					onClick(event as any);
 
 					event.stopPropagation();
 
