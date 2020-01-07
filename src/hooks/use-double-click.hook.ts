@@ -11,31 +11,30 @@ interface IOptions {
 export const useDoubleClick = (options?: IOptions) => {
 	const { onClick = () => void 0, onDoubleClick = () => void 0 } = options ?? {};
 
-	const clickedRef: MutableRefObject<boolean> = useRef<boolean>(false);
+	const hasClicked: MutableRefObject<boolean> = useRef<boolean>(false);
 
 	const cancelableOnClick = useCallback(
 		debounce((event: MouseEvent | TouchEvent) => {
+			hasClicked.current = false;
 			onClick(event);
-			clickedRef.current = false;
 		}, DOUBLE_CLICK_TIMEOUT),
 		[onClick]
 	);
 
 	const onSimulatedDoubleClick = useCallback(
 		(event: MouseEvent | TouchEvent) => {
-			const hasClicked: boolean = clickedRef.current;
-
-			if (hasClicked) {
+			if (hasClicked.current) {
+				hasClicked.current = false;
+				
 				onDoubleClick(event);
 
 				cancelableOnClick.cancel();
-				clickedRef.current = false;
 
 				return;
 			}
 
 			cancelableOnClick(event);
-			clickedRef.current = true;
+			hasClicked.current = true;
 		},
 		[cancelableOnClick, onDoubleClick]
 	);
