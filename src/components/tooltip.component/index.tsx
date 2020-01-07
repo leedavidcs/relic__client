@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React, { FC, ReactElement, useCallback, CSSProperties } from "react";
+import React, { CSSProperties, FC, ReactNode, useCallback } from "react";
 import { Manager, Popper, PopperChildrenProps, Reference } from "react-popper";
 import { ClickOutside } from "../click-outside.component";
 import { useStyles } from "./styles";
@@ -11,7 +11,7 @@ interface IProps {
 	onClick?: (event) => void;
 	onClickOut?: () => void;
 	style?: CSSProperties;
-	tooltip?: ReactElement;
+	tooltip?: ReactNode;
 }
 
 export const Tooltip: FC<IProps> = (props) => {
@@ -19,12 +19,8 @@ export const Tooltip: FC<IProps> = (props) => {
 		children,
 		className,
 		direction,
-		onClick = () => {
-			return;
-		},
-		onClickOut = () => {
-			return;
-		},
+		onClick = () => void 0,
+		onClickOut = () => void 0,
 		style: propsStyle,
 		tooltip
 	} = props;
@@ -32,11 +28,9 @@ export const Tooltip: FC<IProps> = (props) => {
 	const classes = useStyles(props);
 
 	const referenceOnClick = useCallback(
-		(scheduleUpdate: () => void) => {
-			return (event) => {
-				onClick(event);
-				scheduleUpdate();
-			};
+		(scheduleUpdate: () => void) => (event) => {
+			onClick(event);
+			scheduleUpdate();
 		},
 		[onClick]
 	);
