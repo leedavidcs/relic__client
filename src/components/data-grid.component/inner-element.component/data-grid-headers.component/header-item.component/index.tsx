@@ -3,7 +3,7 @@ import { DataGridContext } from "@/components/data-grid.component/data-grid.cont
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
 import { ArrayUtil } from "@/utils";
-import React, { FC, useCallback, useContext, useState } from "react";
+import React, { FC, useCallback, useContext, useState, MutableRefObject, useRef } from "react";
 import { SortableHeaderSelect } from "./sortable-header-select.component";
 import { SortableHeader } from "./sortable-header.component";
 
@@ -19,7 +19,22 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 	const [isEditingLabel, setIsEditingLabel] = useState<boolean>(false);
 	const [isSelected, setIsSelected] = useState<boolean>(false);
 
-	const onClick = useCallback(() => setIsSelected(options !== null), [options, setIsSelected]);
+	const lastWidth: MutableRefObject<number> = useRef<number>(width);
+
+	const onMouseDown = useCallback(() => {
+		lastWidth.current =  width;
+	}, [width]);
+
+	const onClick = useCallback(() => {
+		// Do not trigger click, on mouse-up from a resize event
+		if (width !== lastWidth.current) {
+			return;
+		}
+
+		const hasOptions: boolean = options !== null;
+
+		setIsSelected(hasOptions && !isSelected);
+	}, [isSelected, options, setIsSelected, width]);
 
 	const onClickOut = useCallback(() => {
 		setIsEditingLabel(false);
@@ -51,6 +66,7 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 			direction="bottom-start"
 			onClick={onSimulatedDoubleClick}
 			onClickOut={onClickOut}
+			onMouseDown={onMouseDown}
 			style={{ width }}
 			tooltip={
 				options && (

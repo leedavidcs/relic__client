@@ -10,6 +10,7 @@ interface IProps {
 	direction: PopperChildrenProps["placement"];
 	onClick?: (event) => void;
 	onClickOut?: () => void;
+	onMouseDown?: (event: React.MouseEvent) => void;
 	style?: CSSProperties;
 	tooltip?: ReactNode;
 }
@@ -21,6 +22,7 @@ export const Tooltip: FC<IProps> = (props) => {
 		direction,
 		onClick = () => void 0,
 		onClickOut = () => void 0,
+		onMouseDown = () => void 0,
 		style: propsStyle,
 		tooltip
 	} = props;
@@ -45,6 +47,7 @@ export const Tooltip: FC<IProps> = (props) => {
 								<div
 									ref={ref}
 									onClick={referenceOnClick(scheduleUpdate)}
+									onMouseDown={onMouseDown}
 									className={classnames(classes.reference, className)}
 									style={propsStyle}
 								>
