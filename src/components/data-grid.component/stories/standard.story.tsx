@@ -51,8 +51,8 @@ export const StandardStory = () => {
 	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(MOCK_HEADERS);
 
 	const onHeadersChange = useCallback(
-		(value: ReadonlyArray<IHeaderConfig>) => setHeaders(headers),
-		[setHeaders, headers]
+		(value: ReadonlyArray<IHeaderConfig>) => setHeaders(value),
+		[setHeaders]
 	);
 
 	return (
@@ -61,7 +61,7 @@ export const StandardStory = () => {
 				<div style={{ height: 500 }}>
 					<DataGrid
 						data={MOCK_DATA}
-						headers={MOCK_HEADERS}
+						headers={headers}
 						onHeadersChange={onHeadersChange}
 					/>
 				</div>

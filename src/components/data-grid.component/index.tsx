@@ -37,14 +37,9 @@ interface IProps {
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 }
 
-export const DataGrid: FC<IProps> = ({
-	data: propsData,
-	headers: propsHeader,
-	onHeadersChange
-}) => {
+export const DataGrid: FC<IProps> = ({ data: propsData, headers, onHeadersChange }) => {
 	const classes = useStyles();
 	const [data, setData] = useState<ReadonlyArray<{ [key: string]: any }>>(propsData);
-	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(propsHeader);
 	const [selectedCell, setSelectedCell] = useState<{ x: number; y: number } | null>(null);
 
 	const ref: MutableRefObject<VariableSizeGrid | null> = useRef(null);
@@ -72,9 +67,9 @@ export const DataGrid: FC<IProps> = ({
 			];
 			grid.resetAfterColumnIndex(index);
 
-			setHeaders(newHeaders);
+			onHeadersChange(newHeaders);
 		},
-		[headers]
+		[headers, onHeadersChange]
 	);
 
 	return (
@@ -85,7 +80,6 @@ export const DataGrid: FC<IProps> = ({
 				onHeadersChange,
 				selectedCell,
 				setData,
-				setHeaders,
 				setHeaderWidth,
 				setSelectedCell
 			}}

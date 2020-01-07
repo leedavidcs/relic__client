@@ -7,7 +7,6 @@ interface IDataGridContextProps {
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 	selectedCell: { x: number; y: number } | null;
 	setData: Dispatch<SetStateAction<ReadonlyArray<{ [key: string]: any }>>>;
-	setHeaders: Dispatch<SetStateAction<ReadonlyArray<IHeaderConfig>>>;
 	setHeaderWidth: (width: number, index: number) => void;
 	setSelectedCell: Dispatch<SetStateAction<{ x: number; y: number } | null>>;
 }
@@ -19,7 +18,6 @@ export const DataGridContext: Context<IDataGridContextProps> = createContext<IDa
 		onHeadersChange: () => void 0,
 		selectedCell: null,
 		setData: () => void 0,
-		setHeaders: () => void 0,
 		setHeaderWidth: () => void 0,
 		setSelectedCell: () => void 0
 	}

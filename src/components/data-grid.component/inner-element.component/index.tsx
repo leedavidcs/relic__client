@@ -29,7 +29,7 @@ type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElement> &
 	Props> = forwardRef<HTMLDivElement, Props>(({ children, ...rest }, ref) => {
 	const classes = useStyles();
-	const { data, headers, setData, setHeaders, setHeaderWidth } = useContext(DataGridContext);
+	const { data, headers, onHeadersChange, setData, setHeaderWidth } = useContext(DataGridContext);
 
 	const onHeaderSortEnd: SortEndHandler = useCallback(
 		({ newIndex, oldIndex }) => {
@@ -39,9 +39,9 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 				newIndex
 			);
 
-			setHeaders(sortedHeaders);
+			onHeadersChange(sortedHeaders);
 		},
-		[headers, setHeaders]
+		[headers, onHeadersChange]
 	);
 
 	const onBodySortEnd: SortEndHandler = useCallback(
