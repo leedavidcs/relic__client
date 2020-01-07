@@ -1,7 +1,10 @@
-import { IHeaderConfig } from "@/components/data-grid.component";
+import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
+import { DataGridContext } from "@/components/data-grid.component/data-grid.context";
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
-import React, { FC, useCallback, useState } from "react";
+import { ArrayUtil } from "@/utils";
+import React, { FC, useCallback, useContext, useState } from "react";
+import { SortableHeaderSelect } from "./sortable-header-select.component";
 import { SortableHeader } from "./sortable-header.component";
 
 interface IProps extends IHeaderConfig {
@@ -10,6 +13,8 @@ interface IProps extends IHeaderConfig {
 
 export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 	const { options, sortable, value, width } = headerProps;
+
+	const { headers, onHeadersChange } = useContext(DataGridContext);
 
 	const [isEditingLabel, setIsEditingLabel] = useState<boolean>(false);
 	const [isSelected, setIsSelected] = useState<boolean>(false);
@@ -28,15 +33,30 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 
 	const onSimulatedDoubleClick = useDoubleClick({ onClick, onDoubleClick });
 
-	const TestType = false ? "div" : Tooltip;
+	const onSelect = useCallback(
+		(option: IHeaderOption) => {
+			const newHeaders: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(headers, index, {
+				...headers[index],
+				...option
+			});
+
+			onHeadersChange(newHeaders);
+		},
+		[headers, index, onHeadersChange]
+	);
 
 	return (
-		<TestType
+		<Tooltip
 			active={isSelected}
 			direction="bottom-start"
 			onClick={onSimulatedDoubleClick}
 			onClickOut={onClickOut}
 			style={{ width }}
+			tooltip={
+				options && (
+					<SortableHeaderSelect onSelect={onSelect} options={options} value={value} />
+				)
+			}
 		>
 			{isEditingLabel ? (
 				<div>CLICKED</div>
@@ -49,6 +69,6 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 					{...headerProps}
 				/>
 			)}
-		</TestType>
+		</Tooltip>
 	);
 };
