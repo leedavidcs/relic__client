@@ -1,7 +1,8 @@
 import classnames from "classnames";
-import React, { CSSProperties, FC, ReactNode, useCallback } from "react";
+import React, { CSSProperties, FC, ReactNode } from "react";
 import { Manager, Popper, PopperChildrenProps, Reference } from "react-popper";
 import { ClickOutside } from "../click-outside.component";
+import { PopperElement } from "./popper-element.component";
 import { useStyles } from "./styles";
 
 interface IProps {
@@ -15,59 +16,52 @@ interface IProps {
 	tooltip?: ReactNode;
 }
 
-export const Tooltip: FC<IProps> = (props) => {
-	const {
-		children,
-		className,
-		direction,
-		onClick = () => void 0,
-		onClickOut = () => void 0,
-		onMouseDown = () => void 0,
-		style: propsStyle,
-		tooltip
-	} = props;
-
-	const classes = useStyles(props);
-
-	const referenceOnClick = useCallback(
-		(scheduleUpdate: () => void) => (event) => {
-			onClick(event);
-			scheduleUpdate();
-		},
-		[onClick]
-	);
+export const Tooltip: FC<IProps> = ({
+	active,
+	children,
+	className,
+	direction,
+	onClick = () => void 0,
+	onClickOut = () => void 0,
+	onMouseDown = () => void 0,
+	style: propsStyle,
+	tooltip
+}) => {
+	const classes = useStyles({ active });
 
 	return (
-		<Manager>
-			<Reference>
-				{({ ref }) => (
-					<Popper placement={direction}>
-						{({ scheduleUpdate, ref: popperRef, style, placement, arrowProps }) => (
-							<ClickOutside onClickOut={onClickOut}>
-								<div
-									ref={ref}
-									onClick={referenceOnClick(scheduleUpdate)}
-									onMouseDown={onMouseDown}
-									className={classnames(classes.reference, className)}
-									style={propsStyle}
-								>
-									{children}
-								</div>
-								<div
-									ref={popperRef}
-									className={classes.popper}
-									style={style}
-									data-placement={placement}
-								>
-									{tooltip}
-									<div ref={arrowProps.ref} style={arrowProps.style} />
-								</div>
-							</ClickOutside>
-						)}
-					</Popper>
-				)}
-			</Reference>
-		</Manager>
+		<ClickOutside onClickOut={onClickOut}>
+			<Manager>
+				<Reference>
+					{({ ref }) => (
+						<div
+							ref={ref}
+							className={classnames(classes.reference, className)}
+							onClick={onClick}
+							onMouseDown={onMouseDown}
+							style={propsStyle}
+						>
+							{children}
+						</div>
+					)}
+				</Reference>
+				<Popper placement={direction}>
+					{({ scheduleUpdate, ref, style, placement, arrowProps }) => (
+						<div
+							ref={ref}
+							className={classes.popper}
+							style={style}
+							data-placement={placement}
+						>
+							<PopperElement active={active} scheduleUpdate={scheduleUpdate}>
+								{tooltip}
+							</PopperElement>
+							<div ref={arrowProps.ref} style={arrowProps.style} />
+						</div>
+					)}
+				</Popper>
+			</Manager>
+		</ClickOutside>
 	);
 };
 

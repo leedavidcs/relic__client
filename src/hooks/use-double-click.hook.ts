@@ -25,7 +25,7 @@ export const useDoubleClick = (options?: IOptions) => {
 		(event: MouseEvent | TouchEvent) => {
 			if (hasClicked.current) {
 				hasClicked.current = false;
-				
+
 				onDoubleClick(event);
 
 				cancelableOnClick.cancel();

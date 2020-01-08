@@ -22,7 +22,7 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 	const lastWidth: MutableRefObject<number> = useRef<number>(width);
 
 	const onMouseDown = useCallback(() => {
-		lastWidth.current =  width;
+		lastWidth.current = width;
 	}, [width]);
 
 	const onClick = useCallback(() => {
@@ -42,7 +42,9 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 	}, [setIsEditingLabel, setIsSelected]);
 
 	const onDoubleClick = useCallback(() => {
-		setIsEditingLabel(options !== null);
+		const hasOptions: boolean = options !== null;
+
+		setIsEditingLabel(hasOptions);
 		setIsSelected(false);
 	}, [options, setIsEditingLabel, setIsSelected]);
 
@@ -63,7 +65,7 @@ export const HeaderItem: FC<IProps> = ({ index, ...headerProps }) => {
 	return (
 		<Tooltip
 			active={isSelected}
-			direction="bottom-start"
+			direction="bottom-end"
 			onClick={onSimulatedDoubleClick}
 			onClickOut={onClickOut}
 			onMouseDown={onMouseDown}
