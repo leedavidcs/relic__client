@@ -1,4 +1,4 @@
-import { DataGridHeadersContext } from "@/components/data-grid.component/inner-element.component";
+import { ResizeContext } from "@/components/data-grid.component/inner-element.component";
 import classnames from "classnames";
 import React, { memo, NamedExoticComponent, useCallback, useContext } from "react";
 import { DraggableCore, DraggableData, DraggableEvent } from "react-draggable";
@@ -11,7 +11,7 @@ interface IProps {
 export const ResizeHandle: NamedExoticComponent<IProps> = memo<IProps>(({ index }) => {
 	const classes = useStyles();
 
-	const { resizeHandleClassName, onResize } = useContext(DataGridHeadersContext);
+	const { resizeHandleClassName, onResize } = useContext(ResizeContext);
 
 	const onDrag = useCallback(
 		(event: DraggableEvent, data: DraggableData): void => {

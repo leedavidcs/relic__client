@@ -1,7 +1,8 @@
 import classnames from "classnames";
 import React, { FC, useCallback, useContext, useMemo } from "react";
 import { GridChildComponentProps } from "react-window";
-import { DataGridContext } from "../data-grid.context";
+import { HeadersContext } from "../headers.context";
+import { SelectedCellContext } from "../selected-cell.context";
 import { SortableDataCell } from "./sortable-data-cell.component";
 import { useStyles } from "./styles";
 
@@ -14,7 +15,8 @@ interface IProps extends GridChildComponentProps {
 export const DataCell: FC<IProps> = ({ columnIndex, data, rowIndex, style }) => {
 	const classes = useStyles();
 
-	const { headers, selectedCell, setSelectedCell } = useContext(DataGridContext);
+	const { headers } = useContext(HeadersContext);
+	const { selectedCell, setSelectedCell } = useContext(SelectedCellContext);
 
 	const { value } = headers[columnIndex];
 	const rowData: { [key: string]: any } = data[rowIndex];

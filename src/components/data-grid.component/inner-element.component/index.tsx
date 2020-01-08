@@ -1,4 +1,6 @@
 import { IHeaderConfig } from "@/components/data-grid.component";
+import { DataContext } from "@/components/data-grid.component/data.context";
+import { HeadersContext } from "@/components/data-grid.component/headers.context";
 import arrayMove from "array-move";
 import React, {
 	DetailedHTMLProps,
@@ -11,14 +13,13 @@ import React, {
 } from "react";
 import { DraggableData, DraggableEvent } from "react-draggable";
 import { SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
-import { DataGridContext } from "..";
 import { DataGridBody } from "./data-grid-body.component";
-import { DataGridHeadersContext } from "./data-grid-headers.context";
+import { ResizeContext } from "./resize.context";
 import { SortableHeaders } from "./sortable-headers.component";
 import { useStyles } from "./styles";
 
 export * from "./sortable-headers.component";
-export * from "./data-grid-headers.context";
+export * from "./resize.context";
 
 const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
 // Required in order to invoke click handlers, since sortable drag events block click events
@@ -29,7 +30,9 @@ type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElement> &
 	Props> = forwardRef<HTMLDivElement, Props>(({ children, ...rest }, ref) => {
 	const classes = useStyles();
-	const { data, headers, onHeadersChange, setData, setHeaderWidth } = useContext(DataGridContext);
+
+	const { data, onDataChange } = useContext(DataContext);
+	const { headers, onHeadersChange, setHeaderWidth } = useContext(HeadersContext);
 
 	const onHeaderSortEnd: SortEndHandler = useCallback(
 		({ newIndex, oldIndex }) => {
@@ -52,9 +55,9 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 				newIndex
 			);
 
-			setData(sortedData);
+			onDataChange(sortedData);
 		},
-		[data, setData]
+		[data, onDataChange]
 	);
 
 	const onHeaderResize = useCallback(
@@ -78,7 +81,7 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 
 	return (
 		<div ref={ref} {...rest}>
-			<DataGridHeadersContext.Provider
+			<ResizeContext.Provider
 				value={{
 					onResize: onHeaderResize,
 					resizeHandleClassName: RESIZE_HANDLE_CLASS
@@ -94,7 +97,7 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 					helperClass={classes.dragHeadersHelper}
 					pressDelay={SORTABLE_HEADER_PRESS_DELAY}
 				/>
-			</DataGridHeadersContext.Provider>
+			</ResizeContext.Provider>
 			<DataGridBody
 				className={classes.body}
 				onSortEnd={onBodySortEnd}
