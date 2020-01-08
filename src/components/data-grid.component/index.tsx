@@ -2,13 +2,17 @@ import React, { FC, MutableRefObject, useCallback, useRef, useState } from "reac
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeGrid } from "react-window";
 import { DataCell } from "./data-cell.component";
-import { DataGridContext } from "./data-grid.context";
+import { DataContext } from "./data.context";
+import { HeadersContext } from "./headers.context";
 import { InnerElement } from "./inner-element.component";
+import { SelectedCellContext } from "./selected-cell.context";
 import { useStyles } from "./styles";
 
-export * from "./data-grid.context";
-
 const DEFAULT_ROW_HEIGHT: number = 28;
+
+export * from "./data.context";
+export * from "./headers.context";
+export * from "./selected-cell.context";
 
 export interface IHeaderOption {
 	/** The text that gets displayed on the data-grid header */
@@ -33,13 +37,15 @@ interface IProps {
 	data: ReadonlyArray<{ [key: string]: any }>;
 	/** Column data is: `data[headers[i].value]` */
 	headers: ReadonlyArray<IHeaderConfig>;
+	/** `data` is a controlled property, to be set externally through `onDataChange` */
+	onDataChange: (data: ReadonlyArray<{ [key: string]: any }>) => void;
 	/** `headers` is a controlled property, to be set externally through `onHeadersChange` */
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 }
 
-export const DataGrid: FC<IProps> = ({ data: propsData, headers, onHeadersChange }) => {
+export const DataGrid: FC<IProps> = ({ data, headers, onHeadersChange, onDataChange }) => {
 	const classes = useStyles();
-	const [data, setData] = useState<ReadonlyArray<{ [key: string]: any }>>(propsData);
+
 	const [selectedCell, setSelectedCell] = useState<{ x: number; y: number } | null>(null);
 
 	const ref: MutableRefObject<VariableSizeGrid | null> = useRef(null);
@@ -73,36 +79,30 @@ export const DataGrid: FC<IProps> = ({ data: propsData, headers, onHeadersChange
 	);
 
 	return (
-		<DataGridContext.Provider
-			value={{
-				data,
-				headers,
-				onHeadersChange,
-				selectedCell,
-				setData,
-				setHeaderWidth,
-				setSelectedCell
-			}}
-		>
-			<div className={classes.root}>
-				<AutoSizer>
-					{({ height, width }) => (
-						<VariableSizeGrid
-							ref={ref}
-							columnWidth={getColumnWidth}
-							rowHeight={getRowHeight}
-							height={height}
-							width={width}
-							columnCount={columnCount}
-							rowCount={rowCount}
-							itemData={data}
-							innerElementType={InnerElement}
-						>
-							{DataCell}
-						</VariableSizeGrid>
-					)}
-				</AutoSizer>
-			</div>
-		</DataGridContext.Provider>
+		<DataContext.Provider value={{ data, onDataChange }}>
+			<HeadersContext.Provider value={{ headers, onHeadersChange, setHeaderWidth }}>
+				<SelectedCellContext.Provider value={{ selectedCell, setSelectedCell }}>
+					<div className={classes.root}>
+						<AutoSizer>
+							{({ height, width }) => (
+								<VariableSizeGrid
+									ref={ref}
+									columnWidth={getColumnWidth}
+									rowHeight={getRowHeight}
+									height={height}
+									width={width}
+									columnCount={columnCount}
+									rowCount={rowCount}
+									itemData={data}
+									innerElementType={InnerElement}
+								>
+									{DataCell}
+								</VariableSizeGrid>
+							)}
+						</AutoSizer>
+					</div>
+				</SelectedCellContext.Provider>
+			</HeadersContext.Provider>
+		</DataContext.Provider>
 	);
 };

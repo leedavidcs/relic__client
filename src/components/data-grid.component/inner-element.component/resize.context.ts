@@ -1,14 +1,14 @@
 import { createContext } from "react";
 import { DraggableData, DraggableEvent } from "react-draggable";
 
-interface IDataGridHeadersContext {
+interface IResizeContextProps {
 	onResize: (event: DraggableEvent, { deltaX }: DraggableData, i: number) => void;
 	resizeHandleClassName: string;
 }
 
-export const DataGridHeadersContext = createContext<IDataGridHeadersContext>({
+export const ResizeContext = createContext<IResizeContextProps>({
 	onResize: () => void 0,
 	resizeHandleClassName: ""
 });
 
-DataGridHeadersContext.displayName = "DataGridHeadersContext";
+ResizeContext.displayName = "ResizeContext";

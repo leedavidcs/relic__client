@@ -23,11 +23,11 @@ export const StandardStory = () => {
 	const MOCK_DATA: Array<{ [key: string]: number }> = useMemo(
 		() =>
 			[...Array(reducedSize)].map((x, i) => {
-				const data: { [key: string]: any } = {};
+				const datum: { [key: string]: any } = {};
 
-				MOCK_HEADER_NAMES.forEach((name, j) => (data[name] = j * reducedSize + i));
+				MOCK_HEADER_NAMES.forEach((name, j) => (datum[name] = j * reducedSize + i));
 
-				return data;
+				return datum;
 			}),
 		[MOCK_HEADER_NAMES, reducedSize]
 	);
@@ -48,7 +48,13 @@ export const StandardStory = () => {
 		[MOCK_HEADER_NAMES]
 	);
 
+	const [data, setData] = useState<ReadonlyArray<{ [key: string]: any }>>(MOCK_DATA);
 	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(MOCK_HEADERS);
+
+	const onDataChange = useCallback(
+		(value: ReadonlyArray<{ [key: string]: any }>) => setData(value),
+		[setData]
+	);
 
 	const onHeadersChange = useCallback(
 		(value: ReadonlyArray<IHeaderConfig>) => setHeaders(value),
@@ -60,8 +66,9 @@ export const StandardStory = () => {
 			<Paper>
 				<div style={{ height: 500 }}>
 					<DataGrid
-						data={MOCK_DATA}
+						data={data}
 						headers={headers}
+						onDataChange={onDataChange}
 						onHeadersChange={onHeadersChange}
 					/>
 				</div>
