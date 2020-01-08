@@ -3,13 +3,15 @@ import React, { ComponentClass } from "react";
 import { SortableContainer, SortableContainerProps } from "react-sortable-hoc";
 import { SortableHeaderItem } from "./sortable-header-item.component";
 
-interface IProps extends SortableContainerProps {
+interface IInternalProps {
 	className?: string;
 	headers: ReadonlyArray<IHeaderConfig>;
 }
 
-export const SortableHeaders: ComponentClass<IProps> = SortableContainer<IProps>(
-	({ className = "", headers }: IProps) => {
+interface IProps extends IInternalProps, SortableContainerProps {}
+
+export const SortableHeaders: ComponentClass<IProps> = SortableContainer<IInternalProps>(
+	({ className = "", headers }: IInternalProps) => {
 		return (
 			<div className={className}>
 				{headers.map((header, i) => {

@@ -21,7 +21,7 @@ interface IInternalProps extends IHeaderConfig {
 
 interface IProps extends IInternalProps, SortableElementProps {}
 
-export const SortableHeaderItem: ComponentClass<IProps> = SortableElement(
+export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInternalProps>(
 	({ headerIndex, ...headerProps }: IInternalProps) => {
 		const { options, value, width } = headerProps;
 
