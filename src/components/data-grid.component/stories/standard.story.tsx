@@ -2,7 +2,7 @@ import { Background } from "@/components/background.component";
 import { Paper } from "@/components/paper.component";
 import Faker from "faker";
 import { uniq } from "lodash";
-import React, { useMemo, useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { DataGrid } from "..";
 import { IHeaderConfig } from "..";
 
@@ -37,9 +37,9 @@ export const StandardStory = () => {
 			MOCK_HEADER_NAMES.map((label) => ({
 				label,
 				value: label,
-				options: null,
-				resizable: false,
-				sortable: false,
+				options: [{ label, value: label }],
+				resizable: true,
+				sortable: true,
 				width: Faker.random.number({
 					max: MAX_COLUMN_WIDTH,
 					min: MIN_COLUMN_WIDTH
@@ -51,7 +51,7 @@ export const StandardStory = () => {
 	const [headers, setHeaders] = useState<ReadonlyArray<IHeaderConfig>>(MOCK_HEADERS);
 
 	const onHeadersChange = useCallback(
-		(value: ReadonlyArray<IHeaderConfig>) => setHeaders(headers),
+		(value: ReadonlyArray<IHeaderConfig>) => setHeaders(value),
 		[setHeaders]
 	);
 
@@ -61,7 +61,7 @@ export const StandardStory = () => {
 				<div style={{ height: 500 }}>
 					<DataGrid
 						data={MOCK_DATA}
-						headers={MOCK_HEADERS}
+						headers={headers}
 						onHeadersChange={onHeadersChange}
 					/>
 				</div>

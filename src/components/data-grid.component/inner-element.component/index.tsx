@@ -21,13 +21,15 @@ export * from "./data-grid-headers.component";
 export * from "./data-grid-headers.context";
 
 const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
+// Required in order to invoke click handlers, since sortable drag events block click events
+const SORTABLE_HEADER_PRESS_DELAY: number = 100;
 
 type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElement> &
 	Props> = forwardRef<HTMLDivElement, Props>(({ children, ...rest }, ref) => {
 	const classes = useStyles();
-	const { data, headers, setData, setHeaders, setHeaderWidth } = useContext(DataGridContext);
+	const { data, headers, onHeadersChange, setData, setHeaderWidth } = useContext(DataGridContext);
 
 	const onHeaderSortEnd: SortEndHandler = useCallback(
 		({ newIndex, oldIndex }) => {
@@ -37,9 +39,9 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 				newIndex
 			);
 
-			setHeaders(sortedHeaders);
+			onHeadersChange(sortedHeaders);
 		},
-		[headers, setHeaders]
+		[headers, onHeadersChange]
 	);
 
 	const onBodySortEnd: SortEndHandler = useCallback(
@@ -90,6 +92,7 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 					lockAxis="x"
 					shouldCancelStart={shouldCancelStart}
 					helperClass={classes.dragHeadersHelper}
+					pressDelay={SORTABLE_HEADER_PRESS_DELAY}
 				/>
 			</DataGridHeadersContext.Provider>
 			<DataGridBody

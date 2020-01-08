@@ -4,7 +4,7 @@ import { useModal } from "@/hooks";
 import { SignInModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
 import React, { FC, useCallback, useState } from "react";
-import { isEmail } from "validator";
+import Validator from "validator";
 import { useStyles } from "./styles";
 
 interface IProps {
@@ -77,7 +77,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 				return "Email is required";
 			}
 
-			const isValid: boolean = isEmail(value);
+			const isValid: boolean = Validator.isEmail(value);
 
 			setIsValidEmail(isValid);
 
