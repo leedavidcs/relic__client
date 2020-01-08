@@ -13,11 +13,11 @@ import { DraggableData, DraggableEvent } from "react-draggable";
 import { SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
 import { DataGridContext } from "..";
 import { DataGridBody } from "./data-grid-body.component";
-import { DataGridHeaders } from "./data-grid-headers.component";
 import { DataGridHeadersContext } from "./data-grid-headers.context";
+import { SortableHeaders } from "./sortable-headers.component";
 import { useStyles } from "./styles";
 
-export * from "./data-grid-headers.component";
+export * from "./sortable-headers.component";
 export * from "./data-grid-headers.context";
 
 const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
@@ -84,7 +84,7 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 					resizeHandleClassName: RESIZE_HANDLE_CLASS
 				}}
 			>
-				<DataGridHeaders
+				<SortableHeaders
 					className={classes.headers}
 					headers={headers}
 					onSortEnd={onHeaderSortEnd}
