@@ -3,7 +3,7 @@ import { DataGridContext } from "@/components/data-grid.component/data-grid.cont
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
 import { ArrayUtil } from "@/utils";
-import React, { FC, useCallback, useContext, useState, MutableRefObject, useRef } from "react";
+import React, { FC, MutableRefObject, useCallback, useContext, useRef, useState } from "react";
 import { SortableHeaderSelect } from "./sortable-header-select.component";
 import { SortableHeader } from "./sortable-header.component";
 
