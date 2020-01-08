@@ -22,9 +22,6 @@ const styles = (theme: CustomTheme) => ({
 	sortable: {
 		paddingLeft: 0
 	},
-	select: {
-		padding: 0
-	},
 	evenItem: {
 		backgroundColor: theme.gridEven
 	},

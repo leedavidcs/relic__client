@@ -18,14 +18,14 @@ export interface IHeaderOption {
 }
 
 export interface IHeaderConfig extends IHeaderOption {
-	/** The width of this column */
-	width: number;
-	/** Whether this column can be dragged (for re-sorting) */
-	sortable: boolean;
-	/** Whether this column can be resized */
-	resizable: boolean;
 	/** If supplied, headers are selected by a dropdown, else this is just a plain-text input */
 	options: ReadonlyArray<IHeaderOption> | null;
+	/** Whether this column can be resized */
+	resizable: boolean;
+	/** Whether this column can be dragged (for re-sorting) */
+	sortable: boolean;
+	/** The width of this column */
+	width: number;
 }
 
 interface IProps {
