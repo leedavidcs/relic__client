@@ -1,4 +1,4 @@
-import { ResizeContext } from "@/components/data-grid.component/inner-element.component";
+import { ResizeContext } from "@/components/data-grid.component";
 import classnames from "classnames";
 import React, { memo, NamedExoticComponent, useCallback, useContext } from "react";
 import { DraggableCore, DraggableData, DraggableEvent } from "react-draggable";
