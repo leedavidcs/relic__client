@@ -1,10 +1,4 @@
-import {
-	AutoSizerContext,
-	DataContext,
-	HeadersContext,
-	IHeaderConfig
-} from "@/components/data-grid.component";
-import arrayMove from "array-move";
+import { AutoSizerContext, HeadersContext, IHeaderConfig } from "@/components/data-grid.component";
 import React, {
 	DetailedHTMLProps,
 	forwardRef,
@@ -15,7 +9,7 @@ import React, {
 	useContext
 } from "react";
 import { DraggableData, DraggableEvent } from "react-draggable";
-import { SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
+import { arrayMove, SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
 import { DataGridBody } from "./data-grid-body.component";
 import { ResizeContext } from "./resize.context";
 import { SortableHeaders } from "./sortable-headers.component";
@@ -33,15 +27,16 @@ type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElement> &
 	Props> = forwardRef<HTMLDivElement, Props>(({ children, ...restProps }, ref) => {
 	const { width } = useContext(AutoSizerContext);
-	const { data, onDataChange } = useContext(DataContext);
 	const { headers, onHeadersChange, setHeaderWidth } = useContext(HeadersContext);
 
 	const classes = useStyles({ width });
 
 	const onHeaderSortEnd: SortEndHandler = useCallback(
 		({ newIndex, oldIndex }) => {
+			const newHeaders: IHeaderConfig[] = headers.slice();
+
 			const sortedHeaders: ReadonlyArray<IHeaderConfig> = arrayMove(
-				headers,
+				newHeaders,
 				oldIndex,
 				newIndex
 			);
@@ -49,19 +44,6 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 			onHeadersChange(sortedHeaders);
 		},
 		[headers, onHeadersChange]
-	);
-
-	const onBodySortEnd: SortEndHandler = useCallback(
-		({ newIndex, oldIndex }) => {
-			const sortedData: ReadonlyArray<{ [key: string]: any }> = arrayMove(
-				data,
-				oldIndex,
-				newIndex
-			);
-
-			onDataChange(sortedData);
-		},
-		[data, onDataChange]
 	);
 
 	const onHeaderResize = useCallback(
@@ -102,16 +84,7 @@ export const InnerElement: ForwardRefExoticComponent<RefAttributes<HTMLDivElemen
 					pressDelay={SORTABLE_HEADER_PRESS_DELAY}
 				/>
 			</ResizeContext.Provider>
-			<DataGridBody
-				className={classes.body}
-				onSortEnd={onBodySortEnd}
-				axis="y"
-				lockAxis="y"
-				useDragHandle={true}
-				helperClass={classes.dragBodyHelper}
-			>
-				{children}
-			</DataGridBody>
+			<DataGridBody>{children}</DataGridBody>
 		</div>
 	);
 });

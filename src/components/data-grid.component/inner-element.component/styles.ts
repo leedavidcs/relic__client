@@ -16,16 +16,6 @@ const styles = (theme: CustomTheme) => ({
 		backgroundColor: theme.surface,
 		zIndex: getZIndex("data-grid-header")
 	},
-	body: {
-		position: "absolute",
-		top: 28,
-		left: 0,
-		zIndex: getZIndex("data-grid-content")
-	},
-	dragBodyHelper: {
-		width: ({ width }) => [width, "!important"],
-		overflow: "hidden"
-	},
 	dragHeadersHelper: {
 		pointerEvents: ["auto", "!important"] as any,
 		cursor: ["ew-resize", "!important"] as any
