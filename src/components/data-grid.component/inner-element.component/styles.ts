@@ -22,6 +22,10 @@ const styles = (theme: CustomTheme) => ({
 		left: 0,
 		zIndex: getZIndex("data-grid-content")
 	},
+	dragBodyHelper: {
+		width: ({ width }) => [width, "!important"],
+		overflow: "hidden"
+	},
 	dragHeadersHelper: {
 		pointerEvents: ["auto", "!important"] as any,
 		cursor: ["ew-resize", "!important"] as any
