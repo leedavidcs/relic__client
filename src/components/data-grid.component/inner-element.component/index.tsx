@@ -1,6 +1,5 @@
 import { IHeaderConfig } from "@/components/data-grid.component";
-import { DataContext } from "@/components/data-grid.component/data.context";
-import { HeadersContext } from "@/components/data-grid.component/headers.context";
+import { DataContext, HeadersContext } from "@/components/data-grid.component";
 import arrayMove from "array-move";
 import React, {
 	DetailedHTMLProps,
