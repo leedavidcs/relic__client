@@ -1,5 +1,5 @@
+import { IHeaderConfig } from "@/components/data-grid.component";
 import { Context, createContext } from "react";
-import { IHeaderConfig } from ".";
 
 interface IHeadersContextProps {
 	headers: ReadonlyArray<IHeaderConfig>;

@@ -1,5 +1,5 @@
 import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
-import { HeadersContext } from "@/components/data-grid.component/headers.context";
+import { HeadersContext } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
 import { ArrayUtil } from "@/utils";
