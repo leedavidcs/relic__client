@@ -10,7 +10,7 @@ interface IInternalProps {
 
 interface IProps extends IInternalProps, SortableContainerProps {}
 
-export const SortableHeaders: ComponentClass<IProps> = SortableContainer<IInternalProps>(
+export const SortableDataGridHeaders: ComponentClass<IProps> = SortableContainer<IInternalProps>(
 	({ className = "", headers }: IInternalProps) => {
 		return (
 			<div className={className}>

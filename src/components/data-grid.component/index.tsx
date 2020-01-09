@@ -7,6 +7,7 @@ import { InnerElement } from "./inner-element.component";
 const DEFAULT_ROW_HEIGHT: number = 28;
 
 export * from "./data-provider.component";
+export * from "./inner-element.component";
 
 export interface IHeaderOption {
 	/** The text that gets displayed on the data-grid header */
