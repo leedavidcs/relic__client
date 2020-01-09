@@ -33,8 +33,8 @@ export const DataGridBody: FC<IProps> = ({ children }) => {
 		<SortableDataGridBody
 			className={classes.root}
 			onSortEnd={onSortEnd}
-			axis="x"
-			lockAxis="x"
+			axis="y"
+			lockAxis="y"
 			useDragHandle={true}
 			helperClass={classes.helper}
 		>
