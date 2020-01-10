@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { FixedSizeList } from "react-window";
-import { DataGridProvider } from "./data-provider.component";
+import { DataGridProvider } from "./data-grid-provider.component";
 import { DataRow } from "./data-row.component";
 import { InnerElement } from "./inner-element.component";
 
 const DEFAULT_ROW_HEIGHT: number = 28;
 
-export * from "./data-provider.component";
+export * from "./data-grid-provider.component";
 export * from "./inner-element.component";
 
 export interface IHeaderOption {
