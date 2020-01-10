@@ -77,7 +77,7 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 		return (
 			<Tooltip
 				active={isSelected}
-				direction="bottom-end"
+				direction="bottom-start"
 				onClick={onSimulatedDoubleClick}
 				onClickOut={onClickOut}
 				onMouseDown={onMouseDown}
