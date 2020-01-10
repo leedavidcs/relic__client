@@ -46,7 +46,7 @@ export const Tooltip: FC<IProps> = ({
 					)}
 				</Reference>
 				<Popper placement={direction}>
-					{({ scheduleUpdate, ref, style, placement, arrowProps }) => (
+					{({ scheduleUpdate, ref, style, placement }) => (
 						<div
 							ref={ref}
 							className={classes.popper}
@@ -56,7 +56,6 @@ export const Tooltip: FC<IProps> = ({
 							<PopperElement active={active} scheduleUpdate={scheduleUpdate}>
 								{tooltip}
 							</PopperElement>
-							<div ref={arrowProps.ref} style={arrowProps.style} />
 						</div>
 					)}
 				</Popper>
