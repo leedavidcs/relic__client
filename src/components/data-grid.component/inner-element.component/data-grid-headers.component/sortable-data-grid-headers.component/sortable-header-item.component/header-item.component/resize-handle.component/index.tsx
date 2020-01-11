@@ -11,7 +11,7 @@ interface IProps {
 export const ResizeHandle: NamedExoticComponent<IProps> = memo<IProps>(({ index }) => {
 	const classes = useStyles();
 
-	const { resizeHandleClassName, onResize } = useContext(ResizeContext);
+	const { resizeHandleClassName, onResize, onResizeEnd } = useContext(ResizeContext);
 
 	const onDrag = useCallback(
 		(event: DraggableEvent, data: DraggableData): void => {
@@ -20,8 +20,13 @@ export const ResizeHandle: NamedExoticComponent<IProps> = memo<IProps>(({ index 
 		[index, onResize]
 	);
 
+	const onStop = useCallback(
+		() => onResizeEnd(),
+		[onResizeEnd]
+	);
+
 	return (
-		<DraggableCore onDrag={onDrag}>
+		<DraggableCore onDrag={onDrag} onStop={onStop}>
 			<div className={classnames(classes.root, resizeHandleClassName)} />
 		</DraggableCore>
 	);

@@ -2,7 +2,6 @@ import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
 import { HeadersContext } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
-import { ArrayUtil } from "@/utils";
 import React, {
 	ComponentClass,
 	MutableRefObject,
@@ -25,7 +24,7 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 	({ headerIndex, ...headerProps }: IInternalProps) => {
 		const { options, value, width } = headerProps;
 
-		const { headers, onHeadersChange } = useContext(HeadersContext);
+		const { setHeaderOption } = useContext(HeadersContext);
 
 		const [isEditingLabel, setIsEditingLabel] = useState<boolean>(false);
 		const [isSelected, setIsSelected] = useState<boolean>(false);
@@ -62,16 +61,8 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 		const onSimulatedDoubleClick = useDoubleClick({ onClick, onDoubleClick });
 
 		const onSelect = useCallback(
-			(option: IHeaderOption) => {
-				const newHeaders: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
-					headers,
-					headerIndex,
-					{ ...headers[headerIndex], ...option }
-				);
-
-				onHeadersChange(newHeaders);
-			},
-			[headers, headerIndex, onHeadersChange]
+			(option: IHeaderOption) => setHeaderOption(option, headerIndex),
+			[headerIndex, setHeaderOption]
 		);
 
 		return (

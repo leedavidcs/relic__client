@@ -44,6 +44,8 @@ export const DataGridHeaders: FC<{}> = () => {
 		[headers, setHeaderWidth]
 	);
 
+	const onResizeEnd = useCallback(() => void 0, []);
+
 	const shouldCancelStart = useCallback(({ target }: SortEvent | SortEventWithTag): boolean => {
 		const isResizeHandle: boolean = (target as HTMLElement).classList.contains(
 			RESIZE_HANDLE_CLASS
@@ -52,8 +54,10 @@ export const DataGridHeaders: FC<{}> = () => {
 		return isResizeHandle;
 	}, []);
 
+	const resizeHandleClassName: string = RESIZE_HANDLE_CLASS;
+
 	return (
-		<ResizeContext.Provider value={{ onResize, resizeHandleClassName: RESIZE_HANDLE_CLASS }}>
+		<ResizeContext.Provider value={{ onResize, onResizeEnd, resizeHandleClassName }}>
 			<SortableDataGridHeaders
 				className={classes.root}
 				headers={headers}
