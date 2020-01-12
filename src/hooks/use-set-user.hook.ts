@@ -31,15 +31,11 @@ export const useSetUser = (options?: IUseSetUserOptions): SetUserResultsTuple =>
 	});
 
 	const onCompleted = useCallback(
-		({ viewer }: GetViewer) => {
-			setUser({ variables: { user: viewer } });
-		},
+		(result: GetViewer) => setUser({ variables: { user: result?.viewer ?? null } }),
 		[setUser]
 	);
 
-	const onError = useCallback(() => {
-		setUser({ variables: { user: null } });
-	}, [setUser]);
+	const onError = useCallback(() => setUser({ variables: { user: null } }), [setUser]);
 
 	const [getViewer] = useLazyQuery<GetViewer>(Queries.GetViewer, {
 		fetchPolicy: "no-cache",
