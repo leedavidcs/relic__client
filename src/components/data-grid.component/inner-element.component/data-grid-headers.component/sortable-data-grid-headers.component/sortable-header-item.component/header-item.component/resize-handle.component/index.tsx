@@ -20,10 +20,7 @@ export const ResizeHandle: NamedExoticComponent<IProps> = memo<IProps>(({ index 
 		[index, onResize]
 	);
 
-	const onStop = useCallback(
-		() => onResizeEnd(),
-		[onResizeEnd]
-	);
+	const onStop = useCallback(() => onResizeEnd(), [onResizeEnd]);
 
 	return (
 		<DraggableCore onDrag={onDrag} onStop={onStop}>
