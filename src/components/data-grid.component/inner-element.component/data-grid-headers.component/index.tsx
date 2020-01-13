@@ -1,12 +1,11 @@
 import { HeadersContext } from "@/components/data-grid.component";
 import React, { FC, useCallback, useContext } from "react";
-import { DraggableData, DraggableEvent } from "react-draggable";
+import { SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
 import { ResizeProvider } from "./resize-provider.component";
-import { ResizeContext } from "./resize.context";
 import { SortableDataGridHeaders } from "./sortable-data-grid-headers.component";
 import { useStyles } from "./styles";
 
-export * from "./resize.context";
+export * from "./resize-provider.component";
 
 // Required to prevent sorting, when the user intends to resize instead
 const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
@@ -23,19 +22,6 @@ export const DataGridHeaders: FC<{}> = () => {
 		[moveHeaderItem]
 	);
 
-	const onResize = useCallback(
-		(event: DraggableEvent, { deltaX }: DraggableData, i: number) => {
-			event.stopPropagation();
-
-			const newWidth: number = headers[i].width + deltaX;
-
-			setHeaderWidth(newWidth, i);
-		},
-		[headers, setHeaderWidth]
-	);
-
-	const onResizeEnd = useCallback(() => void 0, []);
-
 	const shouldCancelStart = useCallback(({ target }: SortEvent | SortEventWithTag): boolean => {
 		const isResizeHandle: boolean = (target as HTMLElement).classList.contains(
 			RESIZE_HANDLE_CLASS
@@ -47,7 +33,7 @@ export const DataGridHeaders: FC<{}> = () => {
 	const resizeHandleClassName: string = RESIZE_HANDLE_CLASS;
 
 	return (
-		<ResizeContext.Provider value={{ onResize, onResizeEnd, resizeHandleClassName }}>
+		<ResizeProvider resizeHandleClassName={resizeHandleClassName}>
 			<SortableDataGridHeaders
 				className={classes.root}
 				headers={headers}
@@ -58,6 +44,6 @@ export const DataGridHeaders: FC<{}> = () => {
 				pressDelay={SORTABLE_HEADER_PRESS_DELAY}
 				helperClass={classes.helper}
 			/>
-		</ResizeContext.Provider>
+		</ResizeProvider>
 	);
 };

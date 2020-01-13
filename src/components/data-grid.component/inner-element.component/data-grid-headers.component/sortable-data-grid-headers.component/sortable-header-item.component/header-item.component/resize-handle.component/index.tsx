@@ -14,16 +14,12 @@ export const ResizeHandle: NamedExoticComponent<IProps> = memo<IProps>(({ index 
 	const { resizeHandleClassName, onResize, onResizeEnd } = useContext(ResizeContext);
 
 	const onDrag = useCallback(
-		(event: DraggableEvent, data: DraggableData): void => {
-			onResize(event, data, index);
-		},
+		(event: DraggableEvent, data: DraggableData): void => onResize(event, data, index),
 		[index, onResize]
 	);
 
-	const onStop = useCallback(() => onResizeEnd(), [onResizeEnd]);
-
 	return (
-		<DraggableCore onDrag={onDrag} onStop={onStop}>
+		<DraggableCore onDrag={onDrag} onStop={onResizeEnd}>
 			<div className={classnames(classes.root, resizeHandleClassName)} />
 		</DraggableCore>
 	);
