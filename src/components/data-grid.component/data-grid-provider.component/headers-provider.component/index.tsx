@@ -1,6 +1,7 @@
 import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
 import { ArrayUtil } from "@/utils";
 import React, { FC, ReactNode, useCallback } from "react";
+import { arrayMove } from "react-sortable-hoc";
 import { HeadersContext } from "./headers.context";
 
 export * from "./headers.context";
@@ -12,6 +13,21 @@ interface IProps {
 }
 
 export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange }) => {
+	const moveHeaderItem = useCallback(
+		(oldIndex: number, newIndex: number) => {
+			const newHeaders: IHeaderConfig[] = headers.slice();
+
+			const sortedHeaders: ReadonlyArray<IHeaderConfig> = arrayMove(
+				newHeaders,
+				oldIndex,
+				newIndex
+			);
+
+			onHeadersChange(sortedHeaders);
+		},
+		[headers, onHeadersChange]
+	);
+
 	const setHeaderWidth = useCallback(
 		(width: number, index: number) => {
 			const updatedHeader: IHeaderConfig = { ...headers[index], width };
@@ -42,7 +58,7 @@ export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange
 
 	return (
 		<HeadersContext.Provider
-			value={{ headers, onHeadersChange, setHeaderOption, setHeaderWidth }}
+			value={{ headers, moveHeaderItem, onHeadersChange, setHeaderOption, setHeaderWidth }}
 		>
 			{children}
 		</HeadersContext.Provider>

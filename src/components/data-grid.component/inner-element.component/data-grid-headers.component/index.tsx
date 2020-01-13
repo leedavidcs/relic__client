@@ -1,7 +1,7 @@
-import { HeadersContext, IHeaderConfig } from "@/components/data-grid.component";
+import { HeadersContext } from "@/components/data-grid.component";
 import React, { FC, useCallback, useContext } from "react";
 import { DraggableData, DraggableEvent } from "react-draggable";
-import { arrayMove, SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
+import { ResizeProvider } from "./resize-provider.component";
 import { ResizeContext } from "./resize.context";
 import { SortableDataGridHeaders } from "./sortable-data-grid-headers.component";
 import { useStyles } from "./styles";
@@ -16,21 +16,11 @@ const SORTABLE_HEADER_PRESS_DELAY: number = 100;
 export const DataGridHeaders: FC<{}> = () => {
 	const classes = useStyles();
 
-	const { headers, onHeadersChange, setHeaderWidth } = useContext(HeadersContext);
+	const { headers, moveHeaderItem } = useContext(HeadersContext);
 
 	const onSortEnd: SortEndHandler = useCallback(
-		({ newIndex, oldIndex }) => {
-			const newHeaders: IHeaderConfig[] = headers.slice();
-
-			const sortedHeaders: ReadonlyArray<IHeaderConfig> = arrayMove(
-				newHeaders,
-				oldIndex,
-				newIndex
-			);
-
-			onHeadersChange(sortedHeaders);
-		},
-		[headers, onHeadersChange]
+		({ newIndex, oldIndex }) => moveHeaderItem(oldIndex, newIndex),
+		[moveHeaderItem]
 	);
 
 	const onResize = useCallback(
