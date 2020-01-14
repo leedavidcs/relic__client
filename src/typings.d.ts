@@ -10,11 +10,11 @@ declare module "*.graphql" {
 	export default defaultDocument;
 }
 
-declare interface IAction {
-	type: string;
-	payload?: any;
-	meta?: any;
-}
+declare type Action<T extends { [key: string]: Function }> = ReturnType<T[keyof T]>;
+
+declare type Payload<T extends { [key: string]: Function }, K extends keyof T> = ReturnType<
+	T[K]
+>["payload"];
 
 declare type LocalResolver<TSource, TContext, TArgs = Record<string, any>> = (
 	rootValue: TSource,

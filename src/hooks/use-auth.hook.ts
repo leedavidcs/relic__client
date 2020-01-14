@@ -7,7 +7,7 @@ import {
 } from "@/graphql";
 import { ApolloError, ExecutionResult } from "apollo-boost";
 import { useCallback } from "react";
-import { useMutation } from "react-apollo";
+import { MutationFunctionOptions, useMutation } from "react-apollo";
 
 interface IUseAuthOptions {
 	onLoginCompleted?: (tokens: LoginLocalUser["loginLocalUser"] | null) => any;
@@ -15,11 +15,23 @@ interface IUseAuthOptions {
 	onRegisterCompleted?: (tokens: RegisterLocalUser["registerLocalUser"] | null) => any;
 }
 
+type LoginOptions = MutationFunctionOptions<LoginLocalUser, LoginLocalUserVariables>;
+type LoginResult = LoginLocalUser["loginLocalUser"] | null;
+
+type RegisterOptions = MutationFunctionOptions<RegisterLocalUser, RegisterLocalUserVariables>;
+type RegisterResult = RegisterLocalUser["registerLocalUser"] | null;
+
+interface IUseAuthResult {
+	login: (options: LoginOptions) => Promise<LoginResult>;
+	logout: () => void;
+	register: (options: RegisterOptions) => Promise<RegisterResult>;
+}
+
 export const useAuth = ({
 	onLoginCompleted = () => void 0,
 	onLoginError = () => void 0,
 	onRegisterCompleted = () => void 0
-}: IUseAuthOptions = {}) => {
+}: IUseAuthOptions = {}): IUseAuthResult => {
 	const [registerUser] = useMutation<RegisterLocalUser, RegisterLocalUserVariables>(
 		Mutations.RegisterLocalUser
 	);

@@ -14,9 +14,7 @@ export const SignUpForm: FC<{}> = () => {
 	const [email, setEmail] = useState<string>("");
 	const [didSucceed, setDidSucceed] = useState<boolean>(false);
 
-	const onClickResend = useCallback(() => {
-		resendVerifyEmail();
-	}, [resendVerifyEmail]);
+	const onClickResend = useCallback(() => resendVerifyEmail(), [resendVerifyEmail]);
 
 	const onCompleted = useCallback(() => {
 		setContent({

@@ -1,16 +1,12 @@
-import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
-import { HeadersContext } from "@/components/data-grid.component";
+import {
+	HeadersContext,
+	IHeaderConfig,
+	IHeaderOption,
+	ResizeContext
+} from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
-import { ArrayUtil } from "@/utils";
-import React, {
-	ComponentClass,
-	MutableRefObject,
-	useCallback,
-	useContext,
-	useRef,
-	useState
-} from "react";
+import React, { ComponentClass, useCallback, useContext, useState } from "react";
 import { SortableElement, SortableElementProps } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
 import { SortableHeaderSelect } from "./sortable-header-select.component";
@@ -25,27 +21,22 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 	({ headerIndex, ...headerProps }: IInternalProps) => {
 		const { options, value, width } = headerProps;
 
-		const { headers, onHeadersChange } = useContext(HeadersContext);
+		const { setHeaderOption } = useContext(HeadersContext);
+		const { isResizing } = useContext(ResizeContext);
 
 		const [isEditingLabel, setIsEditingLabel] = useState<boolean>(false);
 		const [isSelected, setIsSelected] = useState<boolean>(false);
 
-		const lastWidth: MutableRefObject<number> = useRef<number>(width);
-
-		const onMouseDown = useCallback(() => {
-			lastWidth.current = width;
-		}, [width]);
-
 		const onClick = useCallback(() => {
 			// Do not trigger click, on mouse-up from a resize event
-			if (width !== lastWidth.current) {
+			if (isResizing) {
 				return;
 			}
 
 			const hasOptions: boolean = options !== null;
 
 			setIsSelected(hasOptions && !isSelected);
-		}, [isSelected, options, setIsSelected, width]);
+		}, [isResizing, isSelected, options, setIsSelected]);
 
 		const onClickOut = useCallback(() => {
 			setIsEditingLabel(false);
@@ -62,16 +53,8 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 		const onSimulatedDoubleClick = useDoubleClick({ onClick, onDoubleClick });
 
 		const onSelect = useCallback(
-			(option: IHeaderOption) => {
-				const newHeaders: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
-					headers,
-					headerIndex,
-					{ ...headers[headerIndex], ...option }
-				);
-
-				onHeadersChange(newHeaders);
-			},
-			[headers, headerIndex, onHeadersChange]
+			(option: IHeaderOption) => setHeaderOption(option, headerIndex),
+			[headerIndex, setHeaderOption]
 		);
 
 		return (
@@ -80,7 +63,6 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 				direction="bottom-start"
 				onClick={onSimulatedDoubleClick}
 				onClickOut={onClickOut}
-				onMouseDown={onMouseDown}
 				style={{ width }}
 				tooltip={
 					options && (
