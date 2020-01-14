@@ -1,6 +1,6 @@
 import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
 import { ArrayUtil } from "@/utils";
-import React, { FC, ReactNode, useCallback } from "react";
+import React, { FC, ReactNode, useCallback, useMemo } from "react";
 import { arrayMove } from "react-sortable-hoc";
 import { HeadersContext } from "./headers.context";
 
@@ -56,11 +56,10 @@ export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange
 		[headers, onHeadersChange]
 	);
 
-	return (
-		<HeadersContext.Provider
-			value={{ headers, moveHeaderItem, onHeadersChange, setHeaderOption, setHeaderWidth }}
-		>
-			{children}
-		</HeadersContext.Provider>
+	const value = useMemo(
+		() => ({ headers, moveHeaderItem, onHeadersChange, setHeaderOption, setHeaderWidth }),
+		[headers, moveHeaderItem, onHeadersChange, setHeaderOption, setHeaderWidth]
 	);
+
+	return <HeadersContext.Provider value={value}>{children}</HeadersContext.Provider>;
 };

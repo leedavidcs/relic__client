@@ -1,5 +1,5 @@
 import { CustomTheme, standardTheme } from "@/themes";
-import React, { FC, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import { ThemeProvider } from "react-jss";
 import { ThemeSetterContext } from "./theme-setter.context";
 
@@ -8,8 +8,10 @@ export * from "./theme-setter.context";
 export const JssProvider: FC = ({ children }) => {
 	const [theme, setTheme] = useState<CustomTheme>(standardTheme);
 
+	const value = useMemo(() => ({ setTheme }), [setTheme]);
+
 	return (
-		<ThemeSetterContext.Provider value={{ setState: setTheme }}>
+		<ThemeSetterContext.Provider value={value}>
 			<ThemeProvider theme={theme}>{children}</ThemeProvider>
 		</ThemeSetterContext.Provider>
 	);

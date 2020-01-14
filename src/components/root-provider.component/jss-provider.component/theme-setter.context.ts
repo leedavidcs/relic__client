@@ -6,11 +6,11 @@ export interface IJssProviderState {
 }
 
 export interface IThemeContextProps {
-	setState: IJssProviderState | Dispatch<SetStateAction<CustomTheme>>;
+	setTheme: IJssProviderState | Dispatch<SetStateAction<CustomTheme>>;
 }
 
 export const ThemeSetterContext: Context<IThemeContextProps> = createContext<IThemeContextProps>({
-	setState: { theme: standardTheme }
+	setTheme: { theme: standardTheme }
 });
 
 ThemeSetterContext.displayName = "ThemeSetterContext";
