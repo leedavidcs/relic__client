@@ -3,11 +3,13 @@ import { DraggableData, DraggableEvent } from "react-draggable";
 
 interface IResizeContextProps {
 	onResize: (event: DraggableEvent, data: DraggableData, i: number) => void;
-	onResizeEnd: () => void;
+	isResizing: boolean;
+	onResizeEnd: (event: DraggableEvent) => void;
 	resizeHandleClassName: string;
 }
 
 export const ResizeContext = createContext<IResizeContextProps>({
+	isResizing: false,
 	onResize: () => void 0,
 	onResizeEnd: () => void 0,
 	resizeHandleClassName: ""
