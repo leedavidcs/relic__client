@@ -7,7 +7,7 @@ import { CustomTheme } from "@/themes";
 import { Dispatch, SetStateAction, useContext } from "react";
 
 export const useThemeChanger = (): IJssProviderState | Dispatch<SetStateAction<CustomTheme>> => {
-	const { setState } = useContext<IThemeContextProps>(ThemeSetterContext);
+	const { setTheme } = useContext<IThemeContextProps>(ThemeSetterContext);
 
-	return setState;
+	return setTheme;
 };

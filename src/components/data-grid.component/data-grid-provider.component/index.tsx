@@ -2,18 +2,18 @@ import { IHeaderConfig } from "@/components/data-grid.component";
 import React, { FC, ReactNode } from "react";
 import { Size } from "react-virtualized-auto-sizer";
 import { AutoSizerProvider } from "./auto-sizer-provider.component";
-import { DataContext, DataValue } from "./data.context";
+import { DataProvider, DataValue } from "./data-provider.component";
 import { HeadersProvider } from "./headers-provider.component";
 
 export * from "./auto-sizer-provider.component";
-export * from "./data.context";
+export * from "./data-provider.component";
 export * from "./headers-provider.component";
 
 interface IProps {
 	children: (size: Size) => ReactNode;
 	data: ReadonlyArray<{ [key: string]: DataValue }>;
-	onDataChange: (data: ReadonlyArray<{ [key: string]: DataValue }>) => void;
 	headers: ReadonlyArray<IHeaderConfig>;
+	onDataChange: (data: ReadonlyArray<{ [key: string]: DataValue }>) => void;
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 }
 
@@ -25,10 +25,10 @@ export const DataGridProvider: FC<IProps> = ({
 	onHeadersChange
 }) => {
 	return (
-		<DataContext.Provider value={{ data, onDataChange }}>
+		<DataProvider data={data} onDataChange={onDataChange}>
 			<HeadersProvider headers={headers} onHeadersChange={onHeadersChange}>
 				<AutoSizerProvider>{children}</AutoSizerProvider>
 			</HeadersProvider>
-		</DataContext.Provider>
+		</DataProvider>
 	);
 };

@@ -1,7 +1,7 @@
 import { Modal, ModalContext } from "@/components/modal.component";
 import { Overlay } from "@/components/overlay.component";
 import { GetModal, Mutations, Queries, ToggleModal, ToggleModalVariables } from "@/graphql";
-import React, { FC, ReactNode, useCallback, useState } from "react";
+import React, { FC, ReactNode, useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
 
 export const ModalProvider: FC = ({ children }) => {
@@ -25,8 +25,10 @@ export const ModalProvider: FC = ({ children }) => {
 		toggle(false);
 	}, [setContent, toggle]);
 
+	const value = useMemo(() => ({ active, setContent, toggle }), [active, setContent, toggle]);
+
 	return (
-		<ModalContext.Provider value={{ active, setContent, toggle }}>
+		<ModalContext.Provider value={value}>
 			{children}
 			<Overlay active={active} clickThrough={false} />
 			<Modal active={active} onClose={onClose} onClickOutside={onClose} title={title}>
