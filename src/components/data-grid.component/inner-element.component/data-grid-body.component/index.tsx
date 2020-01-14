@@ -1,8 +1,11 @@
 import { AutoSizerContext, DataContext } from "@/components/data-grid.component";
 import React, { FC, ReactNode, useCallback, useContext } from "react";
 import { arrayMove, SortEndHandler } from "react-sortable-hoc";
+import { SelectedCellProvider } from "./selected-cell-provider.component";
 import { SortableDataGridBody } from "./sortable-data-grid-body.component";
 import { useStyles } from "./styles";
+
+export * from "./selected-cell-provider.component";
 
 interface IProps {
 	children: ReactNode;
@@ -30,15 +33,17 @@ export const DataGridBody: FC<IProps> = ({ children }) => {
 	);
 
 	return (
-		<SortableDataGridBody
-			className={classes.root}
-			onSortEnd={onSortEnd}
-			axis="y"
-			lockAxis="y"
-			useDragHandle={true}
-			helperClass={classes.helper}
-		>
-			{children}
-		</SortableDataGridBody>
+		<SelectedCellProvider>
+			<SortableDataGridBody
+				className={classes.root}
+				onSortEnd={onSortEnd}
+				axis="y"
+				lockAxis="y"
+				useDragHandle={true}
+				helperClass={classes.helper}
+			>
+				{children}
+			</SortableDataGridBody>
+		</SelectedCellProvider>
 	);
 };

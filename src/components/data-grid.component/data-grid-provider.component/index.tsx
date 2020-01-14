@@ -4,12 +4,10 @@ import { Size } from "react-virtualized-auto-sizer";
 import { AutoSizerProvider } from "./auto-sizer-provider.component";
 import { DataContext, DataValue } from "./data.context";
 import { HeadersProvider } from "./headers-provider.component";
-import { SelectedCellProvider } from "./selected-cell-provider.component";
 
 export * from "./auto-sizer-provider.component";
 export * from "./data.context";
 export * from "./headers-provider.component";
-export * from "./selected-cell-provider.component";
 
 interface IProps {
 	children: (size: Size) => ReactNode;
@@ -29,9 +27,7 @@ export const DataGridProvider: FC<IProps> = ({
 	return (
 		<DataContext.Provider value={{ data, onDataChange }}>
 			<HeadersProvider headers={headers} onHeadersChange={onHeadersChange}>
-				<SelectedCellProvider>
-					<AutoSizerProvider>{children}</AutoSizerProvider>
-				</SelectedCellProvider>
+				<AutoSizerProvider>{children}</AutoSizerProvider>
 			</HeadersProvider>
 		</DataContext.Provider>
 	);
