@@ -31,11 +31,14 @@ export const ResizeProvider: FC<IProps> = ({ children, resizeHandleClassName }) 
 		[headers, setHeaderWidth]
 	);
 
-	const onResizeEnd = useCallback((event: DraggableEvent) => {
-		event.stopPropagation();
+	const onResizeEnd = useCallback(
+		(event: DraggableEvent) => {
+			event.stopPropagation();
 
-		setTimeout(() => setIsResizing(false), RESIZE_HANDLE_DRAG_END_DELAY);
-	}, [setIsResizing]);
+			setTimeout(() => setIsResizing(false), RESIZE_HANDLE_DRAG_END_DELAY);
+		},
+		[setIsResizing]
+	);
 
 	return (
 		<ResizeContext.Provider
