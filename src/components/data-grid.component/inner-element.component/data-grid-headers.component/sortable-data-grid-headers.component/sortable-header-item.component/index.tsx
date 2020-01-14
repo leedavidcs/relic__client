@@ -6,7 +6,7 @@ import {
 } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { useDoubleClick } from "@/hooks";
-import React, { ComponentClass, useCallback, useContext, useState } from "react";
+import React, { ComponentClass, useCallback, useContext, useEffect, useState } from "react";
 import { SortableElement, SortableElementProps } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
 import { SortableHeaderSelect } from "./sortable-header-select.component";
@@ -56,6 +56,9 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 			(option: IHeaderOption) => setHeaderOption(option, headerIndex),
 			[headerIndex, setHeaderOption]
 		);
+
+		// Close the tooltip (set isSelected to false) when resizing
+		useEffect(() => setIsSelected(!isResizing && isSelected), [isResizing, isSelected]);
 
 		return (
 			<Tooltip
