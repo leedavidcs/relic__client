@@ -9,7 +9,7 @@ interface IProps {
 	value: string;
 }
 
-export const SortableHeaderSelect: FC<IProps> = ({ onSelect, options, value: propsValue }) => {
+export const HeaderSelect: FC<IProps> = ({ onSelect, options, value: propsValue }) => {
 	const classes = useStyles();
 
 	const onClick = useCallback((option: IHeaderOption) => () => onSelect(option), [onSelect]);

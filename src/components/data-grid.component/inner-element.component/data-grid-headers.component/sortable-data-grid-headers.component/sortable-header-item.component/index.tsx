@@ -1,10 +1,14 @@
-import { HeadersContext, IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
+import {
+	HeadersContext,
+	IHeaderConfig,
+	IHeaderOption,
+	ResizeContext
+} from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { SortableElement } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
-import { SortableHeaderSelect } from "./sortable-header-select.component";
-import { useHeaderEvents } from "./use-header-events.hook";
+import { HeaderSelect } from "./header-select.component";
 
 interface IProps extends IHeaderConfig {
 	headerIndex: number;
@@ -17,9 +21,23 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 
 	const { setHeaderOption } = useContext(HeadersContext);
 
-	const hasOptions: boolean = options !== null;
+	const { isResizing } = useContext(ResizeContext);
 
-	const [{ onClick, onClickOut }, { isEditingLabel, isSelected }] = useHeaderEvents(hasOptions);
+	const [isSelected, setIsSelected] = useState<boolean>(false);
+
+	const onClick = useCallback(() => {
+		// Do not trigger click, on mouse-up from a resize event
+		if (isResizing) {
+			return;
+		}
+
+		setIsSelected(true);
+	}, [isResizing, setIsSelected]);
+
+	const onClickOut = useCallback(() => setIsSelected(false), [setIsSelected]);
+
+	// Unselect when resizing
+	useEffect(() => setIsSelected(!isResizing && isSelected), [isResizing, isSelected]);
 
 	const onSelect = useCallback((option: IHeaderOption) => setHeaderOption(option, headerIndex), [
 		headerIndex,
@@ -33,13 +51,9 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 			onClick={onClick}
 			onClickOut={onClickOut}
 			style={{ width }}
-			tooltip={<SortableHeaderSelect onSelect={onSelect} options={options} value={value} />}
+			tooltip={<HeaderSelect onSelect={onSelect} options={options} value={value} />}
 		>
-			{isEditingLabel ? (
-				<div>CLICKED</div>
-			) : (
-				<HeaderItem key={value} index={headerIndex} {...headerProps} />
-			)}
+			<HeaderItem key={value} index={headerIndex} {...headerProps} />
 		</Tooltip>
 	);
 });
