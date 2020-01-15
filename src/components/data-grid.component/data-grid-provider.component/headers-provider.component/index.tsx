@@ -1,7 +1,7 @@
 import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
 import { ArrayUtil } from "@/utils";
+import arrayMove from "array-move";
 import React, { FC, ReactNode, useCallback, useMemo } from "react";
-import { arrayMove } from "react-sortable-hoc";
 import { HeadersContext } from "./headers.context";
 
 export * from "./headers.context";
