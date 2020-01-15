@@ -68,9 +68,7 @@ export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInter
 				onClickOut={onClickOut}
 				style={{ width }}
 				tooltip={
-					options && (
-						<SortableHeaderSelect onSelect={onSelect} options={options} value={value} />
-					)
+					<SortableHeaderSelect onSelect={onSelect} options={options} value={value} />
 				}
 			>
 				{isEditingLabel ? (

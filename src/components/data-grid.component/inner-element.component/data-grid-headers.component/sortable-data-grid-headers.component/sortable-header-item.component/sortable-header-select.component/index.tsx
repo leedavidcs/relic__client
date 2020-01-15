@@ -5,7 +5,7 @@ import { useStyles } from "./styles";
 
 interface IProps {
 	onSelect: (option: IHeaderOption) => void;
-	options: ReadonlyArray<IHeaderOption>;
+	options: ReadonlyArray<IHeaderOption> | null;
 	value: string;
 }
 
@@ -15,16 +15,22 @@ export const SortableHeaderSelect: FC<IProps> = ({ onSelect, options, value: pro
 	const onClick = useCallback((option: IHeaderOption) => () => onSelect(option), [onSelect]);
 
 	return (
-		<List className={classes.root}>
-			{options.map((option) => {
-				const { label, value } = option;
+		options && (
+			<List className={classes.root}>
+				{options.map((option) => {
+					const { label, value } = option;
 
-				return (
-					<ListItem key={value} selected={value === propsValue} onClick={onClick(option)}>
-						<ListItemText primary={label} />
-					</ListItem>
-				);
-			})}
-		</List>
+					return (
+						<ListItem
+							key={value}
+							selected={value === propsValue}
+							onClick={onClick(option)}
+						>
+							<ListItemText primary={label} />
+						</ListItem>
+					);
+				})}
+			</List>
+		)
 	);
 };
