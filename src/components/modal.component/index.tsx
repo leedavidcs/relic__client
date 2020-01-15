@@ -4,7 +4,7 @@ import React, { FC, RefObject, useCallback, useEffect, useRef } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useStyles } from "./styles";
 
-export * from "./modal.context";
+export * from "./modal-provider.component";
 
 interface IProps {
 	active: boolean;

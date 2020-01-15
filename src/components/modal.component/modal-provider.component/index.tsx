@@ -4,6 +4,8 @@ import { GetModal, Mutations, Queries, ToggleModal, ToggleModalVariables } from 
 import React, { FC, ReactNode, useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
 
+export * from "./modal.context";
+
 export const ModalProvider: FC = ({ children }) => {
 	const { data } = useQuery<GetModal>(Queries.GetModal);
 	const [toggleModal] = useMutation<ToggleModal, ToggleModalVariables>(Mutations.ToggleModal);

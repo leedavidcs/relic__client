@@ -15,7 +15,9 @@ export const Standard = () => {
 			<Background>
 				<ContextMenu
 					menu={
-						<div style={{ backgroundColor: "gray", height: MENU_SIZE, width: MENU_SIZE }} />
+						<div
+							style={{ backgroundColor: "gray", height: MENU_SIZE, width: MENU_SIZE }}
+						/>
 					}
 				>
 					<Paper>
