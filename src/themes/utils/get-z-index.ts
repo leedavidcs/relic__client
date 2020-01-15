@@ -2,7 +2,8 @@ const zIndices = [
 	"data-grid-content",
 	"data-grid-selected-cell",
 	"data-grid-header",
-	"text-input-label"
+	"text-input-label",
+	"context-menu"
 ] as const;
 
 export const getZIndex = (name: typeof zIndices[number]): number => {

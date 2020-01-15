@@ -1,6 +1,7 @@
 import { AutoSizerContext, DataContext } from "@/components/data-grid.component";
+import arrayMove from "array-move";
 import React, { FC, ReactNode, useCallback, useContext } from "react";
-import { arrayMove, SortEndHandler } from "react-sortable-hoc";
+import { SortEndHandler } from "react-sortable-hoc";
 import { SelectedCellProvider } from "./selected-cell-provider.component";
 import { SortableDataGridBody } from "./sortable-data-grid-body.component";
 import { useStyles } from "./styles";

@@ -1,3 +1,4 @@
+import { ContextMenu } from "@/components/context-menu.component";
 import {
 	HeadersContext,
 	IHeaderConfig,
@@ -5,80 +6,60 @@ import {
 	ResizeContext
 } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
-import { useDoubleClick } from "@/hooks";
-import React, { ComponentClass, useCallback, useContext, useEffect, useState } from "react";
-import { SortableElement, SortableElementProps } from "react-sortable-hoc";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { SortableElement } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
-import { SortableHeaderSelect } from "./sortable-header-select.component";
+import { HeaderSelect } from "./header-select.component";
 
-interface IInternalProps extends IHeaderConfig {
+interface IProps extends IHeaderConfig {
 	headerIndex: number;
 }
 
-interface IProps extends IInternalProps, SortableElementProps {}
+export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
+	const { headerIndex, ...headerProps } = props;
 
-export const SortableHeaderItem: ComponentClass<IProps> = SortableElement<IInternalProps>(
-	({ headerIndex, ...headerProps }: IInternalProps) => {
-		const { options, value, width } = headerProps;
+	const { options, value, width } = headerProps;
 
-		const { setHeaderOption } = useContext(HeadersContext);
-		const { isResizing } = useContext(ResizeContext);
+	const { setHeaderOption } = useContext(HeadersContext);
 
-		const [isEditingLabel, setIsEditingLabel] = useState<boolean>(false);
-		const [isSelected, setIsSelected] = useState<boolean>(false);
+	const { isResizing } = useContext(ResizeContext);
 
-		const onClick = useCallback(() => {
-			// Do not trigger click, on mouse-up from a resize event
-			if (isResizing) {
-				return;
-			}
+	const [isSelected, setIsSelected] = useState<boolean>(false);
 
-			const hasOptions: boolean = options !== null;
+	const onClick = useCallback(() => {
+		// Do not trigger click, on mouse-up from a resize event
+		if (isResizing) {
+			return;
+		}
 
-			setIsSelected(hasOptions && !isSelected);
-		}, [isResizing, isSelected, options, setIsSelected]);
+		setIsSelected(true);
+	}, [isResizing, setIsSelected]);
 
-		const onClickOut = useCallback(() => {
-			setIsEditingLabel(false);
-			setIsSelected(false);
-		}, [setIsEditingLabel, setIsSelected]);
+	const closeSelect = useCallback(() => setIsSelected(false), [setIsSelected]);
 
-		const onDoubleClick = useCallback(() => {
-			const hasOptions: boolean = options !== null;
+	// Unselect when resizing
+	useEffect(() => setIsSelected(!isResizing && isSelected), [isResizing, isSelected]);
 
-			setIsEditingLabel(hasOptions);
-			setIsSelected(false);
-		}, [options, setIsEditingLabel, setIsSelected]);
+	const onSelect = useCallback((option: IHeaderOption) => setHeaderOption(option, headerIndex), [
+		headerIndex,
+		setHeaderOption
+	]);
 
-		const onSimulatedDoubleClick = useDoubleClick({ onClick, onDoubleClick });
-
-		const onSelect = useCallback(
-			(option: IHeaderOption) => setHeaderOption(option, headerIndex),
-			[headerIndex, setHeaderOption]
-		);
-
-		// Close the tooltip (set isSelected to false) when resizing
-		useEffect(() => setIsSelected(!isResizing && isSelected), [isResizing, isSelected]);
-
-		return (
-			<Tooltip
-				active={isSelected}
-				direction="bottom-start"
-				onClick={onSimulatedDoubleClick}
-				onClickOut={onClickOut}
-				style={{ width }}
-				tooltip={
-					options && (
-						<SortableHeaderSelect onSelect={onSelect} options={options} value={value} />
-					)
-				}
+	return (
+		<Tooltip
+			active={isSelected}
+			direction="bottom-start"
+			onClick={onClick}
+			onClickOut={closeSelect}
+			style={{ width }}
+			tooltip={<HeaderSelect onSelect={onSelect} options={options} value={value} />}
+		>
+			<ContextMenu
+				menu={<div style={{ backgroundColor: "blue", height: 100, width: 100 }}>MENU</div>}
+				onOpen={closeSelect}
 			>
-				{isEditingLabel ? (
-					<div>CLICKED</div>
-				) : (
-					<HeaderItem key={value} index={headerIndex} {...headerProps} />
-				)}
-			</Tooltip>
-		);
-	}
-);
+				<HeaderItem key={value} index={headerIndex} {...headerProps} />
+			</ContextMenu>
+		</Tooltip>
+	);
+});

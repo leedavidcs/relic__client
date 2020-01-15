@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { Context, createContext } from "react";
 import { DraggableData, DraggableEvent } from "react-draggable";
 
 interface IResizeContextProps {
@@ -8,7 +8,7 @@ interface IResizeContextProps {
 	resizeHandleClassName: string;
 }
 
-export const ResizeContext = createContext<IResizeContextProps>({
+export const ResizeContext: Context<IResizeContextProps> = createContext<IResizeContextProps>({
 	isResizing: false,
 	onResize: () => void 0,
 	onResizeEnd: () => void 0,

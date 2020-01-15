@@ -4,7 +4,7 @@ import { text } from "@storybook/addon-knobs";
 import React from "react";
 import { PasswordStrength } from ".";
 
-export default { title: "input|password-strength", component: PasswordStrength };
+export default { title: "input/password-strength", component: PasswordStrength };
 
 export const standard = () => {
 	const password = text("password", "");

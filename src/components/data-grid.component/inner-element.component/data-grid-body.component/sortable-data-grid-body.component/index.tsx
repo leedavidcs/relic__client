@@ -1,15 +1,13 @@
-import React, { ComponentClass, ReactNode } from "react";
-import { SortableContainer, SortableContainerProps } from "react-sortable-hoc";
+import React, { ReactNode } from "react";
+import { SortableContainer } from "react-sortable-hoc";
 
-interface IInternalProps {
+interface IProps {
 	children: ReactNode;
 	className?: string;
 }
 
-interface IProps extends IInternalProps, SortableContainerProps {}
+export const SortableDataGridBody = SortableContainer<IProps>((props: IProps) => {
+	const { children, className } = props;
 
-export const SortableDataGridBody: ComponentClass<IProps> = SortableContainer(
-	({ children, className }: IInternalProps) => {
-		return <div className={className}>{children}</div>;
-	}
-);
+	return <div className={className}>{children}</div>;
+});

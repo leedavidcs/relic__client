@@ -68,7 +68,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 
 	const onEnterKey = useCallback(
 		(event: KeyboardEvent<HTMLInputElement>) => {
-			if (event.keyCode !== Keycode("Enter")) {
+			if (event.keyCode !== Keycode.codes.enter) {
 				return;
 			}
 

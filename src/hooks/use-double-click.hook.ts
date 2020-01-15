@@ -4,21 +4,26 @@ import { MouseEvent, MutableRefObject, TouchEvent, useCallback, useRef } from "r
 const DOUBLE_CLICK_TIMEOUT: number = 200;
 
 interface IOptions {
-	onClick?: (event: MouseEvent | TouchEvent) => void;
+	delay?: number;
+	onSingleClick?: (event: MouseEvent | TouchEvent) => void;
 	onDoubleClick?: (event: MouseEvent | TouchEvent) => void;
 }
 
 export const useDoubleClick = (options?: IOptions) => {
-	const { onClick = () => void 0, onDoubleClick = () => void 0 } = options ?? {};
+	const {
+		delay = DOUBLE_CLICK_TIMEOUT,
+		onSingleClick = () => void 0,
+		onDoubleClick = () => void 0
+	} = options ?? {};
 
 	const hasClicked: MutableRefObject<boolean> = useRef<boolean>(false);
 
 	const cancelableOnClick = useCallback(
 		debounce((event: MouseEvent | TouchEvent) => {
 			hasClicked.current = false;
-			onClick(event);
-		}, DOUBLE_CLICK_TIMEOUT),
-		[onClick]
+			onSingleClick(event);
+		}, delay),
+		[onSingleClick]
 	);
 
 	const onSimulatedDoubleClick = useCallback(
