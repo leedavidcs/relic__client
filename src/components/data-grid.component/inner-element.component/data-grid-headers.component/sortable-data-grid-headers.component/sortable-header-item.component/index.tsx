@@ -1,3 +1,4 @@
+import { ContextMenu } from "@/components/context-menu.component";
 import {
 	HeadersContext,
 	IHeaderConfig,
@@ -34,7 +35,7 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 		setIsSelected(true);
 	}, [isResizing, setIsSelected]);
 
-	const onClickOut = useCallback(() => setIsSelected(false), [setIsSelected]);
+	const closeSelect = useCallback(() => setIsSelected(false), [setIsSelected]);
 
 	// Unselect when resizing
 	useEffect(() => setIsSelected(!isResizing && isSelected), [isResizing, isSelected]);
@@ -49,11 +50,16 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 			active={isSelected}
 			direction="bottom-start"
 			onClick={onClick}
-			onClickOut={onClickOut}
+			onClickOut={closeSelect}
 			style={{ width }}
 			tooltip={<HeaderSelect onSelect={onSelect} options={options} value={value} />}
 		>
-			<HeaderItem key={value} index={headerIndex} {...headerProps} />
+			<ContextMenu
+				menu={<div style={{ backgroundColor: "blue", height: 100, width: 100 }}>MENU</div>}
+				onOpen={closeSelect}
+			>
+				<HeaderItem key={value} index={headerIndex} {...headerProps} />
+			</ContextMenu>
 		</Tooltip>
 	);
 });
