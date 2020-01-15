@@ -1,14 +1,14 @@
 import { Background } from "@/components/background.component";
 import { Paper } from "@/components/paper.component";
+import { onInputValueChanged } from "@/utils";
 import Faker from "faker";
 import React, { CSSProperties, useCallback, useState } from "react";
 import { FaBacon } from "react-icons/fa";
 import { TextInput } from ".";
-import { onInputValueChanged } from "../../../utils";
 
 const MAX_INPUT_LENGTH: number = 5;
 
-export default { title: "input|text-input", component: TextInput };
+export default { title: "input/text-input", component: TextInput };
 
 export const Standard = () => {
 	Faker.seed(1);

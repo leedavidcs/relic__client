@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 import { Button } from ".";
 
-export default { title: "input|button", component: Button };
+export default { title: "input/button", component: Button };
 
 const SPACING: number = 8;
 
