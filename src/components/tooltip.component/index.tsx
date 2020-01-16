@@ -1,65 +1,50 @@
-import classnames from "classnames";
-import React, { CSSProperties, FC, ReactNode } from "react";
-import { Manager, Popper, PopperChildrenProps, Reference } from "react-popper";
-import { ClickOutside } from "../click-outside.component";
-import { PopperElement } from "./popper-element.component";
+import { ClickOutside } from "@/components/click-outside.component";
+import { ITooltipLocation, useTooltip } from "@/hooks";
+import { Placement } from "@popperjs/core";
+import memoizeOne from "memoize-one";
+import React, { FC, isValidElement, ReactNode, useLayoutEffect, useRef } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
 	active?: boolean;
-	className?: string;
-	direction: PopperChildrenProps["placement"];
-	onClick?: (event) => void;
+	children: ReactNode | ITooltipLocation;
+	direction: Placement;
 	onClickOut?: () => void;
-	onMouseDown?: (event: React.MouseEvent) => void;
-	style?: CSSProperties;
 	tooltip?: ReactNode;
 }
+
+const isLocation = memoizeOne((value: any): value is ITooltipLocation => !isValidElement(value));
 
 export const Tooltip: FC<IProps> = ({
 	active,
 	children,
-	className,
-	direction,
-	onClick = () => void 0,
+	direction: placement,
 	onClickOut = () => void 0,
-	onMouseDown = () => void 0,
-	style: propsStyle,
 	tooltip
 }) => {
 	const classes = useStyles({ active });
 
+	const refElement = useRef<HTMLDivElement | null>(null);
+	const popper = useRef<HTMLDivElement | null>(null);
+
+	const reference = isLocation(children) ? children : refElement;
+
+	const { update } = useTooltip({ reference, popper, placement });
+
+	useLayoutEffect(() => {
+		update();
+	}, [active, update]);
+
 	return (
 		<ClickOutside onClickOut={onClickOut}>
-			<Manager>
-				<Reference>
-					{({ ref }) => (
-						<div
-							ref={ref}
-							className={classnames(classes.reference, className)}
-							onClick={onClick}
-							onMouseDown={onMouseDown}
-							style={propsStyle}
-						>
-							{children}
-						</div>
-					)}
-				</Reference>
-				<Popper placement={direction}>
-					{({ scheduleUpdate, ref, style, placement }) => (
-						<div
-							ref={ref}
-							className={classes.popper}
-							style={style}
-							data-placement={placement}
-						>
-							<PopperElement active={active} scheduleUpdate={scheduleUpdate}>
-								{tooltip}
-							</PopperElement>
-						</div>
-					)}
-				</Popper>
-			</Manager>
+			{!isLocation(children) && (
+				<div ref={refElement} className={classes.reference}>
+					{children}
+				</div>
+			)}
+			<div ref={popper} className={classes.popper}>
+				{tooltip}
+			</div>
 		</ClickOutside>
 	);
 };
