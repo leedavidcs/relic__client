@@ -101,7 +101,7 @@ export const AppBar: FC<IProps> = ({
 				)}
 				<Tooltip
 					active={selectedIndex === 0}
-					direction={"left-start"}
+					direction="left-start"
 					onClickOut={onClickOut}
 					tooltip={
 						<ProfileMenu
