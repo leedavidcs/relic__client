@@ -54,7 +54,6 @@ export const Standard = () => {
 					<Tooltip
 						active={active}
 						direction={direction}
-						onClick={onClick}
 						onClickOut={onClickOut}
 						tooltip={
 							<List>
@@ -73,7 +72,7 @@ export const Standard = () => {
 							</List>
 						}
 					>
-						<Button>Toggle</Button>
+						<Button onClick={onClick}>Toggle</Button>
 					</Tooltip>
 				</div>
 			</Paper>
