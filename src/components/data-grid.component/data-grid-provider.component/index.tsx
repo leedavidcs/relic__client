@@ -17,6 +17,11 @@ interface IProps {
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 }
 
+/**
+ * @description Global properties provider to react-window.FixedSizeList.innerElementType and
+ *     react-window.FixedSizeList.children (item renderer), since they cannot be passed such props
+ *     directly
+ */
 export const DataGridProvider: FC<IProps> = ({
 	children,
 	data,
