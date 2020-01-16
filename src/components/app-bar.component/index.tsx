@@ -99,23 +99,24 @@ export const AppBar: FC<IProps> = ({
 						</Button>
 					</div>
 				)}
-				<div className={classes.tooltipWrapper}>
-					<Tooltip
-						active={selectedIndex === 0}
-						direction={"left-start"}
+				<Tooltip
+					active={selectedIndex === 0}
+					direction={"left-start"}
+					onClickOut={onClickOut}
+					tooltip={
+						<ProfileMenu
+							onClickSignIn={onClickSignIn}
+							onClickSignOut={onClickSignOut}
+							user={user}
+						/>
+					}
+				>
+					<FaUserCircle
 						onClick={onClickRightIcon(0)}
-						onClickOut={onClickOut}
-						tooltip={
-							<ProfileMenu
-								onClickSignIn={onClickSignIn}
-								onClickSignOut={onClickSignOut}
-								user={user}
-							/>
-						}
-					>
-						<FaUserCircle className={classes.profileIcon} size={FA_USER_CIRCLE_SIZE} />
-					</Tooltip>
-				</div>
+						className={classes.profileIcon}
+						size={FA_USER_CIRCLE_SIZE}
+					/>
+				</Tooltip>
 			</div>
 		</Toolbar>
 	);
