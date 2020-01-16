@@ -1,17 +1,18 @@
 import { IHeaderConfig } from "@/components/data-grid.component";
-import React, { FC } from "react";
+import React, { FC, MouseEvent } from "react";
 import { ResizeHandle } from "./resize-handle.component";
 import { useStyles } from "./styles";
 
 interface IProps extends IHeaderConfig {
 	index: number;
+	onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
-export const HeaderItem: FC<IProps> = ({ label, resizable, index }) => {
+export const HeaderItem: FC<IProps> = ({ label, resizable, index, onClick = () => void 0 }) => {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
+		<div className={classes.root} onClick={onClick}>
 			<div className={classes.content}>{label}</div>
 			{resizable ? <ResizeHandle index={index} /> : null}
 		</div>

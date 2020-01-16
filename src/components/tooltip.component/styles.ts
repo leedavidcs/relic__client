@@ -6,6 +6,7 @@ const styles = (theme: CustomTheme) => ({
 		display: "inline-block"
 	},
 	popper: {
+		position: "absolute",
 		display: ({ active }) => (active ? "block" : "none")
 	}
 });

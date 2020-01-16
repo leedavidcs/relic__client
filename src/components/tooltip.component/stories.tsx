@@ -34,27 +34,17 @@ export const Standard = () => {
 		"right-start"
 	);
 
-	const onClick = useCallback(() => {
-		setActive(!active);
-	}, [active, setActive]);
+	const onClick = useCallback(() => setActive(!active), [active, setActive]);
 
-	const onClickOut = useCallback(() => {
-		setActive(false);
-	}, [setActive]);
+	const onClickOut = useCallback(() => setActive(false), [setActive]);
 
 	return (
 		<Background>
 			<Paper>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center"
-					}}
-				>
+				<div style={{ display: "flex", justifyContent: "center" }}>
 					<Tooltip
 						active={active}
 						direction={direction}
-						onClick={onClick}
 						onClickOut={onClickOut}
 						tooltip={
 							<List>
@@ -73,7 +63,7 @@ export const Standard = () => {
 							</List>
 						}
 					>
-						<Button>Toggle</Button>
+						<Button onClick={onClick}>Toggle</Button>
 					</Tooltip>
 				</div>
 			</Paper>

@@ -49,17 +49,22 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 		<Tooltip
 			active={isSelected}
 			direction="bottom-start"
-			onClick={onClick}
 			onClickOut={closeSelect}
-			style={{ width }}
 			tooltip={<HeaderSelect onSelect={onSelect} options={options} value={value} />}
 		>
-			<ContextMenu
-				menu={<div style={{ backgroundColor: "blue", height: 100, width: 100 }}>MENU</div>}
-				onOpen={closeSelect}
-			>
-				<HeaderItem key={value} index={headerIndex} {...headerProps} />
-			</ContextMenu>
+			<div style={{ width }}>
+				<ContextMenu
+					menu={<div style={{ backgroundColor: "blue" }}>MENU</div>}
+					onOpen={closeSelect}
+				>
+					<HeaderItem
+						key={value}
+						index={headerIndex}
+						onClick={onClick}
+						{...headerProps}
+					/>
+				</ContextMenu>
+			</div>
 		</Tooltip>
 	);
 });

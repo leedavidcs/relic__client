@@ -57,7 +57,6 @@ const styles = (theme: CustomTheme) => ({
 			}
 		}
 	},
-	tooltipWrapper: {},
 	profileIcon: {
 		cursor: "pointer"
 	}
