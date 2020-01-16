@@ -24,10 +24,10 @@ export const Tooltip: FC<IProps> = ({
 }) => {
 	const classes = useStyles({ active });
 
-	const refElement = useRef<HTMLDivElement | null>(null);
+	const referenceRef = useRef<HTMLDivElement | null>(null);
 	const popper = useRef<HTMLDivElement | null>(null);
 
-	const reference = isLocation(children) ? children : refElement;
+	const reference = isLocation(children) ? children : referenceRef;
 
 	const { update } = useTooltip({ reference, popper, placement });
 
@@ -38,7 +38,7 @@ export const Tooltip: FC<IProps> = ({
 	return (
 		<ClickOutside onClickOut={onClickOut}>
 			{!isLocation(children) && (
-				<div ref={refElement} className={classes.reference}>
+				<div ref={referenceRef} className={classes.reference}>
 					{children}
 				</div>
 			)}
