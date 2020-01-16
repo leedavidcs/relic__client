@@ -1,13 +1,10 @@
-import { ClickOutside } from "@/components/click-outside.component";
+import { Tooltip } from "@/components/tooltip.component";
 import React, { FC, ReactNode, useCallback, useState } from "react";
 import { ContextMenuContext, ILocation } from "./context-menu.context";
-import { useStyles } from "./styles";
 
 export * from "./context-menu.context";
 
 export const ContextMenuProvider: FC = ({ children }) => {
-	const classes = useStyles();
-
 	const [content, setContent] = useState<{ body: ReactNode } | null>(null);
 	const [location, setLocation] = useState<ILocation | null>(null);
 
@@ -19,13 +16,14 @@ export const ContextMenuProvider: FC = ({ children }) => {
 		<ContextMenuContext.Provider value={value}>
 			{children}
 			{location !== null && (
-				<ClickOutside
-					className={classes.contextMenu}
+				<Tooltip
+					active={true}
+					direction="bottom-start"
 					onClickOut={onClickOut}
-					style={{ top: location.y, left: location.x }}
+					tooltip={content?.body}
 				>
-					{content?.body}
-				</ClickOutside>
+					{location}
+				</Tooltip>
 			)}
 		</ContextMenuContext.Provider>
 	);
