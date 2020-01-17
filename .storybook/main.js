@@ -1,5 +1,6 @@
-const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const { addWebpackAlias, addWebpackModuleRule } = require("customize-cra");
 const path = require("path");
+const _ = require("lodash");
 
 module.exports = {
 	addons: [
@@ -10,8 +11,19 @@ module.exports = {
 		"storybook-addon-jss-theme/dist/register"
 	],
 	presets: ["@storybook/preset-create-react-app"],
-	webpack: async (config) => {
-		config.module.rules.push({
+	webpackFinal: async (config) => {
+		const tmpConfig = _.flow(
+			addWebpackAlias({
+				"@": path.resolve(__dirname, "../src"),
+			}),
+			addWebpackModuleRule({
+				exclude: /node_modules/,
+				test: /\.(graphql|gql)$/,
+				use: [{ loader: "graphql-tag/loader" }]
+			})
+		)(config);
+
+		tmpConfig.module.rules.push({
 			test: /\.tsx?$/,
 			include: [path.resolve(__dirname, "../src")],
 			use: [
@@ -27,22 +39,8 @@ module.exports = {
 			]
 		});
 
-		config.module.rules.push({
-			test: /\.(graphql|gql)$/,
-			exclude: /node_modules/,
-			loader: "graphql-tag/loader"
-		});
+		tmpConfig.node = { ...tmpConfig.node, fs: "empty" };
 
-		config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx");
-
-		config.resolve.plugins = config.resolve.plugins || [
-			new TsConfigPathsPlugin({
-				configFile: "tsconfig.json"
-			})
-		];
-
-		config.node = { ...config.node, fs: "empty" };
-
-		return config;
+		return tmpConfig;
 	}
 };
