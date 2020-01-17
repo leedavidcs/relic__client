@@ -1,20 +1,20 @@
 import classnames from "classnames";
-import React, { forwardRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from "react";
+import React, { DetailedHTMLProps, forwardRef, HTMLAttributes, ReactNode } from "react";
 import { useStyles } from "./styles";
 
-interface IProps extends RefAttributes<HTMLDivElement> {
+interface IProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	children?: ReactNode;
 	className?: string;
 }
 
-export const Paper: ForwardRefExoticComponent<IProps> = forwardRef<HTMLDivElement, IProps>(
-	({ className, children }, ref) => {
+export const Paper = forwardRef<HTMLDivElement, IProps>(
+	({ className, children, ...divProps }, ref) => {
 		const classes = useStyles();
 
 		const classNames: string = classnames(classes.root, className);
 
 		return (
-			<div className={classNames} ref={ref}>
+			<div className={classNames} {...divProps} ref={ref}>
 				{children}
 			</div>
 		);
