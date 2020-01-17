@@ -1,13 +1,4 @@
-const { override, addWebpackAlias, addWebpackModuleRule } = require("customize-cra");
-const Path = require("path");
+const { override } = require("customize-cra");
+const webpackCraOverrides = require("./webpack-cra-overrides");
 
-module.exports = override(
-	addWebpackAlias({
-		"@": Path.resolve(__dirname, "src")
-	}),
-	addWebpackModuleRule({
-		exclude: /node_modules/,
-		test: /\.(graphql|gql)$/,
-		use: [{ loader: "graphql-tag/loader" }]
-	})
-);
+module.exports = override.apply(null, webpackCraOverrides);
