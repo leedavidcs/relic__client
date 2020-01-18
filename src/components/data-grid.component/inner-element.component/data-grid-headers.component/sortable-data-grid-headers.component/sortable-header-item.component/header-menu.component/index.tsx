@@ -1,7 +1,6 @@
-import { ContextMenuContext } from "@/components/context-menu.component";
 import { List, ListItem, ListItemText } from "@/components/list.component";
 import { Paper } from "@/components/paper.component";
-import React, { FC, useCallback, useContext, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { useStyles } from "./styles";
 
 interface IOption {
@@ -16,15 +15,7 @@ interface IProps {
 export const HeaderMenu: FC<IProps> = ({ onEditLabel }) => {
 	const classes = useStyles();
 
-	const { close } = useContext(ContextMenuContext);
-
-	const closeAfter = useCallback(
-		(handler: () => void) => () => {
-			handler();
-			close();
-		},
-		[close]
-	);
+	const closeAfter = useCallback((handler: () => void) => () => handler(), []);
 
 	const options: ReadonlyArray<IOption> = useMemo(
 		() => [{ text: "Edit label", handler: closeAfter(onEditLabel) }],
