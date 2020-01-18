@@ -1,36 +1,132 @@
-import React, { FC, MouseEvent, ReactNode, useCallback, useContext, useEffect } from "react";
-import { ContextMenuContext, ILocation } from "./context-menu-provider.component";
+import { Tooltip } from "@/components/tooltip.component";
+import { ITooltipLocation } from "@/hooks";
+import React, {
+	forwardRef,
+	Fragment,
+	MouseEvent,
+	ReactElement,
+	ReactNode,
+	useCallback,
+	useContext,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	useState
+} from "react";
+import { ContextMenuContext } from "./context-menu-provider.component";
+import { useStyles } from "./styles";
 
 export * from "./context-menu-provider.component";
 
 interface IProps {
 	/** Element that will be the bounding box for right click events */
-	children: ReactNode;
+	children: ReactElement;
 	/** The component to render at location. This does not necessarily need to be a menu */
 	menu: ReactNode;
+	/** Invoked when the context menu is closed */
+	onClose?: () => void;
 	/** Invoked when the context menu is opened */
 	onOpen?: () => void;
+	/**
+	 * If true, will prevent other ContextMenus from opening when this one is open, under the
+	 * nearest ancestor ContextMenuProvider. Otherwise, will disregard other ContextMenus.
+	 */
+	register?: boolean;
 }
 
-export const ContextMenu: FC<IProps> = ({ children, menu, onOpen = () => void 0 }) => {
-	const { setContent, setLocation } = useContext(ContextMenuContext);
+interface IRef {
+	id: string;
+}
 
-	const onContextMenu = useCallback(
-		(event: MouseEvent<HTMLDivElement>) => {
-			event.preventDefault();
-
-			const { clientX, clientY } = event;
-
-			const location: ILocation = { x: clientX, y: clientY };
-
-			setLocation(location);
-
-			onOpen();
+export const ContextMenu = forwardRef<IRef, IProps>(
+	(
+		{
+			children,
+			menu,
+			onClose = () => void 0,
+			onOpen = () => void 0,
+			register: propsRegister = true
 		},
-		[onOpen, setLocation]
-	);
+		ref
+	) => {
+		const classes = useStyles();
 
-	useEffect(() => setContent({ body: menu }), [menu, setContent]);
+		const { close: ctxClose, open: ctxOpen, register, unregister } = useContext(
+			ContextMenuContext
+		);
 
-	return <div onContextMenu={onContextMenu}>{children}</div>;
-};
+		const [location, setLocation] = useState<ITooltipLocation | null>(null);
+
+		const idRef = useRef<string>("");
+
+		useImperativeHandle(ref, () => ({ id: idRef.current }));
+
+		const open = useCallback(
+			(newLocation: ITooltipLocation) => {
+				setLocation((prevLocation) => {
+					if (!prevLocation) {
+						onOpen();
+					}
+
+					return newLocation;
+				});
+			},
+			[onOpen, setLocation]
+		);
+
+		const close = useCallback(() => {
+			setLocation((prevLocation) => {
+				if (prevLocation) {
+					onClose();
+				}
+
+				return null;
+			});
+		}, [onClose, setLocation]);
+
+		const onContextMenu = useCallback(
+			(event: MouseEvent<HTMLDivElement>) => {
+				event.preventDefault();
+
+				const { clientX, clientY } = event;
+
+				const eventLocation: ITooltipLocation = { x: clientX, y: clientY };
+
+				propsRegister ? ctxOpen(idRef.current, eventLocation) : open(eventLocation);
+			},
+			[propsRegister, open, ctxOpen]
+		);
+
+		const closeHandler = useCallback(() => {
+			return propsRegister ? ctxClose(idRef.current) : close();
+		}, [propsRegister, close, ctxClose]);
+
+		useEffect(() => {
+			if (!propsRegister) {
+				return;
+			}
+
+			idRef.current = register({ close, open });
+
+			return () => unregister(idRef.current);
+		}, [close, open, propsRegister, register, unregister]);
+
+		return (
+			<Fragment>
+				<div className={classes.root} onContextMenu={onContextMenu}>
+					{children}
+				</div>
+				{location && (
+					<Tooltip
+						active={true}
+						direction="bottom-start"
+						onClickOut={closeHandler}
+						tooltip={<div onClick={closeHandler}>{menu}</div>}
+					>
+						{location}
+					</Tooltip>
+				)}
+			</Fragment>
+		);
+	}
+);

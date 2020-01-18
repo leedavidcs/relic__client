@@ -1,30 +1,68 @@
-import { Tooltip } from "@/components/tooltip.component";
-import React, { FC, ReactNode, useCallback, useState } from "react";
-import { ContextMenuContext, ILocation } from "./context-menu.context";
+import { ITooltipLocation } from "@/hooks";
+import { makeConcurrentFunc } from "@/utils";
+import { uniqueId } from "lodash";
+import React, { FC, ReactNode, useCallback, useMemo, useRef } from "react";
+import { ContextMenuContext, IContextMenuRegisterHandlers } from "./context-menu.context";
 
 export * from "./context-menu.context";
 
-export const ContextMenuProvider: FC = ({ children }) => {
-	const [content, setContent] = useState<{ body: ReactNode } | null>(null);
-	const [location, setLocation] = useState<ILocation | null>(null);
+interface IHandlerDict {
+	[id: string]: IContextMenuRegisterHandlers;
+}
 
-	const value = { location, setContent, setLocation };
+interface IProps {
+	children: ReactNode;
+}
 
-	const onClickOut = useCallback(() => setLocation(null), [setLocation]);
+export const ContextMenuProvider: FC<IProps> = ({ children }) => {
+	const dictRef = useRef<IHandlerDict>({});
 
-	return (
-		<ContextMenuContext.Provider value={value}>
-			{children}
-			{location !== null && (
-				<Tooltip
-					active={true}
-					direction="bottom-start"
-					onClickOut={onClickOut}
-					tooltip={content?.body}
-				>
-					{location}
-				</Tooltip>
-			)}
-		</ContextMenuContext.Provider>
-	);
+	const register = useCallback((handlers: IContextMenuRegisterHandlers) => {
+		const newId: string = uniqueId("context_menu__");
+
+		dictRef.current = { ...dictRef.current, [newId]: handlers };
+
+		return newId;
+	}, []);
+
+	const unregister = useCallback((id: string) => {
+		const { [id]: toUnregister, ...dictWithoutId } = dictRef.current;
+
+		dictRef.current = dictWithoutId;
+	}, []);
+
+	const close = useCallback((id?: string) => {
+		const dict = dictRef.current;
+
+		if (id) {
+			return dict[id]?.close();
+		}
+
+		const funcs: ReadonlyArray<() => void> = Object.values(dict).map(({ close: f }) => f);
+
+		const closeAll = makeConcurrentFunc(funcs);
+
+		closeAll();
+	}, []);
+
+	const open = useCallback((id: string, location: ITooltipLocation) => {
+		const dict = dictRef.current;
+		const { [id]: toOpen, ...toClose } = dict;
+
+		const funcs: ReadonlyArray<() => void> = Object.values(toClose).map(({ close: f }) => f);
+
+		const closeOthers = makeConcurrentFunc(funcs);
+
+		closeOthers();
+		toOpen?.open(location);
+	}, []);
+
+	const value = useMemo(() => ({ close, open, register, unregister }), [
+		close,
+		open,
+		register,
+		unregister
+	]);
+
+	return <ContextMenuContext.Provider value={value}>{children}</ContextMenuContext.Provider>;
 };
