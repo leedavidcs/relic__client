@@ -1,5 +1,5 @@
 import { debounce } from "lodash";
-import React, { CSSProperties, FC, MouseEvent, useCallback, useState } from "react";
+import React, { CSSProperties, FC, MouseEvent, useCallback, useEffect, useState } from "react";
 import { useStyles } from "./styles";
 
 const CLEAN_UP_DEBOUNCE: number = 2000;
@@ -40,6 +40,8 @@ export const Ripple: FC<{}> = () => {
 		}, CLEAN_UP_DEBOUNCE),
 		[setStyles, setCount]
 	);
+
+	useEffect(() => () => onMouseUp.cancel(), [onMouseUp]);
 
 	return (
 		<div className={classes.root} onMouseDown={onMouseDown} onMouseUp={onMouseUp}>

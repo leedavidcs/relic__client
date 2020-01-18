@@ -20,7 +20,11 @@ export const SelectedCellProvider: FC<IProps> = ({ children }) => {
 
 	return (
 		<ClickOutside onClickOut={onClickOut}>
-			<SelectedCellContext.Provider value={value}>{children}</SelectedCellContext.Provider>
+			<div>
+				<SelectedCellContext.Provider value={value}>
+					{children}
+				</SelectedCellContext.Provider>
+			</div>
 		</ClickOutside>
 	);
 };

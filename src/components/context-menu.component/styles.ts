@@ -2,9 +2,9 @@ import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
-	popper: {
-		position: "absolute",
-		display: ({ active }) => (active ? "block" : "none")
+	root: {
+		height: "100%",
+		width: "100%"
 	}
 });
 

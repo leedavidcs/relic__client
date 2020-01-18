@@ -1,5 +1,4 @@
 import { Background } from "@/components/background.component";
-import { ContextMenuProvider } from "@/components/context-menu.component";
 import { Paper } from "@/components/paper.component";
 import Faker from "faker";
 import { uniq } from "lodash";
@@ -63,19 +62,17 @@ export const StandardStory = () => {
 	);
 
 	return (
-		<ContextMenuProvider>
-			<Background>
-				<Paper>
-					<div style={{ height: 500 }}>
-						<DataGrid
-							data={data}
-							headers={headers}
-							onDataChange={onDataChange}
-							onHeadersChange={onHeadersChange}
-						/>
-					</div>
-				</Paper>
-			</Background>
-		</ContextMenuProvider>
+		<Background>
+			<Paper>
+				<div style={{ height: 500 }}>
+					<DataGrid
+						data={data}
+						headers={headers}
+						onDataChange={onDataChange}
+						onHeadersChange={onHeadersChange}
+					/>
+				</div>
+			</Paper>
+		</Background>
 	);
 };

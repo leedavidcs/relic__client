@@ -7,6 +7,10 @@ interface IProps extends ListChildComponentProps {
 	data: ReadonlyArray<{ [key: string]: DataValue }>;
 }
 
+/**
+ * @description This is the item renderer for react-window.FixedSizeList
+ * @see children @ https://react-window.now.sh/#/api/FixedSizeList
+ */
 export const DataRow: FC<IProps> = ({ data, index, style }) => {
 	return <SortableDataRow data={data} rowIndex={index} style={style} index={index} />;
 };

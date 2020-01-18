@@ -1,21 +1,15 @@
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs } from "@storybook/addon-knobs";
 import { addDecorator, configure } from "@storybook/react";
-import { withThemesProvider } from "storybook-addon-jss-theme";
+import React from "react";
 import withStoryRouter from "storybook-react-router";
+import { RootProvider } from "../src/components";
 import { standardTheme } from "../src/themes";
-
-const themes = [
-	{
-		name: "standard",
-		variables: standardTheme
-	}
-];
 
 addDecorator(withInfo);
 addDecorator(withKnobs);
 addDecorator(withStoryRouter());
-addDecorator(withThemesProvider(themes));
+addDecorator((getStory) => <RootProvider>{getStory()}</RootProvider>);
 
 const loadStories = () => {
 	// Dynamically load stories

@@ -1,22 +1,25 @@
-import { Context, createContext, ReactNode } from "react";
+import { ITooltipLocation } from "@/hooks";
+import { Context, createContext } from "react";
 
-export interface ILocation {
-	x: number;
-	y: number;
+export interface IContextMenuRegisterHandlers {
+	close: () => void;
+	open: (location: ITooltipLocation) => void;
 }
 
 interface IContextMenuContextProps {
-	location: ILocation | null;
-	setContent: (content: { body: ReactNode } | null) => void;
-	setLocation: (location: ILocation | null) => void;
+	close: (id?: string) => void;
+	open: (id: string, location: ITooltipLocation) => void;
+	register: (handlers: IContextMenuRegisterHandlers) => string;
+	unregister: (id: string) => void;
 }
 
 export const ContextMenuContext: Context<IContextMenuContextProps> = createContext<
 	IContextMenuContextProps
 >({
-	location: null,
-	setContent: () => void 0,
-	setLocation: () => void 0
+	close: () => void 0,
+	open: () => void 0,
+	register: () => "",
+	unregister: () => void 0
 });
 
 ContextMenuContext.displayName = "ContextMenuContext";

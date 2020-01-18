@@ -14,10 +14,8 @@ export const standard = () => {
 	return (
 		<Background>
 			<Paper>
-				<div>
-					<h1>{heading}</h1>
-					<p>{paragraph}</p>
-				</div>
+				<h1>{heading}</h1>
+				<p>{paragraph}</p>
 			</Paper>
 		</Background>
 	);

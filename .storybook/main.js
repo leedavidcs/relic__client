@@ -1,5 +1,6 @@
-const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const path = require("path");
+const _ = require("lodash");
+const webpackCraOverrides = require("../webpack-cra-overrides");
 
 module.exports = {
 	addons: [
@@ -7,42 +8,20 @@ module.exports = {
 		"@storybook/addon-knobs/register",
 		"@storybook/addon-storysource/register",
 		"@storybook/addon-viewport/register",
-		"storybook-addon-jss-theme/dist/register"
+		{
+			name: "@storybook/preset-create-react-app",
+			options: {
+				tsDocgenLoaderOptions: {
+					tsconfigPath: path.resolve(__dirname, "../tsconfig.json")
+				}
+			}
+		}
 	],
-	presets: ["@storybook/preset-create-react-app"],
-	webpack: async (config) => {
-		config.module.rules.push({
-			test: /\.tsx?$/,
-			include: [path.resolve(__dirname, "../src")],
-			use: [
-				{
-					loader: "ts-loader",
-					options: {
-						compilerOptions: {
-							noEmit: false
-						}
-					}
-				},
-				{ loader: "react-docgen-typescript-loader" }
-			]
-		});
+	webpackFinal: async (config) => {
+		const tmpConfig = _.flow.apply(null, webpackCraOverrides)(config);
 
-		config.module.rules.push({
-			test: /\.(graphql|gql)$/,
-			exclude: /node_modules/,
-			loader: "graphql-tag/loader"
-		});
+		tmpConfig.node = { ...tmpConfig.node, fs: "empty" };
 
-		config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx");
-
-		config.resolve.plugins = config.resolve.plugins || [
-			new TsConfigPathsPlugin({
-				configFile: "tsconfig.json"
-			})
-		];
-
-		config.node = { ...config.node, fs: "empty" };
-
-		return config;
+		return tmpConfig;
 	}
 };

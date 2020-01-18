@@ -40,32 +40,30 @@ export const Standard = () => {
 
 	return (
 		<Background>
-			<Paper>
-				<div style={{ display: "flex", justifyContent: "center" }}>
-					<Tooltip
-						active={active}
-						direction={direction}
-						onClickOut={onClickOut}
-						tooltip={
-							<List>
-								<ListItem>
-									<ListItemIcon>
-										<FaBacon />
-									</ListItemIcon>
-									<ListItemText primary="Banana" />
-								</ListItem>
-								<ListItem>
-									<ListItemIcon>
-										<FaBacon />
-									</ListItemIcon>
-									<ListItemText primary="Apple" />
-								</ListItem>
-							</List>
-						}
-					>
-						<Button onClick={onClick}>Toggle</Button>
-					</Tooltip>
-				</div>
+			<Paper style={{ display: "flex", justifyContent: "center" }}>
+				<Tooltip
+					active={active}
+					direction={direction}
+					onClickOut={onClickOut}
+					tooltip={
+						<List>
+							<ListItem>
+								<ListItemIcon>
+									<FaBacon />
+								</ListItemIcon>
+								<ListItemText primary="Banana" />
+							</ListItem>
+							<ListItem>
+								<ListItemIcon>
+									<FaBacon />
+								</ListItemIcon>
+								<ListItemText primary="Apple" />
+							</ListItem>
+						</List>
+					}
+				>
+					<Button onClick={onClick}>Toggle</Button>
+				</Tooltip>
 			</Paper>
 		</Background>
 	);

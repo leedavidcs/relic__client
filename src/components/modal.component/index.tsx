@@ -31,22 +31,13 @@ export const Modal: FC<IProps> = ({
 		propsOnClose();
 	}, [propsOnClose]);
 
-	const onClickOutside = useCallback(
-		({ target }: MouseEvent | TouchEvent): void => {
-			if (!active) {
-				return;
-			}
+	const onClickOutside = useCallback((): void => {
+		if (!active) {
+			return;
+		}
 
-			const paperDiv: HTMLDivElement = paperRef.current!;
-
-			if (paperDiv.contains(target as HTMLElement)) {
-				return;
-			}
-
-			propsOnClickOutside();
-		},
-		[active, propsOnClickOutside]
-	);
+		propsOnClickOutside();
+	}, [active, propsOnClickOutside]);
 
 	useEffect(() => {
 		const paperDiv: HTMLDivElement = paperRef.current!;
