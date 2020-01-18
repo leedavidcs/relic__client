@@ -1,5 +1,5 @@
 import { createPopper, Instance, Options, VirtualElement } from "@popperjs/core";
-import { MutableRefObject, useLayoutEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useLayoutEffect, useRef } from "react";
 
 export interface ITooltipLocation {
 	x: number;
@@ -42,7 +42,7 @@ export const useTooltip = ({
 }: IOptions) => {
 	const popperInstanceRef = useRef<Instance | null>(null);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const reference: TooltipReference | null = getReferenceElement(propsReference);
 		const popper: HTMLElement | null = propsPopper.current;
 
