@@ -1,15 +1,19 @@
 import { ClickOutside } from "@/components/click-outside.component";
 import { ITooltipLocation, useTooltip } from "@/hooks";
 import { Placement } from "@popperjs/core";
+import { identity } from "lodash";
 import memoizeOne from "memoize-one";
 import React, {
 	CSSProperties,
 	FC,
 	isValidElement,
+	ReactElement,
 	ReactNode,
 	useLayoutEffect,
+	useMemo,
 	useRef
 } from "react";
+import { createPortal } from "react-dom";
 import { useStyles } from "./styles";
 
 interface IProps {
@@ -23,6 +27,8 @@ interface IProps {
 }
 
 const isLocation = memoizeOne((value: any): value is ITooltipLocation => !isValidElement(value));
+
+const mountToDocumentBody = (element: ReactElement) => createPortal(element, document.body);
 
 export const Tooltip: FC<IProps> = ({
 	active,
@@ -46,7 +52,11 @@ export const Tooltip: FC<IProps> = ({
 		update();
 	}, [active, update]);
 
-	return (
+	const mountStrategy: (element: ReactElement) => ReactElement = useMemo(() => {
+		return isLocation(children) ? mountToDocumentBody : identity;
+	}, [children]);
+
+	return mountStrategy(
 		<ClickOutside onClickOut={onClickOut}>
 			<div>
 				{!isLocation(children) && (
