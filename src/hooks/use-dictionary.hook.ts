@@ -1,5 +1,5 @@
 import { uniqueId } from "lodash";
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
 interface IDictionary<T> {
 	[id: string]: T;
@@ -38,9 +38,5 @@ export const useDictionary = <T = any>(options?: Partial<IOptions<T>>) => {
 		dictRef.current = dictWithoutId;
 	}, []);
 
-	return {
-		dictRef,
-		register,
-		unregister
-	};
+	return useMemo(() => ({ dictRef, register, unregister }), [dictRef, register, unregister]);
 };

@@ -1,25 +1,15 @@
 import { ContextMenu } from "@/components/context-menu.component";
-import {
-	HeadersContext,
-	IHeaderConfig,
-	IHeaderOption,
-	ResizeContext
-} from "@/components/data-grid.component";
+import { IHeaderConfig } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
-import Keycode from "keycode";
-import React, {
-	ChangeEvent,
-	KeyboardEvent,
-	useCallback,
-	useContext,
-	useEffect,
-	useState
-} from "react";
+import { codes } from "keycode";
+import React, { ChangeEvent, KeyboardEvent, useCallback } from "react";
 import { SortableElement } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
 import { HeaderMenu } from "./header-menu.component";
 import { HeaderSelect } from "./header-select.component";
 import { useStyles } from "./styles";
+import { useEditActions } from "./use-edit-actions.hook";
+import { useSelectActions } from "./use-select-actions.hook";
 
 interface IProps extends IHeaderConfig {
 	headerIndex: number;
@@ -27,79 +17,65 @@ interface IProps extends IHeaderConfig {
 
 export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 	const { headerIndex: index, ...headerProps } = props;
-	const { label, options, value, width } = headerProps;
+	const { options, value, width } = headerProps;
 
 	const classes = useStyles();
 
-	const { setHeaderOption } = useContext(HeadersContext);
-	const { isResizing } = useContext(ResizeContext);
+	const {
+		inputValue,
+		isEditing,
+		setInputValue,
+		startEditing,
+		stopEditing,
+		updateLabel
+	} = useEditActions(index);
+	const { closeSelect, openSelect, isSelected, selectOption } = useSelectActions(index);
 
-	const [isSelected, setIsSelected] = useState<boolean>(false);
-	const [isEditing, setIsEditing] = useState<boolean>(false);
+	const stopOperations = useCallback(() => {
+		closeSelect();
+		stopEditing();
+	}, [closeSelect, stopEditing]);
 
-	const onClick = useCallback(() => {
-		if (isResizing) {
-			return;
+	const onInputChange = useCallback(
+		(event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value),
+		[setInputValue]
+	);
+
+	const onInputKeyDown = useCallback(({ keyCode }: KeyboardEvent<HTMLInputElement>) => {
+		switch (keyCode) {
+			case codes.esc:
+				stopEditing();
+				break;
+			case codes.enter:
+				updateLabel();
+				stopEditing();
+				break;
+			default:
+				return;
 		}
-
-		setIsSelected(true);
-	}, [isResizing, setIsSelected]);
-
-	const closeSelect = useCallback(() => setIsSelected(false), [setIsSelected]);
-
-	// Unselect when resizing
-	useEffect(() => setIsSelected(!isResizing && isSelected), [isResizing, isSelected]);
-
-	const onSelect = useCallback((option: IHeaderOption) => setHeaderOption(option, index), [
-		index,
-		setHeaderOption
-	]);
-
-	const [editLabel, setEditLabel] = useState<string>("");
-
-	const onEditLabel = useCallback(() => setIsEditing(true), [setIsEditing]);
-
-	const onChangeEditLabel = useCallback(
-		(event: ChangeEvent<HTMLInputElement>) => {
-			setEditLabel(event.target.value);
-		},
-		[setEditLabel]
-	);
-
-	const onKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLInputElement>) => {
-			switch (event.keyCode) {
-				case Keycode.codes.esc:
-					setEditLabel(label);
-
-					break;
-				default:
-					return;
-			}
-		},
-		[setEditLabel, label]
-	);
+	}, [stopEditing, updateLabel]);
 
 	return (
 		<Tooltip
 			className={classes.root}
 			active={isSelected}
 			direction="bottom-start"
-			onClickOut={closeSelect}
+			onClickOut={stopOperations}
 			style={{ width }}
-			tooltip={<HeaderSelect onSelect={onSelect} options={options} value={value} />}
+			tooltip={<HeaderSelect onSelect={selectOption} options={options} value={value} />}
 		>
-			<ContextMenu menu={<HeaderMenu onEditLabel={onEditLabel} />} onOpen={closeSelect}>
+			<ContextMenu menu={<HeaderMenu onEditLabel={startEditing} />} onOpen={stopOperations}>
 				{isEditing ? (
 					<input
 						className={classes.editLabel}
-						value={editLabel}
-						onChange={onChangeEditLabel}
-						onKeyDown={onKeyDown}
+						value={inputValue}
+						onChange={onInputChange}
+						onKeyDown={onInputKeyDown}
 						autoFocus={true}
+						spellCheck={false}
 					/>
 				) : (
-					<HeaderItem key={value} index={index} onClick={onClick} {...headerProps} />
+					<HeaderItem index={index} onClick={openSelect} {...headerProps} />
 				)}
 			</ContextMenu>
 		</Tooltip>

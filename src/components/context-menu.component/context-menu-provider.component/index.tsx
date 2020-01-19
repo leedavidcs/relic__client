@@ -33,9 +33,7 @@ export const ContextMenuProvider: FC<IProps> = ({ children }) => {
 
 	const open = useCallback(
 		(id: string, location: ITooltipLocation) => {
-			const dict = dictRef.current;
-
-			const { [id]: toOpen, ...toClose } = dict;
+			const { [id]: toOpen, ...toClose } = dictRef.current;
 
 			const funcs: ReadonlyArray<() => void> = Object.values(toClose).map(
 				({ close: f }) => f
