@@ -1,61 +1,53 @@
-import { ITooltipLocation } from "@/hooks";
+import { ITooltipLocation, useDictionary } from "@/hooks";
 import { makeConcurrentFunc } from "@/utils";
-import { uniqueId } from "lodash";
-import React, { FC, ReactNode, useCallback, useMemo, useRef } from "react";
+import React, { FC, ReactNode, useCallback, useMemo } from "react";
 import { ContextMenuContext, IContextMenuRegisterHandlers } from "./context-menu.context";
 
 export * from "./context-menu.context";
-
-interface IHandlerDict {
-	[id: string]: IContextMenuRegisterHandlers;
-}
 
 interface IProps {
 	children: ReactNode;
 }
 
 export const ContextMenuProvider: FC<IProps> = ({ children }) => {
-	const dictRef = useRef<IHandlerDict>({});
+	const { dictRef, register, unregister } = useDictionary<IContextMenuRegisterHandlers>({
+		prefix: "context_menu__"
+	});
 
-	const register = useCallback((handlers: IContextMenuRegisterHandlers) => {
-		const newId: string = uniqueId("context_menu__");
+	const close = useCallback(
+		(id?: string) => {
+			const dict = dictRef.current;
 
-		dictRef.current = { ...dictRef.current, [newId]: handlers };
+			if (id) {
+				return dict[id]?.close();
+			}
 
-		return newId;
-	}, []);
+			const funcs: ReadonlyArray<() => void> = Object.values(dict).map(({ close: f }) => f);
 
-	const unregister = useCallback((id: string) => {
-		const { [id]: toUnregister, ...dictWithoutId } = dictRef.current;
+			const closeAll = makeConcurrentFunc(funcs);
 
-		dictRef.current = dictWithoutId;
-	}, []);
+			closeAll();
+		},
+		[dictRef]
+	);
 
-	const close = useCallback((id?: string) => {
-		const dict = dictRef.current;
+	const open = useCallback(
+		(id: string, location: ITooltipLocation) => {
+			const dict = dictRef.current;
 
-		if (id) {
-			return dict[id]?.close();
-		}
+			const { [id]: toOpen, ...toClose } = dict;
 
-		const funcs: ReadonlyArray<() => void> = Object.values(dict).map(({ close: f }) => f);
+			const funcs: ReadonlyArray<() => void> = Object.values(toClose).map(
+				({ close: f }) => f
+			);
 
-		const closeAll = makeConcurrentFunc(funcs);
+			const closeOthers = makeConcurrentFunc(funcs);
 
-		closeAll();
-	}, []);
-
-	const open = useCallback((id: string, location: ITooltipLocation) => {
-		const dict = dictRef.current;
-		const { [id]: toOpen, ...toClose } = dict;
-
-		const funcs: ReadonlyArray<() => void> = Object.values(toClose).map(({ close: f }) => f);
-
-		const closeOthers = makeConcurrentFunc(funcs);
-
-		closeOthers();
-		toOpen?.open(location);
-	}, []);
+			closeOthers();
+			toOpen?.open(location);
+		},
+		[dictRef]
+	);
 
 	const value = useMemo(() => ({ close, open, register, unregister }), [
 		close,

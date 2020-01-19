@@ -1,24 +1,20 @@
+import { useDictionary } from "@/hooks";
 import { makeConcurrentFunc } from "@/utils";
-import { uniqueId } from "lodash";
-import React, { FC, MouseEvent, MouseEventHandler, useCallback, useMemo, useRef } from "react";
+import React, { FC, MouseEvent, MouseEventHandler, useCallback, useMemo } from "react";
 import { ClickOutsideContext } from "./click-outside.context";
 import { useStyles } from "./styles";
 
 export * from "./click-outside.context";
 
-interface IHandlerDict {
-	[id: string]: MouseEventHandler<HTMLDivElement>;
-}
-
 /**
  * @description Creates a wrapper `div` that can be targetted as a global click event in place of
  *     `document`. The reason why `document` should not be used, is that it fails when detecting
  *     outside clicks on a ReactNode that contains a portal, since portals are detached from the
- *     native DOM element that we are binding the listener to.
+ *     native DOM element that we are binding the `onClickOut` listener to.
  *
- *     Portals still respect the React tree when it comes to event bubbling, which can allow
- *     filtering which events to run by marking ReactNodes that have been clicked inside of,
- *     before invoking the parent `onClick`.
+ *     Portals still respect the React tree when it comes to event bubbling. This allows filtering
+ *     which events to run by marking ReactNodes that have been clicked inside, before invoking the
+ *     parent `onClick`.
  *
  *     `document` is problematic to add the `click` event listener to, because `document` listeners
  *     will always trigger before any React event handlers.
@@ -32,30 +28,22 @@ interface IHandlerDict {
 export const ClickOutsideProvider: FC = ({ children }) => {
 	const classes = useStyles();
 
-	const dictRef = useRef<IHandlerDict>({});
+	const { dictRef, register, unregister } = useDictionary<MouseEventHandler<HTMLDivElement>>({
+		prefix: "click_outside__"
+	});
 
-	const onClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
-		const dict: IHandlerDict = dictRef.current;
-		const handlers: ReadonlyArray<MouseEventHandler<HTMLDivElement>> = Object.values(dict);
+	const onClick = useCallback(
+		(event: MouseEvent<HTMLDivElement>) => {
+			const dict = dictRef.current;
 
-		const concurrentFunc = makeConcurrentFunc(handlers);
+			const handlers: ReadonlyArray<MouseEventHandler<HTMLDivElement>> = Object.values(dict);
 
-		concurrentFunc(event);
-	}, []);
+			const concurrentFunc = makeConcurrentFunc(handlers);
 
-	const register = useCallback((handler: MouseEventHandler<HTMLDivElement>) => {
-		const newId: string = uniqueId("click_outside__");
-
-		dictRef.current = { ...dictRef.current, [newId]: handler };
-
-		return newId;
-	}, []);
-
-	const unregister = useCallback((id: string) => {
-		const { [id]: toUnregister, ...dictWithoutId } = dictRef.current;
-
-		dictRef.current = dictWithoutId;
-	}, []);
+			concurrentFunc(event);
+		},
+		[dictRef]
+	);
 
 	const value = useMemo(() => ({ register, unregister }), [register, unregister]);
 
