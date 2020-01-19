@@ -5,6 +5,7 @@ interface IHeadersContextProps {
 	headers: ReadonlyArray<IHeaderConfig>;
 	moveHeaderItem: (oldIndex: number, newIndex: number) => void;
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
+	setHeaderLabel: (label: string, index: number) => void;
 	setHeaderOption: (option: IHeaderOption, index: number) => void;
 	setHeaderWidth: (width: number, index: number) => void;
 }
@@ -13,6 +14,7 @@ export const HeadersContext: Context<IHeadersContextProps> = createContext<IHead
 	headers: [],
 	moveHeaderItem: () => void 0,
 	onHeadersChange: () => void 0,
+	setHeaderLabel: () => void 0,
 	setHeaderOption: () => void 0,
 	setHeaderWidth: () => void 0
 });

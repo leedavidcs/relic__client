@@ -28,9 +28,9 @@ export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange
 		[headers, onHeadersChange]
 	);
 
-	const setHeaderWidth = useCallback(
-		(width: number, index: number) => {
-			const updatedHeader: IHeaderConfig = { ...headers[index], width };
+	const setHeaderLabel = useCallback(
+		(label: string, index: number) => {
+			const updatedHeader: IHeaderConfig = { ...headers[index], label };
 			const newHeaders: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
 				headers,
 				index,
@@ -56,9 +56,30 @@ export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange
 		[headers, onHeadersChange]
 	);
 
+	const setHeaderWidth = useCallback(
+		(width: number, index: number) => {
+			const updatedHeader: IHeaderConfig = { ...headers[index], width };
+			const newHeaders: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
+				headers,
+				index,
+				updatedHeader
+			);
+
+			onHeadersChange(newHeaders);
+		},
+		[headers, onHeadersChange]
+	);
+
 	const value = useMemo(
-		() => ({ headers, moveHeaderItem, onHeadersChange, setHeaderOption, setHeaderWidth }),
-		[headers, moveHeaderItem, onHeadersChange, setHeaderOption, setHeaderWidth]
+		() => ({
+			headers,
+			moveHeaderItem,
+			onHeadersChange,
+			setHeaderLabel,
+			setHeaderOption,
+			setHeaderWidth
+		}),
+		[headers, moveHeaderItem, onHeadersChange, setHeaderLabel, setHeaderOption, setHeaderWidth]
 	);
 
 	return <HeadersContext.Provider value={value}>{children}</HeadersContext.Provider>;
