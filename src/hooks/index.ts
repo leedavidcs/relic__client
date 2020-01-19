@@ -1,4 +1,5 @@
 export * from "./use-auth.hook";
+export * from "./use-dictionary.hook";
 export * from "./use-double-click.hook";
 export * from "./use-focus.hook";
 export * from "./use-hover.hook";

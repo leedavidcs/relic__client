@@ -39,7 +39,7 @@
 		]
 	},
 	"dependencies": {
-		"@popperjs/core": "^2.0.0-rc.2",
+		"@popperjs/core": "^2.0.0-rc.3",
 		"@types/classnames": "^2.2.9",
 		"@types/history": "^4.7.4",
 		"@types/lodash": "^4.14.149",
