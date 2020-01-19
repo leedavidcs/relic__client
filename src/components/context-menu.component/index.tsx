@@ -1,5 +1,6 @@
 import { Tooltip } from "@/components/tooltip.component";
-import { ITooltipLocation } from "@/hooks";
+import { ITooltipLocation, useGlobalHotkey } from "@/hooks";
+import { codes } from "keycode";
 import React, {
 	forwardRef,
 	Fragment,
@@ -110,6 +111,8 @@ export const ContextMenu = forwardRef<IRef, IProps>(
 
 			return () => unregister(idRef.current);
 		}, [close, open, propsRegister, register, unregister]);
+
+		useGlobalHotkey(codes.esc, closeHandler);
 
 		return (
 			<Fragment>
