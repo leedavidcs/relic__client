@@ -10,6 +10,10 @@ import React, {
 
 type Props = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
+/**
+ * @description Outer container element for react-window.FixedSizeList
+ * @see innerElementType @ https://react-window.now.sh/#/api/FixedSizeList
+ */
 export const OuterElement = forwardRef<HTMLDivElement, Props>(
 	({ children, onScroll: propsOnScroll, ...restProps }, ref) => {
 		const { onHorizontalScroll, onVerticalScroll } = useContext(ScrollContext);
