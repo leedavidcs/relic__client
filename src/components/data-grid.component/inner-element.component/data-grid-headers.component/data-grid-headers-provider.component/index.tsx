@@ -12,10 +12,8 @@ interface IProps {
 
 export const DataGridHeadersProvider: FC<IProps> = memo(({ children, resizeHandleClassName }) => {
 	return (
-		<LabelEditProvider>
-			<ResizeProvider resizeHandleClassName={resizeHandleClassName}>
-				{children}
-			</ResizeProvider>
-		</LabelEditProvider>
+		<ResizeProvider resizeHandleClassName={resizeHandleClassName}>
+			<LabelEditProvider>{children}</LabelEditProvider>
+		</ResizeProvider>
 	);
 });
