@@ -1,5 +1,5 @@
 import { HeadersContext } from "@/components/data-grid.component";
-import React, { FC, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import React, { FC, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import { DraggableData, DraggableEvent } from "react-draggable";
 import { ResizeContext } from "./resize.context";
 
@@ -13,7 +13,7 @@ interface IProps {
 	resizeHandleClassName: string;
 }
 
-export const ResizeProvider: FC<IProps> = ({ children, resizeHandleClassName }) => {
+export const ResizeProvider: FC<IProps> = memo(({ children, resizeHandleClassName }) => {
 	const { headers, setHeaderWidth } = useContext(HeadersContext);
 
 	const [isResizing, setIsResizing] = useState<boolean>(false);
@@ -48,4 +48,4 @@ export const ResizeProvider: FC<IProps> = ({ children, resizeHandleClassName }) 
 	]);
 
 	return <ResizeContext.Provider value={value}>{children}</ResizeContext.Provider>;
-};
+});
