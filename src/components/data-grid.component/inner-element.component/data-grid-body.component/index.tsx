@@ -1,6 +1,6 @@
 import { AutoSizerContext, DataContext } from "@/components/data-grid.component";
 import arrayMove from "array-move";
-import React, { FC, ReactNode, useCallback, useContext } from "react";
+import React, { FC, memo, ReactNode, useCallback, useContext } from "react";
 import { SortEndHandler } from "react-sortable-hoc";
 import { SelectedCellProvider } from "./selected-cell-provider.component";
 import { SortableDataGridBody } from "./sortable-data-grid-body.component";
@@ -12,7 +12,7 @@ interface IProps {
 	children: ReactNode;
 }
 
-export const DataGridBody: FC<IProps> = ({ children }) => {
+export const DataGridBody: FC<IProps> = memo(({ children }) => {
 	const { width } = useContext(AutoSizerContext);
 	const { data, onDataChange } = useContext(DataContext);
 
@@ -47,4 +47,4 @@ export const DataGridBody: FC<IProps> = ({ children }) => {
 			</SortableDataGridBody>
 		</SelectedCellProvider>
 	);
-};
+});

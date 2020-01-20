@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, memo, ReactNode } from "react";
 import AutoSizer, { Size } from "react-virtualized-auto-sizer";
 import { AutoSizerContext } from "./auto-sizer.context";
 import { useStyles } from "./styles";
@@ -9,7 +9,7 @@ interface IProps {
 	children: (size: Size) => ReactNode;
 }
 
-export const AutoSizerProvider: FC<IProps> = ({ children }) => {
+export const AutoSizerProvider: FC<IProps> = memo(({ children }) => {
 	const classes = useStyles();
 
 	return (
@@ -23,4 +23,4 @@ export const AutoSizerProvider: FC<IProps> = ({ children }) => {
 			</AutoSizer>
 		</div>
 	);
-};
+});

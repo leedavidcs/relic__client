@@ -1,7 +1,7 @@
 import { IHeaderConfig, IHeaderOption } from "@/components/data-grid.component";
 import { ArrayUtil } from "@/utils";
 import arrayMove from "array-move";
-import React, { FC, ReactNode, useCallback, useMemo } from "react";
+import React, { FC, memo, ReactNode, useCallback, useMemo } from "react";
 import { HeadersContext } from "./headers.context";
 
 export * from "./headers.context";
@@ -12,7 +12,7 @@ interface IProps {
 	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
 }
 
-export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange }) => {
+export const HeadersProvider: FC<IProps> = memo(({ children, headers, onHeadersChange }) => {
 	const moveHeaderItem = useCallback(
 		(oldIndex: number, newIndex: number) => {
 			const newHeaders: IHeaderConfig[] = headers.slice();
@@ -83,4 +83,4 @@ export const HeadersProvider: FC<IProps> = ({ children, headers, onHeadersChange
 	);
 
 	return <HeadersContext.Provider value={value}>{children}</HeadersContext.Provider>;
-};
+});

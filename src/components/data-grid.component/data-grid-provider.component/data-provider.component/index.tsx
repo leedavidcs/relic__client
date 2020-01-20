@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useMemo } from "react";
+import React, { FC, memo, ReactNode, useMemo } from "react";
 import { DataContext, DataValue } from "./data.context";
 
 export * from "./data.context";
@@ -9,8 +9,8 @@ interface IProps {
 	onDataChange: (data: ReadonlyArray<{ [key: string]: DataValue }>) => void;
 }
 
-export const DataProvider: FC<IProps> = ({ children, data, onDataChange }) => {
+export const DataProvider: FC<IProps> = memo(({ children, data, onDataChange }) => {
 	const value = useMemo(() => ({ data, onDataChange }), [data, onDataChange]);
 
 	return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
-};
+});
