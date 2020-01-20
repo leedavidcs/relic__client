@@ -1,5 +1,6 @@
-import { ITooltipLocation, useDictionary } from "@/hooks";
+import { ITooltipLocation, useDictionary, useGlobalHotkey } from "@/hooks";
 import { makeConcurrentFunc } from "@/utils";
+import { codes } from "keycode";
 import React, { FC, ReactNode, useCallback, useMemo } from "react";
 import { ContextMenuContext, IContextMenuRegisterHandlers } from "./context-menu.context";
 
@@ -46,6 +47,8 @@ export const ContextMenuProvider: FC<IProps> = ({ children }) => {
 		},
 		[dictRef]
 	);
+
+	useGlobalHotkey(codes.esc, () => close());
 
 	const value = useMemo(() => ({ close, open, register, unregister }), [
 		close,

@@ -41,19 +41,22 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 		[setInputValue]
 	);
 
-	const onInputKeyDown = useCallback(({ keyCode }: KeyboardEvent<HTMLInputElement>) => {
-		switch (keyCode) {
-			case codes.esc:
-				stopEditing();
-				break;
-			case codes.enter:
-				updateLabel();
-				stopEditing();
-				break;
-			default:
-				return;
-		}
-	}, [stopEditing, updateLabel]);
+	const onInputKeyDown = useCallback(
+		({ keyCode }: KeyboardEvent<HTMLInputElement>) => {
+			switch (keyCode) {
+				case codes.esc:
+					stopEditing();
+					break;
+				case codes.enter:
+					updateLabel();
+					stopEditing();
+					break;
+				default:
+					return;
+			}
+		},
+		[stopEditing, updateLabel]
+	);
 
 	return (
 		<Tooltip

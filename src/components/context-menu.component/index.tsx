@@ -112,7 +112,13 @@ export const ContextMenu = forwardRef<IRef, IProps>(
 			return () => unregister(idRef.current);
 		}, [close, open, propsRegister, register, unregister]);
 
-		useGlobalHotkey(codes.esc, closeHandler);
+		useGlobalHotkey(
+			{
+				disabled: propsRegister,
+				keyCode: codes.esc
+			},
+			closeHandler
+		);
 
 		return (
 			<Fragment>
