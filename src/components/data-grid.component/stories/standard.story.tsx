@@ -37,10 +37,9 @@ export const StandardStory = () => {
 			MOCK_HEADER_NAMES.map((label) => ({
 				label,
 				value: label,
-				options: [{ label, value: label }],
 				frozen: false,
+				options: [{ label, value: label }],
 				resizable: true,
-				sortable: true,
 				width: Faker.random.number({
 					max: MAX_COLUMN_WIDTH,
 					min: MIN_COLUMN_WIDTH

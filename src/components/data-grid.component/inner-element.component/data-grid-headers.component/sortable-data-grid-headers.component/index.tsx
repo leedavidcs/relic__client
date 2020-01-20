@@ -14,7 +14,7 @@ export const SortableDataGridHeaders = SortableContainer<IProps>((props: IProps)
 	return (
 		<div className={className}>
 			{headers.map((header, i) => {
-				const { sortable } = header;
+				const { frozen } = header;
 
 				return (
 					<SortableHeaderItem
@@ -22,7 +22,7 @@ export const SortableDataGridHeaders = SortableContainer<IProps>((props: IProps)
 						{...header}
 						headerIndex={i}
 						index={i}
-						disabled={!sortable}
+						disabled={frozen}
 					/>
 				);
 			})}
