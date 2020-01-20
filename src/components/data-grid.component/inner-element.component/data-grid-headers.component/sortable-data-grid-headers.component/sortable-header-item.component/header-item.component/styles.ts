@@ -14,7 +14,8 @@ const styles = (theme: CustomTheme) => ({
 		},
 		backgroundColor: theme.surface,
 		color: transparentize(1 - theme.mediumEmphasis, theme.onSurface),
-		cursor: "pointer"
+		cursor: ({ frozen }) => (frozen ? "cursor" : "pointer"),
+		userSelect: "none"
 	},
 	content: {
 		boxSizing: "border-box",
