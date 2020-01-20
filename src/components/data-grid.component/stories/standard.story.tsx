@@ -38,6 +38,7 @@ export const StandardStory = () => {
 				label,
 				value: label,
 				options: [{ label, value: label }],
+				frozen: false,
 				resizable: true,
 				sortable: true,
 				width: Faker.random.number({

@@ -70,16 +70,52 @@ export const HeadersProvider: FC<IProps> = memo(({ children, headers, onHeadersC
 		[headers, onHeadersChange]
 	);
 
+	const setHeaderFreeze = useCallback(
+		(freeze: boolean, index: number) => {
+			const oldHeader: IHeaderConfig = headers[index];
+
+			if (oldHeader.frozen === freeze) {
+				return;
+			}
+
+			const toMoveIndex: number = headers.findIndex(({ frozen }) => !frozen);
+
+			const updatedHeader: IHeaderConfig = { ...oldHeader, frozen: freeze };
+			const withUpdate: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
+				headers,
+				index,
+				updatedHeader
+			);
+			const newHeaders: ReadonlyArray<IHeaderConfig> = arrayMove(
+				withUpdate,
+				index,
+				toMoveIndex
+			);
+
+			onHeadersChange(newHeaders);
+		},
+		[headers, onHeadersChange]
+	);
+
 	const value = useMemo(
 		() => ({
 			headers,
 			moveHeaderItem,
 			onHeadersChange,
+			setHeaderFreeze,
 			setHeaderLabel,
 			setHeaderOption,
 			setHeaderWidth
 		}),
-		[headers, moveHeaderItem, onHeadersChange, setHeaderLabel, setHeaderOption, setHeaderWidth]
+		[
+			headers,
+			moveHeaderItem,
+			onHeadersChange,
+			setHeaderFreeze,
+			setHeaderLabel,
+			setHeaderOption,
+			setHeaderWidth
+		]
 	);
 
 	return <HeadersContext.Provider value={value}>{children}</HeadersContext.Provider>;

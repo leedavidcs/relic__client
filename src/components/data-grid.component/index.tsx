@@ -18,6 +18,8 @@ export interface IHeaderOption {
 }
 
 export interface IHeaderConfig extends IHeaderOption {
+	/** Whether this column is frozen (to the left) */
+	frozen: boolean;
 	/** If supplied, headers are selected by a dropdown, else this is just a plain-text input */
 	options: ReadonlyArray<IHeaderOption> | null;
 	/** Whether this column can be resized */
