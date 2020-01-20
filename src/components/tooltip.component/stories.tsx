@@ -2,6 +2,7 @@ import { Background } from "@/components/background.component";
 import { Button } from "@/components/input.component";
 import { List, ListItem, ListItemIcon, ListItemText } from "@/components/list.component";
 import { Paper } from "@/components/paper.component";
+import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs";
 import React, { useCallback, useState } from "react";
 import { FaBacon } from "react-icons/fa";
@@ -34,9 +35,15 @@ export const Standard = () => {
 		"right-start"
 	);
 
-	const onClick = useCallback(() => setActive(!active), [active, setActive]);
+	const onClick = useCallback(() => {
+		action("onClick");
+		setActive(!active);
+	}, [active, setActive]);
 
-	const onClickOut = useCallback(() => setActive(false), [setActive]);
+	const onClickOut = useCallback(() => {
+		action("onClickOut");
+		setActive(false);
+	}, [setActive]);
 
 	return (
 		<Background>

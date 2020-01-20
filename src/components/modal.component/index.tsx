@@ -46,7 +46,7 @@ export const Modal: FC<IProps> = ({
 	}, [active, classes.active]);
 
 	return (
-		<ClickOutside onClickOut={onClickOutside}>
+		<ClickOutside onClick={onClickOutside}>
 			<Paper className={classes.root} ref={paperRef}>
 				<div className={classes.title}>
 					{title}

@@ -57,7 +57,7 @@ export const Tooltip: FC<IProps> = ({
 	}, [children]);
 
 	return mountStrategy(
-		<ClickOutside onClickOut={onClickOut}>
+		<ClickOutside onClick={onClickOut}>
 			<div>
 				{!isLocation(children) && (
 					<div ref={referenceRef} className={className} style={style}>
