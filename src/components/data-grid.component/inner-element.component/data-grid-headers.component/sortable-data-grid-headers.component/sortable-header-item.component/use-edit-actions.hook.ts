@@ -1,12 +1,12 @@
-import { HeadersContext } from "@/components/data-grid.component";
-import { useCallback, useContext, useMemo, useState } from "react";
+import { HeadersContext, LabelEditContext } from "@/components/data-grid.component";
+import { useCallback, useContext, useLayoutEffect, useMemo, useState } from "react";
 
 export const useEditActions = (index: number) => {
 	const { headers, setHeaderLabel } = useContext(HeadersContext);
+	const { editing, setEditing } = useContext(LabelEditContext);
 
 	const { label } = headers[index];
 
-	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const [value, setValue] = useState<string>("");
 
 	const updateLabel = useCallback(() => setHeaderLabel(value, index), [
@@ -16,24 +16,28 @@ export const useEditActions = (index: number) => {
 	]);
 
 	const stopEditing = useCallback(() => {
-		setValue(label);
-		setIsEditing(false);
-	}, [label, setIsEditing, setValue]);
+		const isEditing: boolean = index === editing;
 
-	const startEditing = useCallback(() => {
-		setValue(label);
-		setIsEditing(true);
-	}, [label, setValue, setIsEditing]);
+		if (!isEditing) {
+			return;
+		}
+
+		setEditing(null);
+	}, [editing, index, setEditing]);
+
+	const startEditing = useCallback(() => setEditing(index), [index, setEditing]);
+
+	useLayoutEffect(() => setValue(label), [index, label, setValue]);
 
 	return useMemo(
 		() => ({
 			inputValue: value,
-			isEditing,
+			isEditing: editing === index,
 			setInputValue: setValue,
 			startEditing,
 			stopEditing,
 			updateLabel
 		}),
-		[isEditing, setValue, startEditing, stopEditing, updateLabel, value]
+		[editing, index, setValue, startEditing, stopEditing, updateLabel, value]
 	);
 };

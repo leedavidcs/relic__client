@@ -1,5 +1,5 @@
-import { IHeaderConfig } from "@/components/data-grid.component";
-import React from "react";
+import { IHeaderConfig, LabelEditContext } from "@/components/data-grid.component";
+import React, { memo, useContext } from "react";
 import { SortableContainer } from "react-sortable-hoc";
 import { SortableHeaderItem } from "./sortable-header-item.component";
 
@@ -8,24 +8,29 @@ interface IProps {
 	headers: ReadonlyArray<IHeaderConfig>;
 }
 
-export const SortableDataGridHeaders = SortableContainer<IProps>((props: IProps) => {
-	const { className = "", headers } = props;
+export const SortableDataGridHeaders = SortableContainer<IProps>(
+	memo((props: IProps) => {
+		const { className = "", headers } = props;
 
-	return (
-		<div className={className}>
-			{headers.map((header, i) => {
-				const { frozen } = header;
+		const { editing } = useContext(LabelEditContext);
 
-				return (
-					<SortableHeaderItem
-						key={header.value}
-						{...header}
-						headerIndex={i}
-						index={i}
-						disabled={frozen}
-					/>
-				);
-			})}
-		</div>
-	);
-});
+		return (
+			<div className={className}>
+				{headers.map((header, i) => {
+					const { frozen } = header;
+					const isEditing: boolean = editing === i;
+
+					return (
+						<SortableHeaderItem
+							key={header.value}
+							{...header}
+							headerIndex={i}
+							index={i}
+							disabled={frozen || isEditing}
+						/>
+					);
+				})}
+			</div>
+		);
+	})
+);
