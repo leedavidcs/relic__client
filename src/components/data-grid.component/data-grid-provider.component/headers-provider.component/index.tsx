@@ -28,6 +28,40 @@ export const HeadersProvider: FC<IProps> = memo(({ children, headers, onHeadersC
 		[headers, onHeadersChange]
 	);
 
+	const setHeaderFreeze = useCallback(
+		(freeze: boolean, index: number) => {
+			const oldHeader: IHeaderConfig = headers[index];
+
+			if (oldHeader.frozen === freeze) {
+				return;
+			}
+
+			/**
+			 * @description If we are going to unfreeze, the index of the first available unfrozen
+			 *     column will shift by -1
+			 * @author David Lee
+			 * @date January 21, 2020
+			 */
+			const indexLastFrozen: number = headers.findIndex(({ frozen }) => !frozen);
+			const toMoveIndex: number = indexLastFrozen - Number(!freeze);
+
+			const updatedHeader: IHeaderConfig = { ...oldHeader, frozen: freeze };
+			const withUpdate: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
+				headers,
+				index,
+				updatedHeader
+			);
+			const newHeaders: ReadonlyArray<IHeaderConfig> = arrayMove(
+				withUpdate,
+				index,
+				toMoveIndex
+			);
+
+			onHeadersChange(newHeaders);
+		},
+		[headers, onHeadersChange]
+	);
+
 	const setHeaderLabel = useCallback(
 		(label: string, index: number) => {
 			const updatedHeader: IHeaderConfig = { ...headers[index], label };
@@ -63,33 +97,6 @@ export const HeadersProvider: FC<IProps> = memo(({ children, headers, onHeadersC
 				headers,
 				index,
 				updatedHeader
-			);
-
-			onHeadersChange(newHeaders);
-		},
-		[headers, onHeadersChange]
-	);
-
-	const setHeaderFreeze = useCallback(
-		(freeze: boolean, index: number) => {
-			const oldHeader: IHeaderConfig = headers[index];
-
-			if (oldHeader.frozen === freeze) {
-				return;
-			}
-
-			const toMoveIndex: number = headers.findIndex(({ frozen }) => !frozen);
-
-			const updatedHeader: IHeaderConfig = { ...oldHeader, frozen: freeze };
-			const withUpdate: ReadonlyArray<IHeaderConfig> = ArrayUtil.replace(
-				headers,
-				index,
-				updatedHeader
-			);
-			const newHeaders: ReadonlyArray<IHeaderConfig> = arrayMove(
-				withUpdate,
-				index,
-				toMoveIndex
 			);
 
 			onHeadersChange(newHeaders);

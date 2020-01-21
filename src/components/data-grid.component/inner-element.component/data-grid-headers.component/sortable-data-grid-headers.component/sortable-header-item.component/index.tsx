@@ -1,11 +1,19 @@
 import { ContextMenu } from "@/components/context-menu.component";
-import { IHeaderConfig } from "@/components/data-grid.component";
+import { HeadersContext, IHeaderConfig } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { codes } from "keycode";
-import React, { ChangeEvent, FC, KeyboardEvent, memo, useCallback } from "react";
+import React, {
+	ChangeEvent,
+	FC,
+	KeyboardEvent,
+	memo,
+	useCallback,
+	useContext,
+	useMemo
+} from "react";
 import { SortableElement, SortableElementProps } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
-import { HeaderMenu } from "./header-menu.component";
+import { HeaderMenu, IOption } from "./header-menu.component";
 import { HeaderSelect } from "./header-select.component";
 import { useStyles } from "./styles";
 import { useEditActions } from "./use-edit-actions.hook";
@@ -17,9 +25,11 @@ interface IProps extends IHeaderConfig {
 
 const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 	const { headerIndex: index, ...headerProps } = props;
-	const { options, value, width } = headerProps;
+	const { frozen, options, value, width } = headerProps;
 
 	const classes = useStyles();
+
+	const { setHeaderFreeze } = useContext(HeadersContext);
 
 	const {
 		inputValue,
@@ -58,6 +68,20 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 		[stopEditing, updateLabel]
 	);
 
+	const setFreeze = useCallback(() => setHeaderFreeze(!frozen, index), [
+		frozen,
+		index,
+		setHeaderFreeze
+	]);
+
+	const menuOptions: ReadonlyArray<IOption> = useMemo(
+		() => [
+			{ text: "Edit label", handler: startEditing },
+			{ text: frozen ? "Unfreeze" : "Freeze", handler: setFreeze }
+		],
+		[frozen, setFreeze, startEditing]
+	);
+
 	return (
 		<Tooltip
 			className={classes.root}
@@ -67,7 +91,7 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 			style={{ width }}
 			tooltip={<HeaderSelect onSelect={selectOption} options={options} value={value} />}
 		>
-			<ContextMenu menu={<HeaderMenu onEditLabel={startEditing} />} onOpen={stopOperations}>
+			<ContextMenu menu={<HeaderMenu options={menuOptions} />} onOpen={stopOperations}>
 				{isEditing ? (
 					<input
 						className={classes.editLabel}

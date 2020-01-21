@@ -1,26 +1,19 @@
 import { List, ListItem, ListItemText } from "@/components/list.component";
 import { Paper } from "@/components/paper.component";
-import React, { FC, memo, useCallback, useMemo } from "react";
+import React, { FC, memo } from "react";
 import { useStyles } from "./styles";
 
-interface IOption {
+export interface IOption {
 	text: string;
 	handler: () => void;
 }
 
 interface IProps {
-	onEditLabel: () => void;
+	options: ReadonlyArray<IOption>;
 }
 
-export const HeaderMenu: FC<IProps> = memo(({ onEditLabel }) => {
+export const HeaderMenu: FC<IProps> = memo(({ options }) => {
 	const classes = useStyles();
-
-	const closeAfter = useCallback((handler: () => void) => () => handler(), []);
-
-	const options: ReadonlyArray<IOption> = useMemo(
-		() => [{ text: "Edit label", handler: closeAfter(onEditLabel) }],
-		[closeAfter, onEditLabel]
-	);
 
 	return (
 		<Paper className={classes.root}>
