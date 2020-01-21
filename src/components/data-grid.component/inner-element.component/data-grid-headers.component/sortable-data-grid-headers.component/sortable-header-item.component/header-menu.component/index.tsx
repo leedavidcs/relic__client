@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemText } from "@/components/list.component";
 import { Paper } from "@/components/paper.component";
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, memo, useCallback, useMemo } from "react";
 import { useStyles } from "./styles";
 
 interface IOption {
@@ -12,7 +12,7 @@ interface IProps {
 	onEditLabel: () => void;
 }
 
-export const HeaderMenu: FC<IProps> = ({ onEditLabel }) => {
+export const HeaderMenu: FC<IProps> = memo(({ onEditLabel }) => {
 	const classes = useStyles();
 
 	const closeAfter = useCallback((handler: () => void) => () => handler(), []);
@@ -26,11 +26,16 @@ export const HeaderMenu: FC<IProps> = ({ onEditLabel }) => {
 		<Paper className={classes.root}>
 			<List className={classes.list}>
 				{options.map(({ text, handler }, i) => (
-					<ListItem key={text} onClick={handler} selected={false}>
+					<ListItem
+						key={text}
+						className={classes.listItem}
+						onClick={handler}
+						selected={false}
+					>
 						<ListItemText primary={text} />
 					</ListItem>
 				))}
 			</List>
 		</Paper>
 	);
-};
+});
