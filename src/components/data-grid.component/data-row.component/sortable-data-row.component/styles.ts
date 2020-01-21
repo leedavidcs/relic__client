@@ -1,9 +1,14 @@
-import { CustomTheme } from "@/themes";
+import { CustomTheme, getZIndex } from "@/themes";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	root: {
 		display: "flex"
+	},
+	frozenPanel: {
+		display: "flex",
+		transform: ({ xOffset }) => `translateX(${xOffset}px)`,
+		zIndex: getZIndex("data-grid-frozen-cell")
 	}
 });
 

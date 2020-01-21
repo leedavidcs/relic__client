@@ -19,8 +19,8 @@ export const SortableDataGridHeaders = SortableContainer<IProps>((props: IProps)
 	const classes = useStyles({ xOffset });
 
 	const createHeaderItems = useCallback(
-		(headerConfigs: ReadonlyArray<IHeaderConfig>, offset: number = 0) => {
-			return headerConfigs.map((header, i) => {
+		(configs: ReadonlyArray<IHeaderConfig>, offset: number = 0) => {
+			return configs.map((header, i) => {
 				const { frozen, value } = header;
 				const adjIndex: number = i + offset;
 
