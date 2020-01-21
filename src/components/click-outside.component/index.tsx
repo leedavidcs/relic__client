@@ -1,9 +1,7 @@
-import {
+import React, {
 	Children,
 	cloneElement,
-	DetailedHTMLProps,
 	FC,
-	HTMLAttributes,
 	MouseEvent,
 	MouseEventHandler,
 	ReactElement,
@@ -22,7 +20,7 @@ interface IProps {
 	 * Children must be an HTMLElement, so that onClickCapture can be provided. Typescript does not
 	 * validate that the Children of ClickOutside has valid props when it is used.
 	 */
-	children: ReactElement<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>>;
+	children: ReactElement;
 	/** Function to be invoked when the ReactNode is clicked outside of */
 	onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 	/** Function to be invoked when the ReactNode is mouse pressed outside of */
@@ -42,15 +40,17 @@ export const ClickOutside: FC<IProps> = ({ children, onClick, onMouseDown, onMou
 
 	const { register, unregister } = useContext(ClickOutsideContext);
 
+	const withDiv = Children.only(children).type === "div" ? children : <div>{children}</div>;
+
 	const capture = useCallback(
 		(type: keyof Omit<IProps, "children">) => {
 			return (event: MouseEvent<HTMLDivElement>) => {
 				didClickInside.current = { ...didClickInside.current, [type]: true };
 
-				Children.only(children).props[type]?.(event);
+				withDiv.props[type]?.(event);
 			};
 		},
-		[children]
+		[withDiv]
 	);
 
 	const out = useCallback(
@@ -105,7 +105,7 @@ export const ClickOutside: FC<IProps> = ({ children, onClick, onMouseDown, onMou
 		createRegistrationEffect
 	]);
 
-	return cloneElement(Children.only(children), {
+	return cloneElement(withDiv, {
 		onClickCapture,
 		onMouseDownCapture,
 		onMouseUpCapture

@@ -52,7 +52,7 @@ export const AppBar: FC<IProps> = ({
 		[selectedIndex, setSelectedIndex]
 	);
 
-	const onClickOut = useCallback(() => setSelectedIndex(-1), [setSelectedIndex]);
+	const closeMenus = useCallback(() => setSelectedIndex(-1), [setSelectedIndex]);
 
 	const onSearch = useCallback(
 		onInputValueChanged((value) => {
@@ -102,7 +102,7 @@ export const AppBar: FC<IProps> = ({
 				<Tooltip
 					active={selectedIndex === 0}
 					direction="left-start"
-					onClickOut={onClickOut}
+					onMouseDownOut={closeMenus}
 					tooltip={
 						<ProfileMenu
 							onClickSignIn={onClickSignIn}
