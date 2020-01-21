@@ -1,10 +1,6 @@
 import { uniqueId } from "lodash";
 import { useCallback, useMemo, useRef } from "react";
 
-interface IDictionary<T> {
-	[id: string]: T;
-}
-
 interface IOptions<T> {
 	/** Specifies how the keys are made for each item. Uses a counter by default */
 	id: (value: T) => string;
@@ -19,7 +15,7 @@ export const useDictionary = <T = any>(options?: Partial<IOptions<T>>) => {
 		...options
 	};
 
-	const dictRef = useRef<IDictionary<T>>({});
+	const dictRef = useRef<Record<string, T>>({});
 
 	const register = useCallback(
 		(value: T): string => {

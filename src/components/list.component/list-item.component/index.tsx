@@ -1,6 +1,7 @@
 import { Overlay } from "@/components/overlay.component";
 import { Ripple } from "@/components/ripple.component";
 import { useHover } from "@/hooks";
+import classnames from "classnames";
 import { memoize } from "lodash";
 import React, { FC, Fragment, MouseEvent, ReactElement, useCallback } from "react";
 import { Link } from "react-router-dom";
@@ -13,15 +14,14 @@ const OVERLAY_HOVER_OPACITY: number = 0.04;
 const OVERLAY_FOCUS_OPACITY: number = 0.1;
 
 interface IProps {
+	className?: string;
 	href?: string;
 	onClick?: (event: MouseEvent<HTMLLIElement>) => void;
 	selected?: boolean;
 }
 
-export const ListItem: FC<IProps> = (props) => {
-	const { children, href, onClick, selected } = props;
-
-	const classes = useStyles(props);
+export const ListItem: FC<IProps> = ({ children, className, href, onClick, selected }) => {
+	const classes = useStyles({ selected });
 	const [isHovered, hoverRef] = useHover<HTMLLIElement>(false);
 
 	const isSelectable: boolean = typeof selected === "boolean";
@@ -42,7 +42,7 @@ export const ListItem: FC<IProps> = (props) => {
 	);
 
 	return (
-		<li ref={hoverRef} className={classes.root} onClick={onClick}>
+		<li ref={hoverRef} className={classnames(classes.root, className)} onClick={onClick}>
 			{withHref(
 				<Fragment>
 					{children}

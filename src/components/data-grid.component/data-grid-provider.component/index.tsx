@@ -1,13 +1,15 @@
 import { IHeaderConfig } from "@/components/data-grid.component";
-import React, { FC, ReactNode } from "react";
+import React, { FC, memo, ReactNode } from "react";
 import { Size } from "react-virtualized-auto-sizer";
 import { AutoSizerProvider } from "./auto-sizer-provider.component";
 import { DataProvider, DataValue } from "./data-provider.component";
 import { HeadersProvider } from "./headers-provider.component";
+import { ScrollProvider } from "./scroll-provider.component";
 
 export * from "./auto-sizer-provider.component";
 export * from "./data-provider.component";
 export * from "./headers-provider.component";
+export * from "./scroll-provider.component";
 
 interface IProps {
 	children: (size: Size) => ReactNode;
@@ -22,18 +24,16 @@ interface IProps {
  *     react-window.FixedSizeList.children (item renderer), since they cannot be passed such props
  *     directly
  */
-export const DataGridProvider: FC<IProps> = ({
-	children,
-	data,
-	onDataChange,
-	headers,
-	onHeadersChange
-}) => {
-	return (
-		<DataProvider data={data} onDataChange={onDataChange}>
-			<HeadersProvider headers={headers} onHeadersChange={onHeadersChange}>
-				<AutoSizerProvider>{children}</AutoSizerProvider>
-			</HeadersProvider>
-		</DataProvider>
-	);
-};
+export const DataGridProvider: FC<IProps> = memo(
+	({ children, data, onDataChange, headers, onHeadersChange }) => {
+		return (
+			<DataProvider data={data} onDataChange={onDataChange}>
+				<HeadersProvider headers={headers} onHeadersChange={onHeadersChange}>
+					<ScrollProvider>
+						<AutoSizerProvider>{children}</AutoSizerProvider>
+					</ScrollProvider>
+				</HeadersProvider>
+			</DataProvider>
+		);
+	}
+);

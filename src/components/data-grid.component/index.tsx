@@ -3,6 +3,7 @@ import { FixedSizeList } from "react-window";
 import { DataGridProvider } from "./data-grid-provider.component";
 import { DataRow } from "./data-row.component";
 import { InnerElement } from "./inner-element.component";
+import { OuterElement } from "./outer-element.component";
 
 const DEFAULT_ROW_HEIGHT: number = 28;
 
@@ -17,12 +18,12 @@ export interface IHeaderOption {
 }
 
 export interface IHeaderConfig extends IHeaderOption {
+	/** Whether this column can be dragged (for re-sorting) */
+	frozen: boolean;
 	/** If supplied, headers are selected by a dropdown, else this is just a plain-text input */
 	options: ReadonlyArray<IHeaderOption> | null;
 	/** Whether this column can be resized */
 	resizable: boolean;
-	/** Whether this column can be dragged (for re-sorting) */
-	sortable: boolean;
 	/** The width of this column */
 	width: number;
 }
@@ -65,6 +66,7 @@ export const DataGrid: FC<IProps> = ({
 					itemKey={itemKey}
 					itemSize={DEFAULT_ROW_HEIGHT}
 					innerElementType={InnerElement}
+					outerElementType={OuterElement}
 				>
 					{DataRow}
 				</FixedSizeList>

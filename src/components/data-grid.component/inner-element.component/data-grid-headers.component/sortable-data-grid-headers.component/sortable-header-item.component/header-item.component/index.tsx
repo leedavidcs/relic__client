@@ -8,8 +8,14 @@ interface IProps extends IHeaderConfig {
 	onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
-export const HeaderItem: FC<IProps> = ({ label, resizable, index, onClick = () => void 0 }) => {
-	const classes = useStyles();
+export const HeaderItem: FC<IProps> = ({
+	frozen,
+	label,
+	resizable,
+	index,
+	onClick = () => void 0
+}) => {
+	const classes = useStyles({ frozen });
 
 	return (
 		<div className={classes.root} onClick={onClick}>

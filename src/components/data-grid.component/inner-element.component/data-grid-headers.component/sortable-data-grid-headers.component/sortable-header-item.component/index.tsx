@@ -2,8 +2,8 @@ import { ContextMenu } from "@/components/context-menu.component";
 import { IHeaderConfig } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { codes } from "keycode";
-import React, { ChangeEvent, KeyboardEvent, useCallback } from "react";
-import { SortableElement } from "react-sortable-hoc";
+import React, { ChangeEvent, FC, KeyboardEvent, memo, useCallback } from "react";
+import { SortableElement, SortableElementProps } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
 import { HeaderMenu } from "./header-menu.component";
 import { HeaderSelect } from "./header-select.component";
@@ -15,7 +15,7 @@ interface IProps extends IHeaderConfig {
 	headerIndex: number;
 }
 
-export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
+const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 	const { headerIndex: index, ...headerProps } = props;
 	const { options, value, width } = headerProps;
 
@@ -63,7 +63,7 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 			className={classes.root}
 			active={isSelected}
 			direction="bottom-start"
-			onClickOut={stopOperations}
+			onMouseDownOut={stopOperations}
 			style={{ width }}
 			tooltip={<HeaderSelect onSelect={selectOption} options={options} value={value} />}
 		>
@@ -83,4 +83,14 @@ export const SortableHeaderItem = SortableElement<IProps>((props: IProps) => {
 			</ContextMenu>
 		</Tooltip>
 	);
+});
+
+const SortableHeaderItemComponent = SortableElement<IProps>(BaseHeaderItemComponent);
+
+export const SortableHeaderItem: FC<IProps & SortableElementProps> = memo((props) => {
+	const { disabled } = props;
+
+	const ComponentType = disabled ? BaseHeaderItemComponent : SortableHeaderItemComponent;
+
+	return <ComponentType {...props} />;
 });

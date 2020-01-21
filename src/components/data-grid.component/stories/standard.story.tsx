@@ -9,6 +9,7 @@ import { IHeaderConfig } from "..";
 const MAX_DATA_SIZE: number = 100;
 const MAX_COLUMN_WIDTH: number = 80;
 const MIN_COLUMN_WIDTH: number = 30;
+const NUMBER_FROZEN_COLUMNS: number = 5;
 
 export const StandardStory = () => {
 	Faker.seed(1);
@@ -34,12 +35,12 @@ export const StandardStory = () => {
 
 	const MOCK_HEADERS: ReadonlyArray<IHeaderConfig> = useMemo(
 		() =>
-			MOCK_HEADER_NAMES.map((label) => ({
+			MOCK_HEADER_NAMES.map((label, i) => ({
 				label,
 				value: label,
+				frozen: i < NUMBER_FROZEN_COLUMNS,
 				options: [{ label, value: label }],
 				resizable: true,
-				sortable: true,
 				width: Faker.random.number({
 					max: MAX_COLUMN_WIDTH,
 					min: MIN_COLUMN_WIDTH

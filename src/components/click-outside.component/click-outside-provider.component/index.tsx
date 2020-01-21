@@ -1,7 +1,7 @@
 import { useDictionary } from "@/hooks";
 import { makeConcurrentFunc } from "@/utils";
 import React, { FC, MouseEvent, MouseEventHandler, useCallback, useMemo } from "react";
-import { ClickOutsideContext } from "./click-outside.context";
+import { ClickOutsideContext, IHandlerInfo } from "./click-outside.context";
 import { useStyles } from "./styles";
 
 export * from "./click-outside.context";
@@ -28,28 +28,43 @@ export * from "./click-outside.context";
 export const ClickOutsideProvider: FC = ({ children }) => {
 	const classes = useStyles();
 
-	const { dictRef, register, unregister } = useDictionary<MouseEventHandler<HTMLDivElement>>({
+	const { dictRef, register, unregister } = useDictionary<IHandlerInfo>({
 		prefix: "click_outside__"
 	});
 
-	const onClick = useCallback(
-		(event: MouseEvent<HTMLDivElement>) => {
-			const dict = dictRef.current;
+	const listener = useCallback(
+		(type: IHandlerInfo["type"]) => {
+			return (event: MouseEvent<HTMLDivElement>) => {
+				const dict = dictRef.current;
 
-			const handlers: ReadonlyArray<MouseEventHandler<HTMLDivElement>> = Object.values(dict);
+				const handlers: ReadonlyArray<MouseEventHandler<HTMLDivElement>> = Object.values(
+					dict
+				)
+					.filter(({ type: infoType }) => infoType === type)
+					.map(({ handler }) => handler);
 
-			const concurrentFunc = makeConcurrentFunc(handlers);
+				const concurrentFunc = makeConcurrentFunc(handlers);
 
-			concurrentFunc(event);
+				concurrentFunc(event);
+			};
 		},
 		[dictRef]
 	);
+
+	const onClick = useCallback(listener("click"), [listener]);
+	const onMouseDown = useCallback(listener("mousedown"), [listener]);
+	const onMouseUp = useCallback(listener("mouseup"), [listener]);
 
 	const value = useMemo(() => ({ register, unregister }), [register, unregister]);
 
 	return (
 		<ClickOutsideContext.Provider value={value}>
-			<div className={classes.root} onClick={onClick}>
+			<div
+				className={classes.root}
+				onClick={onClick}
+				onMouseDown={onMouseDown}
+				onMouseUp={onMouseUp}
+			>
 				{children}
 			</div>
 		</ClickOutsideContext.Provider>

@@ -1,11 +1,11 @@
 import { HeadersContext } from "@/components/data-grid.component";
 import React, { FC, useCallback, useContext } from "react";
 import { SortEndHandler, SortEvent, SortEventWithTag } from "react-sortable-hoc";
-import { ResizeProvider } from "./resize-provider.component";
+import { DataGridHeadersProvider } from "./data-grid-headers-provider.component";
 import { SortableDataGridHeaders } from "./sortable-data-grid-headers.component";
 import { useStyles } from "./styles";
 
-export * from "./resize-provider.component";
+export * from "./data-grid-headers-provider.component";
 
 // Required to prevent sorting, when the user intends to resize instead
 const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
@@ -33,7 +33,7 @@ export const DataGridHeaders: FC<{}> = () => {
 	const resizeHandleClassName: string = RESIZE_HANDLE_CLASS;
 
 	return (
-		<ResizeProvider resizeHandleClassName={resizeHandleClassName}>
+		<DataGridHeadersProvider resizeHandleClassName={resizeHandleClassName}>
 			<SortableDataGridHeaders
 				className={classes.root}
 				headers={headers}
@@ -44,6 +44,6 @@ export const DataGridHeaders: FC<{}> = () => {
 				pressDelay={SORTABLE_HEADER_PRESS_DELAY}
 				helperClass={classes.helper}
 			/>
-		</ResizeProvider>
+		</DataGridHeadersProvider>
 	);
 };

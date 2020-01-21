@@ -14,8 +14,11 @@ const styles = (theme: CustomTheme) => ({
 		fontSize: 14
 	},
 	list: {
-		width: 200,
+		width: 180,
 		borderRadius: 4
+	},
+	listItem: {
+		padding: "6px 10px"
 	}
 });
 
