@@ -129,7 +129,7 @@ export const ContextMenu = forwardRef<IRef, IProps>(
 					<Tooltip
 						active={true}
 						direction="bottom-start"
-						onClickOut={closeHandler}
+						onMouseDownOut={closeHandler}
 						tooltip={<div onClick={closeHandler}>{menu}</div>}
 					>
 						{location}

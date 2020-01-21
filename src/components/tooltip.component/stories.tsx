@@ -51,7 +51,7 @@ export const Standard = () => {
 				<Tooltip
 					active={active}
 					direction={direction}
-					onClickOut={onClickOut}
+					onMouseDownOut={onClickOut}
 					tooltip={
 						<List>
 							<ListItem>

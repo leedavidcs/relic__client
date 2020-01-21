@@ -63,7 +63,7 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 			className={classes.root}
 			active={isSelected}
 			direction="bottom-start"
-			onClickOut={stopOperations}
+			onMouseDownOut={stopOperations}
 			style={{ width }}
 			tooltip={<HeaderSelect onSelect={selectOption} options={options} value={value} />}
 		>

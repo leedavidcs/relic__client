@@ -22,6 +22,7 @@ interface IProps {
 	className?: string;
 	direction: Placement;
 	onClickOut?: () => void;
+	onMouseDownOut?: () => void;
 	style?: CSSProperties;
 	tooltip?: ReactNode;
 }
@@ -35,7 +36,8 @@ export const Tooltip: FC<IProps> = ({
 	children,
 	className,
 	direction: placement,
-	onClickOut = () => void 0,
+	onClickOut,
+	onMouseDownOut,
 	style,
 	tooltip
 }) => {
@@ -57,7 +59,7 @@ export const Tooltip: FC<IProps> = ({
 	}, [children]);
 
 	return mountStrategy(
-		<ClickOutside onClick={onClickOut}>
+		<ClickOutside onClick={onClickOut} onMouseDown={onMouseDownOut}>
 			<div>
 				{!isLocation(children) && (
 					<div ref={referenceRef} className={className} style={style}>
