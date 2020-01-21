@@ -17,6 +17,7 @@ import { HeaderMenu, IOption } from "./header-menu.component";
 import { HeaderSelect } from "./header-select.component";
 import { useStyles } from "./styles";
 import { useEditActions } from "./use-edit-actions.hook";
+import { useFreezeActions } from "./use-freeze-actions.hook";
 import { useSelectActions } from "./use-select-actions.hook";
 
 interface IProps extends IHeaderConfig {
@@ -25,11 +26,9 @@ interface IProps extends IHeaderConfig {
 
 const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 	const { headerIndex: index, ...headerProps } = props;
-	const { frozen, options, value, width } = headerProps;
+	const { options, value, width } = headerProps;
 
 	const classes = useStyles();
-
-	const { setHeaderFreeze } = useContext(HeadersContext);
 
 	const {
 		inputValue,
@@ -39,6 +38,7 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 		stopEditing,
 		updateLabel
 	} = useEditActions(index);
+	const { freezeAction, freezeActionLabel } = useFreezeActions(index);
 	const { closeSelect, openSelect, isSelected, selectOption } = useSelectActions(index);
 
 	const stopOperations = useCallback(() => {
@@ -68,18 +68,12 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 		[stopEditing, updateLabel]
 	);
 
-	const setFreeze = useCallback(() => setHeaderFreeze(!frozen, index), [
-		frozen,
-		index,
-		setHeaderFreeze
-	]);
-
 	const menuOptions: ReadonlyArray<IOption> = useMemo(
 		() => [
 			{ text: "Edit label", handler: startEditing },
-			{ text: frozen ? "Unfreeze" : "Freeze", handler: setFreeze }
+			{ text: freezeActionLabel, handler: freezeAction }
 		],
-		[frozen, setFreeze, startEditing]
+		[freezeAction, freezeActionLabel, startEditing]
 	);
 
 	return (
