@@ -3,6 +3,7 @@ import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	root: {
+		backgroundColor: theme.onSurface,
 		position: "fixed",
 		top: 0,
 		right: 0,
@@ -10,14 +11,14 @@ const styles = (theme: CustomTheme) => ({
 		left: 0,
 		height: "100%",
 		width: "100%",
-		pointerEvents: "none",
-		transition: ({ animate }) => (animate ? "opacity 0.4s ease" : "all 0s ease 0s"),
-		opacity: 0
+		pointerEvents: "none"
 	},
 	active: {
-		backgroundColor: theme.onSurface,
-		opacity: ({ opacity }) => opacity,
+		opacity: ({ active, opacity }) => (active ? opacity : 0),
 		pointerEvents: ({ clickThrough }) => (clickThrough ? "none" : "auto")
+	},
+	transition: {
+		transition: ({ animate }) => (animate ? "opacity 0.4s ease" : "all 0s ease 0s")
 	}
 });
 
