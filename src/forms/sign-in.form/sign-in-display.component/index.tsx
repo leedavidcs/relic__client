@@ -1,11 +1,12 @@
 import { Anchor, Button, TextInput } from "@/components";
 import { LoginLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
-import { SignUpModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
 import Keycode from "keycode";
-import React, { FC, KeyboardEvent, useCallback, useLayoutEffect, useState } from "react";
+import React, { FC, KeyboardEvent, lazy, useCallback, useLayoutEffect, useState } from "react";
 import { useStyles } from "./styles";
+
+const SignUpModal = lazy(() => import("@/modals/sign-up.modal"));
 
 const ON_SUCCESS_NAVIGATE_DELAY = 1000;
 
