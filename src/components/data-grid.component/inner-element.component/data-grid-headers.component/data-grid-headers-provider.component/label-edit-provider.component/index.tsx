@@ -14,3 +14,5 @@ export const LabelEditProvider: FC<IProps> = memo(({ children }) => {
 
 	return <LabelEditContext.Provider value={value}>{children}</LabelEditContext.Provider>;
 });
+
+LabelEditProvider.displayName = "LabelEditProvider";

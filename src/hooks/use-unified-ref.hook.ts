@@ -1,6 +1,6 @@
 import { MutableRefObject, Ref, useEffect, useRef } from "react";
 
-export const useUnifiedRef = <T>(...refs: ReadonlyArray<Ref<T>>): MutableRefObject<T | null> => {
+export const useUnifiedRef = <T>(...refs: readonly Ref<T>[]): MutableRefObject<T | null> => {
 	const finalRef: MutableRefObject<T | null> = useRef<T>(null);
 
 	useEffect(() => {

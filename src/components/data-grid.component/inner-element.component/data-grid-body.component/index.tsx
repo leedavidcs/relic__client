@@ -20,9 +20,9 @@ export const DataGridBody: FC<IProps> = memo(({ children }) => {
 
 	const onSortEnd: SortEndHandler = useCallback(
 		({ newIndex, oldIndex }) => {
-			const newData: Array<{ [key: string]: any }> = data.slice();
+			const newData: { [key: string]: any }[] = data.slice();
 
-			const sortedData: ReadonlyArray<{ [key: string]: any }> = arrayMove(
+			const sortedData: readonly { [key: string]: any }[] = arrayMove(
 				newData,
 				oldIndex,
 				newIndex

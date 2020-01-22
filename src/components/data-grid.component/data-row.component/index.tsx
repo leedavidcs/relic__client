@@ -4,7 +4,7 @@ import { ListChildComponentProps } from "react-window";
 import { SortableDataRow } from "./sortable-data-row.component";
 
 interface IProps extends ListChildComponentProps {
-	data: ReadonlyArray<{ [key: string]: DataValue }>;
+	data: readonly { [key: string]: DataValue }[];
 }
 
 /**
@@ -14,3 +14,5 @@ interface IProps extends ListChildComponentProps {
 export const DataRow: FC<IProps> = memo(({ data, index, style }) => {
 	return <SortableDataRow data={data} rowIndex={index} style={style} index={index} />;
 });
+
+DataRow.displayName = "DataRow";

@@ -2,7 +2,7 @@ import { debounce } from "lodash";
 import React, { CSSProperties, FC, MouseEvent, useCallback, useEffect, useState } from "react";
 import { useStyles } from "./styles";
 
-const CLEAN_UP_DEBOUNCE: number = 2000;
+const CLEAN_UP_DEBOUNCE = 2000;
 
 export const Ripple: FC<{}> = () => {
 	const classes = useStyles();
@@ -15,7 +15,7 @@ export const Ripple: FC<{}> = () => {
 			const container = event.currentTarget;
 
 			const size = container.offsetWidth;
-			const position = container.getBoundingClientRect() as DOMRect;
+			const position = container.getBoundingClientRect();
 
 			const x = event.pageX - position.x - size / 2;
 			const y = event.pageY - position.y - size / 2;

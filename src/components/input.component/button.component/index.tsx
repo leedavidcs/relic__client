@@ -5,7 +5,7 @@ import classnames from "classnames";
 import React, { ButtonHTMLAttributes, FC } from "react";
 import { useStyles } from "./styles";
 
-const OVERLAY_OPACITY: number = 0.04;
+const OVERLAY_OPACITY = 0.04;
 
 const colors = [
 	"primary",

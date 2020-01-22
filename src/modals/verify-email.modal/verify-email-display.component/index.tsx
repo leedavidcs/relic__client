@@ -1,5 +1,5 @@
 import { Anchor } from "@/components";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
@@ -10,6 +10,11 @@ interface IProps {
 export const VerifyEmailDisplay: FC<IProps> = ({ email, onClickResend }) => {
 	const classes = useStyles();
 
+	const resendBtn = useMemo(
+		() => <Anchor className={classes.resendBtn} value="HERE" onClick={onClickResend} />,
+		[classes.resendBtn, onClickResend]
+	);
+
 	return (
 		<div className={classes.root}>
 			<p>
@@ -17,13 +22,10 @@ export const VerifyEmailDisplay: FC<IProps> = ({ email, onClickResend }) => {
 				<strong className={classes.email}>{email}</strong>.
 			</p>
 			<p>
-				If you don't see a message in your inbox, make sure that the email address above is
-				correct, and check your spam folder.
+				If you don&apos;t see a message in your inbox, make sure that the email address
+				above is correct, and check your spam folder.
 			</p>
-			<p>
-				Click <Anchor className={classes.resendBtn} value="HERE" onClick={onClickResend} />{" "}
-				to resend the email.
-			</p>
+			<p>Click {resendBtn} to resend the email.</p>
 		</div>
 	);
 };

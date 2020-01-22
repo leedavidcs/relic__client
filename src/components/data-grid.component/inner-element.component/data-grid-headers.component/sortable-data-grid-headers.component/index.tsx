@@ -8,7 +8,7 @@ import { useStyles } from "./styles";
 
 interface IProps {
 	className?: string;
-	headers: ReadonlyArray<IHeaderConfig>;
+	headers: readonly IHeaderConfig[];
 }
 
 export const SortableDataGridHeaders = SortableContainer<IProps>((props: IProps) => {
@@ -18,32 +18,29 @@ export const SortableDataGridHeaders = SortableContainer<IProps>((props: IProps)
 
 	const classes = useStyles({ xOffset });
 
-	const createHeaderItems = useCallback(
-		(configs: ReadonlyArray<IHeaderConfig>, offset: number = 0) => {
-			return configs.map((header, i) => {
-				const { frozen, value } = header;
-				const adjIndex: number = i + offset;
+	const createHeaderItems = useCallback((configs: readonly IHeaderConfig[], offset = 0) => {
+		return configs.map((header, i) => {
+			const { frozen, value } = header;
+			const adjIndex: number = i + offset;
 
-				return (
-					<SortableHeaderItem
-						key={value}
-						{...header}
-						headerIndex={adjIndex}
-						index={adjIndex}
-						disabled={frozen}
-					/>
-				);
-			});
-		},
-		[]
-	);
+			return (
+				<SortableHeaderItem
+					key={value}
+					{...header}
+					headerIndex={adjIndex}
+					index={adjIndex}
+					disabled={frozen}
+				/>
+			);
+		});
+	}, []);
 
-	const frozenHeaders: ReadonlyArray<ReactElement> = useMemo(
+	const frozenHeaders: readonly ReactElement[] = useMemo(
 		() => createHeaderItems(takeWhile(headers, { frozen: true })),
 		[createHeaderItems, headers]
 	);
 
-	const unfrozenHeaders: ReadonlyArray<ReactElement> = useMemo(
+	const unfrozenHeaders: readonly ReactElement[] = useMemo(
 		() => createHeaderItems(takeRightWhile(headers, { frozen: false }), frozenHeaders.length),
 		[createHeaderItems, headers, frozenHeaders.length]
 	);

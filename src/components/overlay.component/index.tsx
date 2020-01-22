@@ -19,7 +19,11 @@ export const Overlay: FC<IProps> = (props) => {
 	const elemRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const elem: HTMLDivElement = elemRef.current!;
+		const elem: HTMLDivElement | null = elemRef.current;
+
+		if (!elem) {
+			return;
+		}
 
 		toggleClass(elem, classes.active, active);
 	}, [active, elemRef, classes.active]);

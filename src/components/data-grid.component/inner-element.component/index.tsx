@@ -21,3 +21,5 @@ export const InnerElement = memo(
 		);
 	})
 );
+
+InnerElement.displayName = "InnerElement";

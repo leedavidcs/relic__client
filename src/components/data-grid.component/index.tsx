@@ -5,7 +5,7 @@ import { DataRow } from "./data-row.component";
 import { InnerElement } from "./inner-element.component";
 import { OuterElement } from "./outer-element.component";
 
-const DEFAULT_ROW_HEIGHT: number = 28;
+const DEFAULT_ROW_HEIGHT = 28;
 
 export * from "./data-grid-provider.component";
 export * from "./inner-element.component";
@@ -21,7 +21,7 @@ export interface IHeaderConfig extends IHeaderOption {
 	/** Whether this column can be dragged (for re-sorting) */
 	frozen: boolean;
 	/** If supplied, headers are selected by a dropdown, else this is just a plain-text input */
-	options: ReadonlyArray<IHeaderOption> | null;
+	options: readonly IHeaderOption[] | null;
 	/** Whether this column can be resized */
 	resizable: boolean;
 	/** The width of this column */
@@ -30,15 +30,15 @@ export interface IHeaderConfig extends IHeaderOption {
 
 interface IProps {
 	/** Entities array */
-	data: ReadonlyArray<{ [key: string]: any }>;
+	data: readonly { [key: string]: any }[];
 	/** Column data is: `data[headers[i].value]` */
-	headers: ReadonlyArray<IHeaderConfig>;
+	headers: readonly IHeaderConfig[];
 	/** Function to derive the key prop for each row of the data-grid. Defaults to index. */
-	itemKey?: (index: number, data: ReadonlyArray<{ [key: string]: any }>) => string;
+	itemKey?: (index: number, data: readonly { [key: string]: any }[]) => string;
 	/** `data` is a controlled property, to be set externally through `onDataChange` */
-	onDataChange: (data: ReadonlyArray<{ [key: string]: any }>) => void;
+	onDataChange: (data: readonly { [key: string]: any }[]) => void;
 	/** `headers` is a controlled property, to be set externally through `onHeadersChange` */
-	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
+	onHeadersChange: (headers: readonly IHeaderConfig[]) => void;
 }
 
 export const DataGrid: FC<IProps> = ({

@@ -37,25 +37,24 @@ interface IProps {
 	variant?: typeof variants[number];
 }
 
-export const TextInput: FC<IProps> = (props) => {
-	const {
-		className,
-		disabled = false,
-		label,
-		onChange,
-		onClick,
-		onInput: propsOnInput,
-		onKeyDown,
-		password = false,
-		placeholder = "",
-		spellCheck = false,
-		startIcon: propsStartIcon,
-		style,
-		value,
-		validator = () => null
-	} = props;
-
-	const classes = useStyles(props);
+export const TextInput: FC<IProps> = ({
+	className,
+	disabled = false,
+	label,
+	onChange,
+	onClick,
+	onInput: propsOnInput,
+	onKeyDown,
+	password = false,
+	placeholder = "",
+	spellCheck = false,
+	startIcon: propsStartIcon,
+	style,
+	value,
+	validator = () => null,
+	variant
+}) => {
+	const classes = useStyles({ variant });
 
 	const [dirty, setDirty] = useState<boolean>(false);
 	const [hasInput, setHasInput] = useState<boolean>(false);

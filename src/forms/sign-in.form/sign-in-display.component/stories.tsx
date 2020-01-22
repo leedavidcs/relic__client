@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import React, { useCallback } from "react";
 import { SignInDisplay } from ".";
 
-export default { title: "form/sign-in", component: SignInDisplay };
+export default { title: "form-display/sign-in", component: SignInDisplay };
 
 export const Standard = () => {
 	const submitAction = action("onSubmit");

@@ -10,8 +10,8 @@ import { FaBars, FaSearch, FaUserCircle } from "react-icons/fa";
 import { ProfileMenu } from "./profile-menu.component";
 import { useStyles } from "./styles";
 
-const FA_BARS_SIZE: number = 20;
-const FA_USER_CIRCLE_SIZE: number = 32;
+const FA_BARS_SIZE = 20;
+const FA_USER_CIRCLE_SIZE = 32;
 
 interface IProps {
 	title: string;

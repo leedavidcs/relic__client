@@ -1,7 +1,7 @@
 import { lighten } from "polished";
 
-const GRID_ODD: number = 0.16;
-const GRID_EVEN: number = 0.1;
+const GRID_ODD = 0.16;
+const GRID_EVEN = 0.1;
 
 export const standardTheme = {
 	background: "#121212",

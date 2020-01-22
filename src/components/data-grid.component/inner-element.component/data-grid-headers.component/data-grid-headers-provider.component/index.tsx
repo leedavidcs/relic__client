@@ -17,3 +17,5 @@ export const DataGridHeadersProvider: FC<IProps> = memo(({ children, resizeHandl
 		</ResizeProvider>
 	);
 });
+
+DataGridHeadersProvider.displayName = "DataGridHeadersProvider";

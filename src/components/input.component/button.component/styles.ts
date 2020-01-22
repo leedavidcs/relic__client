@@ -1,7 +1,7 @@
 import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-/* tslint:disable:no-magic-numbers */
+/* eslint-disable no-magic-numbers */
 export const styles = (theme: CustomTheme) => {
 	const getHeight = (size) => {
 		switch (size) {

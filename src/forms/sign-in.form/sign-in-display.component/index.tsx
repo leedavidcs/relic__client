@@ -7,7 +7,7 @@ import Keycode from "keycode";
 import React, { FC, KeyboardEvent, useCallback, useLayoutEffect, useState } from "react";
 import { useStyles } from "./styles";
 
-const ON_SUCCESS_NAVIGATE_DELAY: number = 1000;
+const ON_SUCCESS_NAVIGATE_DELAY = 1000;
 
 interface IProps {
 	/* Returns whether the operation was successful */

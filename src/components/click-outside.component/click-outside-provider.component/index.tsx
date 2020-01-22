@@ -37,9 +37,7 @@ export const ClickOutsideProvider: FC = ({ children }) => {
 			return (event: MouseEvent<HTMLDivElement>) => {
 				const dict = dictRef.current;
 
-				const handlers: ReadonlyArray<MouseEventHandler<HTMLDivElement>> = Object.values(
-					dict
-				)
+				const handlers: readonly MouseEventHandler<HTMLDivElement>[] = Object.values(dict)
 					.filter(({ type: infoType }) => infoType === type)
 					.map(({ handler }) => handler);
 

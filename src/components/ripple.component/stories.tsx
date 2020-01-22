@@ -3,7 +3,7 @@ import { Paper } from "@/components/paper.component";
 import React from "react";
 import { Ripple } from ".";
 
-const RIPPLE_CONTAINER_SIZE: number = 500;
+const RIPPLE_CONTAINER_SIZE = 500;
 
 export default { title: "ripple", component: Ripple };
 

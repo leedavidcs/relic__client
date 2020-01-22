@@ -6,7 +6,7 @@ import { ServerError, ServerParseError } from "apollo-link-http-common";
 import { print } from "graphql/language";
 import HttpStatus from "http-status";
 
-const BASE_GRAPHQL_URL: string = `${process.env.REACT_APP_API_BASE_URL}/graphql`;
+const BASE_GRAPHQL_URL = `${process.env.REACT_APP_API_BASE_URL}/graphql`;
 
 const isServerError = (value: any): value is ServerError | ServerParseError => {
 	return Boolean(value.statusCode);
@@ -76,7 +76,7 @@ const handleNetworkError = (
 	return null;
 };
 
-const handleGraphQLErrors = (graphqlErrors: ReadonlyArray<any>): void => {
+const handleGraphQLErrors = (graphqlErrors: readonly any[]): void => {
 	graphqlErrors.forEach(({ message, locations, path }) => {
 		Logger.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
 	});

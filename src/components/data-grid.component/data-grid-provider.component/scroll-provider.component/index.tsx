@@ -23,3 +23,5 @@ export const ScrollProvider: FC<IProps> = memo(({ children }) => {
 
 	return <ScrollContext.Provider value={value}>{children}</ScrollContext.Provider>;
 });
+
+ScrollProvider.displayName = "ScrollProvider";

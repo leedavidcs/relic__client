@@ -4,7 +4,9 @@ import { text } from "@storybook/addon-knobs";
 import React from "react";
 import { VerifyEmailDisplay } from ".";
 
-export const VerifyEmailStory = () => {
+export default { title: "modal-display/verify-email", component: VerifyEmailDisplay };
+
+export const Standard = () => {
 	const email: string = text("email", "test@test.com");
 
 	const onClickResend = action("onClickResend");

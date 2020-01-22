@@ -1,7 +1,7 @@
 import { debounce } from "lodash";
 import { MouseEvent, MutableRefObject, TouchEvent, useCallback, useRef } from "react";
 
-const DOUBLE_CLICK_TIMEOUT: number = 200;
+const DOUBLE_CLICK_TIMEOUT = 200;
 
 interface IOptions {
 	delay?: number;

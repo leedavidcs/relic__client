@@ -13,10 +13,10 @@ export * from "./scroll-provider.component";
 
 interface IProps {
 	children: (size: Size) => ReactNode;
-	data: ReadonlyArray<{ [key: string]: DataValue }>;
-	headers: ReadonlyArray<IHeaderConfig>;
-	onDataChange: (data: ReadonlyArray<{ [key: string]: DataValue }>) => void;
-	onHeadersChange: (headers: ReadonlyArray<IHeaderConfig>) => void;
+	data: readonly { [key: string]: DataValue }[];
+	headers: readonly IHeaderConfig[];
+	onDataChange: (data: readonly { [key: string]: DataValue }[]) => void;
+	onHeadersChange: (headers: readonly IHeaderConfig[]) => void;
 }
 
 /**
@@ -37,3 +37,5 @@ export const DataGridProvider: FC<IProps> = memo(
 		);
 	}
 );
+
+DataGridProvider.displayName = "DataGridProvider";

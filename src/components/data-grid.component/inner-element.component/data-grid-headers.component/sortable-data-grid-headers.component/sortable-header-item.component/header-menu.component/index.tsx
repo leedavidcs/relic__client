@@ -9,7 +9,7 @@ export interface IOption {
 }
 
 interface IProps {
-	options: ReadonlyArray<IOption>;
+	options: readonly IOption[];
 }
 
 export const HeaderMenu: FC<IProps> = memo(({ options }) => {
@@ -32,3 +32,5 @@ export const HeaderMenu: FC<IProps> = memo(({ options }) => {
 		</Paper>
 	);
 });
+
+HeaderMenu.displayName = "HeaderMenu";
