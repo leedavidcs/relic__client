@@ -8,8 +8,8 @@ interface IScrollContextProps {
 }
 
 export const ScrollContext: Context<IScrollContextProps> = createContext<IScrollContextProps>({
-	onHorizontalScroll: () => void 0,
-	onVerticalScroll: () => void 0,
+	onHorizontalScroll: () => undefined,
+	onVerticalScroll: () => undefined,
 	xOffset: 0,
 	yOffset: 0
 });

@@ -28,9 +28,9 @@ interface IUseAuthResult {
 }
 
 export const useAuth = ({
-	onLoginCompleted = () => void 0,
-	onLoginError = () => void 0,
-	onRegisterCompleted = () => void 0
+	onLoginCompleted = () => undefined,
+	onLoginError = () => undefined,
+	onRegisterCompleted = () => undefined
 }: IUseAuthOptions = {}): IUseAuthResult => {
 	const [registerUser] = useMutation<RegisterLocalUser, RegisterLocalUserVariables>(
 		Mutations.RegisterLocalUser

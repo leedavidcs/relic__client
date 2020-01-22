@@ -7,4 +7,5 @@ scripts/**
 storyshots/**
 ./*.js
 **/types/**
+**/*.d.ts
 src/serviceWorker.ts

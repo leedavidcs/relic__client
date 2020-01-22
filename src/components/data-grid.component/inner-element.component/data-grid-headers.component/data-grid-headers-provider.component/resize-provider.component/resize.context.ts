@@ -10,8 +10,8 @@ interface IResizeContextProps {
 
 export const ResizeContext: Context<IResizeContextProps> = createContext<IResizeContextProps>({
 	isResizing: false,
-	onResize: () => void 0,
-	onResizeEnd: () => void 0,
+	onResize: () => undefined,
+	onResizeEnd: () => undefined,
 	resizeHandleClassName: ""
 });
 

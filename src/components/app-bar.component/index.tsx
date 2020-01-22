@@ -21,8 +21,8 @@ interface IProps {
 }
 
 export const AppBar: FC<IProps> = ({
-	onClickSignOut: propsOnClickSignOut = () => void 0,
-	onSearch: propsOnSearch = () => void 0,
+	onClickSignOut: propsOnClickSignOut = () => undefined,
+	onSearch: propsOnSearch = () => undefined,
 	title,
 	user
 }) => {

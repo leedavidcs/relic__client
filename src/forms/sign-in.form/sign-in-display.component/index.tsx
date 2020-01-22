@@ -55,7 +55,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 		return isValid ? null : "Password is invalid";
 	}, [didSubmit, didSucceed]);
 
-	const onClickForgotPassword = useCallback(() => void 0, []);
+	const onClickForgotPassword = useCallback(() => undefined, []);
 
 	const onClickSignUp = useCallback(() => {
 		setContent({
@@ -82,7 +82,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 			return;
 		}
 
-		setTimeout(() => void 0, ON_SUCCESS_NAVIGATE_DELAY);
+		setTimeout(() => undefined, ON_SUCCESS_NAVIGATE_DELAY);
 	}, [didSubmit, didSucceed]);
 
 	return (

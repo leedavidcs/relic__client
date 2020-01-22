@@ -70,7 +70,7 @@ export const useTooltip = ({
 		popperInstance.update();
 	}, [active, placement, propsPopper]);
 
-	const updateFunc = popperInstanceRef.current?.update ?? (() => void 0);
+	const updateFunc = popperInstanceRef.current?.update ?? (() => undefined);
 
 	return {
 		update: updateFunc

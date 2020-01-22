@@ -13,7 +13,7 @@ export const HeaderItem: FC<IProps> = ({
 	label,
 	resizable,
 	index,
-	onClick = () => void 0
+	onClick = () => undefined
 }) => {
 	const classes = useStyles({ frozen });
 

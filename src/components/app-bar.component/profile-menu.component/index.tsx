@@ -10,8 +10,8 @@ interface IProps {
 }
 
 export const ProfileMenu: FC<IProps> = ({
-	onClickSignIn = () => void 0,
-	onClickSignOut = () => void 0,
+	onClickSignIn = () => undefined,
+	onClickSignOut = () => undefined,
 	user
 }) => {
 	const onClickAuthOption: () => void = user ? onClickSignOut : onClickSignIn;

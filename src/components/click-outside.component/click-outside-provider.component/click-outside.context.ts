@@ -14,7 +14,7 @@ export const ClickOutsideContext: Context<IClickOutsideContextProps> = createCon
 	IClickOutsideContextProps
 >({
 	register: () => "",
-	unregister: () => void 0
+	unregister: () => undefined
 });
 
 ClickOutsideContext.displayName = "ClickOutsideContext";

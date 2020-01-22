@@ -54,7 +54,6 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 					stopEditing();
 					break;
 				default:
-					return;
 			}
 		},
 		[stopEditing, updateLabel]

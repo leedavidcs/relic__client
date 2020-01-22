@@ -1,10 +1,9 @@
 import { Background } from "@/components/background.component";
+import { DataGrid, IHeaderConfig } from "@/components/data-grid.component";
 import { Paper } from "@/components/paper.component";
 import Faker from "faker";
 import { uniq } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
-import { DataGrid } from "..";
-import { IHeaderConfig } from "..";
 
 const MAX_DATA_SIZE = 100;
 const MAX_COLUMN_WIDTH = 80;

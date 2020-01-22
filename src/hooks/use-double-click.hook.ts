@@ -12,8 +12,8 @@ interface IOptions {
 export const useDoubleClick = (options?: IOptions) => {
 	const {
 		delay = DOUBLE_CLICK_TIMEOUT,
-		onSingleClick = () => void 0,
-		onDoubleClick = () => void 0
+		onSingleClick = () => undefined,
+		onDoubleClick = () => undefined
 	} = options ?? {};
 
 	const hasClicked: MutableRefObject<boolean> = useRef<boolean>(false);

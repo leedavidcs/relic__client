@@ -9,7 +9,7 @@ export const LabelEditContext: Context<ILabelEditContextProps> = createContext<
 	ILabelEditContextProps
 >({
 	editing: null,
-	setEditing: () => void 0
+	setEditing: () => undefined
 });
 
 LabelEditContext.displayName = "LabelEditContext";

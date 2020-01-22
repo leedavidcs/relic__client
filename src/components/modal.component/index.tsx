@@ -16,12 +16,8 @@ interface IProps {
 export const Modal: FC<IProps> = ({
 	active,
 	children,
-	onClickOutside: propsOnClickOutside = () => {
-		return;
-	},
-	onClose: propsOnClose = () => {
-		return;
-	},
+	onClickOutside: propsOnClickOutside = () => undefined,
+	onClose: propsOnClose = () => undefined,
 	title = ""
 }) => {
 	const classes = useStyles();

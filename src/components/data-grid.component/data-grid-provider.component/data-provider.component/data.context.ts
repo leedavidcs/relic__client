@@ -9,7 +9,7 @@ interface IDataContextProps {
 
 export const DataContext: Context<IDataContextProps> = createContext<IDataContextProps>({
 	data: [],
-	onDataChange: () => void 0
+	onDataChange: () => undefined
 });
 
 DataContext.displayName = "DataContext";

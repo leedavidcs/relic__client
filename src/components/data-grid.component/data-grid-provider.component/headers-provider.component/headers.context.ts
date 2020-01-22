@@ -13,12 +13,12 @@ interface IHeadersContextProps {
 
 export const HeadersContext: Context<IHeadersContextProps> = createContext<IHeadersContextProps>({
 	headers: [],
-	moveHeaderItem: () => void 0,
-	onHeadersChange: () => void 0,
-	setHeaderFreeze: () => void 0,
-	setHeaderLabel: () => void 0,
-	setHeaderOption: () => void 0,
-	setHeaderWidth: () => void 0
+	moveHeaderItem: () => undefined,
+	onHeadersChange: () => undefined,
+	setHeaderFreeze: () => undefined,
+	setHeaderLabel: () => undefined,
+	setHeaderOption: () => undefined,
+	setHeaderWidth: () => undefined
 });
 
 HeadersContext.displayName = "HeadersContext";

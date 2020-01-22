@@ -5,12 +5,15 @@
 		"node": true
 	},
 	"extends": [
-		"react-app",
+		"standard",
 		"eslint:recommended",
-		"plugin:react/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
 		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended",
+		"plugin:react/recommended",
 		"prettier/@typescript-eslint",
-		"plugin:prettier/recommended"
+		"react-app"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -18,49 +21,55 @@
 		"sourceType": "module"
 	},
 	"plugins": [
-		"react",
 		"@typescript-eslint",
-		"@typescript-eslint/tslint",
+		"import",
 		"prefer-arrow",
-		"prettier"
+		"prettier",
+		"react"
 	],
 	"rules": {
 		"@typescript-eslint/array-type": "error",
+		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/indent": "off",
-		"@typescript-eslint/member-delimiter-style": [
+		"@typescript-eslint/interface-name-prefix": [
 			"error",
 			{
-				"multiline": {
-					"delimiter": "semi",
-					"requireLast": true
-				},
-				"singleline": {
-					"delimiter": "semi",
-					"requireLast": false
-				}
+				"prefixWithI": "always"
 			}
 		],
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/no-parameter-properties": "off",
-		"@typescript-eslint/no-use-before-define": "off",
 		"@typescript-eslint/prefer-for-of": "error",
 		"@typescript-eslint/prefer-function-type": "error",
 		"@typescript-eslint/quotes": "off",
 		"@typescript-eslint/semi": ["error", "always"],
 		"@typescript-eslint/space-within-parens": ["off", "never"],
-		"@typescript-eslint/type-annotation-spacing": "off",
 		"@typescript-eslint/unified-signatures": "error",
 		"arrow-parens": ["off", "as-needed"],
-		"camelcase": "error",
 		"comma-dangle": "off",
-		"complexity": "off",
-		"constructor-super": "error",
 		"curly": ["error", "multi-line"],
 		"dot-notation": "error",
 		"eol-last": "off",
 		"eqeqeq": ["error", "smart"],
 		"guard-for-in": "error",
 		"id-match": "error",
+		"import/order": [
+			"error",
+			{
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				},
+				"groups":["external", "internal", ["parent", "sibling", "builtin", "index"]],
+				"pathGroups": [
+					{
+						"pattern": "@/**",
+						"group": "external",
+						"position": "before"
+					}
+				]
+			}
+		],
 		"linebreak-style": "off",
 		"max-classes-per-file": "off",
 		"max-len": [
@@ -73,15 +82,10 @@
 		"newline-per-chained-call": "off",
 		"no-bitwise": "error",
 		"no-caller": "error",
-		"no-cond-assign": "error",
 		"no-console": "error",
-		"no-debugger": "error",
 		"no-empty": "error",
 		"no-eval": "error",
-		"no-extra-semi": "off",
-		"no-fallthrough": "off",
 		"no-invalid-this": "off",
-		"no-irregular-whitespace": "off",
 		"no-magic-numbers": [
 			"error",
 			{
@@ -97,48 +101,29 @@
 			}
 		],
 		"no-throw-literal": "error",
-		"no-trailing-spaces": "off",
-		"no-undef-init": "error",
 		"no-underscore-dangle": "error",
-		"no-unsafe-finally": "error",
-		"no-unused-labels": "error",
 		"object-shorthand": "error",
 		"one-var": ["error", "never"],
 		"prefer-arrow/prefer-arrow-functions": "error",
+		"prettier/prettier": "error",
 		"quote-props": "off",
 		"radix": "error",
-		"space-before-function-paren": "off",
-		"spaced-comment": "error",
-		"use-isnan": "error",
-		"valid-typeof": "off",
-		"@typescript-eslint/tslint/config": [
-			"error",
-			{
-				"rules": {
-					"jsdoc-format": true,
-					"jsx-boolean-value": true,
-					"jsx-key": true,
-					"jsx-no-bind": true,
-					"jsx-no-lambda": true,
-					"jsx-no-string-ref": true,
-					"jsx-self-close": true,
-					"no-reference-import": true
-				}
-			}
-		],
 		"react/prop-types": "off",
-		"@typescript-eslint/explicit-function-return-type": "off",
-		"@typescript-eslint/interface-name-prefix": [
-			"error",
-			{
-				"prefixWithI": "always"
-			}
-		]
+		"space-before-function-paren": "off",
+		"spaced-comment": "error"
 	},
 	"settings": {
 		"react": {
 			"pragma": "React",
 			"version": "detect"
+		},
+		"import/resolver": {
+			"alias": {
+				"map": [
+					["@", "./src"]
+				],
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
 		}
 	}
 }
