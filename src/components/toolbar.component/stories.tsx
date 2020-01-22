@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import Faker from "faker";
 import React from "react";
 import { Toolbar } from ".";
@@ -10,9 +9,5 @@ export const standard = () => {
 
 	const content: string = Faker.lorem.sentence();
 
-	return (
-		<Background>
-			<Toolbar stickTop={true}>{content}</Toolbar>
-		</Background>
-	);
+	return <Toolbar stickTop={true}>{content}</Toolbar>;
 };

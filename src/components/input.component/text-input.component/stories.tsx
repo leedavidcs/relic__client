@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import { Paper } from "@/components/paper.component";
 import { onInputValueChanged } from "@/utils";
 import Faker from "faker";
@@ -34,41 +33,39 @@ export const Standard = () => {
 	const onChange3 = useCallback(onInputValueChanged(setValue3), []);
 
 	return (
-		<Background>
-			<Paper>
-				<TextInput
-					label={"Must be fewer than 5 chars"}
-					validator={validator}
-					style={style}
-					onChange={onChange0}
-					value={value0}
-				/>
-				<TextInput
-					label={"Must be fewer than 5 chars"}
-					validator={validator}
-					variant="outlined"
-					style={style}
-					onChange={onChange1}
-					value={value1}
-				/>
-				<TextInput
-					label={"Must be fewer than 5 chars"}
-					startIcon={<FaBacon />}
-					validator={validator}
-					style={style}
-					onChange={onChange2}
-					value={value2}
-				/>
-				<TextInput
-					label={"Must be fewer than 5 chars"}
-					startIcon={<FaBacon />}
-					validator={validator}
-					variant="outlined"
-					style={style}
-					onChange={onChange3}
-					value={value3}
-				/>
-			</Paper>
-		</Background>
+		<Paper>
+			<TextInput
+				label={"Must be fewer than 5 chars"}
+				validator={validator}
+				style={style}
+				onChange={onChange0}
+				value={value0}
+			/>
+			<TextInput
+				label={"Must be fewer than 5 chars"}
+				validator={validator}
+				variant="outlined"
+				style={style}
+				onChange={onChange1}
+				value={value1}
+			/>
+			<TextInput
+				label={"Must be fewer than 5 chars"}
+				startIcon={<FaBacon />}
+				validator={validator}
+				style={style}
+				onChange={onChange2}
+				value={value2}
+			/>
+			<TextInput
+				label={"Must be fewer than 5 chars"}
+				startIcon={<FaBacon />}
+				validator={validator}
+				variant="outlined"
+				style={style}
+				onChange={onChange3}
+				value={value3}
+			/>
+		</Paper>
 	);
 };

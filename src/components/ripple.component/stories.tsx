@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import { Paper } from "@/components/paper.component";
 import React from "react";
 import { Ripple } from ".";
@@ -9,13 +8,11 @@ export default { title: "ripple", component: Ripple };
 
 export const standard = () => {
 	return (
-		<Background>
-			<Paper>
-				CLICK BELOW:
-				<div style={{ height: RIPPLE_CONTAINER_SIZE, position: "relative" }}>
-					<Ripple />
-				</div>
-			</Paper>
-		</Background>
+		<Paper>
+			CLICK BELOW:
+			<div style={{ height: RIPPLE_CONTAINER_SIZE, position: "relative" }}>
+				<Ripple />
+			</div>
+		</Paper>
 	);
 };

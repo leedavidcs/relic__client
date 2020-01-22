@@ -11,11 +11,8 @@ interface IProps {
 	opacity?: number;
 }
 
-// !Important: Parent must have position: "relative"
-export const Overlay: FC<IProps> = (props) => {
-	const { active, className } = props;
-
-	const classes = useStyles(props);
+export const Overlay: FC<IProps> = ({ active, animate, className, clickThrough, opacity }) => {
+	const classes = useStyles({ animate, clickThrough, opacity });
 	const elemRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -28,9 +25,7 @@ export const Overlay: FC<IProps> = (props) => {
 		toggleClass(elem, classes.active, active);
 	}, [active, elemRef, classes.active]);
 
-	const classNames = classnames(classes.root, className);
-
-	return <div className={classNames} ref={elemRef} />;
+	return <div className={classnames(classes.root, className)} ref={elemRef} />;
 };
 
 Overlay.defaultProps = {
