@@ -1,0 +1,10 @@
+.jest/**
+.storybook/**
+.vscode/**
+node_modules/**
+public/**
+scripts/**
+storyshots/**
+./*.js
+**/types/**
+src/serviceWorker.ts
