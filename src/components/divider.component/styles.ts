@@ -1,9 +1,9 @@
 import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-const MARGIN_LEFT_INSET: number = 52;
-const MARGIN_LEFT_MIDDLE: number = 16;
-const MARGIN_RIGHT_MIDDLE: number = 16;
+const MARGIN_LEFT_INSET = 52;
+const MARGIN_LEFT_MIDDLE = 16;
+const MARGIN_RIGHT_MIDDLE = 16;
 
 const styles = (theme: CustomTheme) => ({
 	root: {

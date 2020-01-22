@@ -5,7 +5,7 @@ import { useStyles } from "./styles";
 
 interface IProps {
 	onSelect: (option: IHeaderOption) => void;
-	options: ReadonlyArray<IHeaderOption> | null;
+	options: readonly IHeaderOption[] | null;
 	value: string;
 }
 

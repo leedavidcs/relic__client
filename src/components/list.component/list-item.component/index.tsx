@@ -10,8 +10,8 @@ import { useStyles } from "./styles";
 export * from "./list-item-icon.component";
 export * from "./list-item-text.component";
 
-const OVERLAY_HOVER_OPACITY: number = 0.04;
-const OVERLAY_FOCUS_OPACITY: number = 0.1;
+const OVERLAY_HOVER_OPACITY = 0.04;
+const OVERLAY_FOCUS_OPACITY = 0.1;
 
 interface IProps {
 	className?: string;

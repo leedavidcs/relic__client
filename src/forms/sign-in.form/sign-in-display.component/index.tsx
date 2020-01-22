@@ -7,7 +7,7 @@ import Keycode from "keycode";
 import React, { FC, KeyboardEvent, useCallback, useLayoutEffect, useState } from "react";
 import { useStyles } from "./styles";
 
-const ON_SUCCESS_NAVIGATE_DELAY: number = 1000;
+const ON_SUCCESS_NAVIGATE_DELAY = 1000;
 
 interface IProps {
 	/* Returns whether the operation was successful */
@@ -55,7 +55,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 		return isValid ? null : "Password is invalid";
 	}, [didSubmit, didSucceed]);
 
-	const onClickForgotPassword = useCallback(() => void 0, []);
+	const onClickForgotPassword = useCallback(() => undefined, []);
 
 	const onClickSignUp = useCallback(() => {
 		setContent({
@@ -82,7 +82,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 			return;
 		}
 
-		setTimeout(() => void 0, ON_SUCCESS_NAVIGATE_DELAY);
+		setTimeout(() => undefined, ON_SUCCESS_NAVIGATE_DELAY);
 	}, [didSubmit, didSucceed]);
 
 	return (

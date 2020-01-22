@@ -8,9 +8,9 @@ import { useStyles } from "./styles";
 export * from "./data-grid-headers-provider.component";
 
 // Required to prevent sorting, when the user intends to resize instead
-const RESIZE_HANDLE_CLASS: string = "RESIZE_HANDLE_CLASS";
+const RESIZE_HANDLE_CLASS = "RESIZE_HANDLE_CLASS";
 // Required in order to invoke click handlers, since sortable drag events block click events
-const SORTABLE_HEADER_PRESS_DELAY: number = 100;
+const SORTABLE_HEADER_PRESS_DELAY = 100;
 
 export const DataGridHeaders: FC<{}> = () => {
 	const classes = useStyles();

@@ -3,7 +3,7 @@ import React, { FC, useMemo } from "react";
 import zxcvbn from "zxcvbn";
 import { useStyles } from "./styles";
 
-const MAX_PERCENTAGE: number = 100;
+const MAX_PERCENTAGE = 100;
 
 const strengths = ["Weak", "Weak", "Fair", "Good", "Strong"] as const;
 

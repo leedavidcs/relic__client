@@ -20,3 +20,5 @@ export const Paper = forwardRef<HTMLDivElement, IProps>(
 		);
 	}
 );
+
+Paper.displayName = "Paper";

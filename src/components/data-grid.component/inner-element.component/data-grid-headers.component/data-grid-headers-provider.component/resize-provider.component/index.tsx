@@ -6,7 +6,7 @@ import { ResizeContext } from "./resize.context";
 export * from "./resize.context";
 
 // Required in order differentiate click handlers from drag-end
-const RESIZE_HANDLE_DRAG_END_DELAY: number = 100;
+const RESIZE_HANDLE_DRAG_END_DELAY = 100;
 
 interface IProps {
 	children: ReactNode;
@@ -49,3 +49,5 @@ export const ResizeProvider: FC<IProps> = memo(({ children, resizeHandleClassNam
 
 	return <ResizeContext.Provider value={value}>{children}</ResizeContext.Provider>;
 });
+
+ResizeProvider.displayName = "ResizeProvider";

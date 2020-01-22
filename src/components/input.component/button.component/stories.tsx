@@ -6,7 +6,7 @@ import { Button } from ".";
 
 export default { title: "input/button", component: Button };
 
-const SPACING: number = 8;
+const SPACING = 8;
 
 export const standard = () => {
 	const onClick = action("onClick");

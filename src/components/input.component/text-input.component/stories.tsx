@@ -6,7 +6,7 @@ import React, { CSSProperties, useCallback, useState } from "react";
 import { FaBacon } from "react-icons/fa";
 import { TextInput } from ".";
 
-const MAX_INPUT_LENGTH: number = 5;
+const MAX_INPUT_LENGTH = 5;
 
 export default { title: "input/text-input", component: TextInput };
 

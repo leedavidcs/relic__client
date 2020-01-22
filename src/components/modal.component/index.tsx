@@ -16,12 +16,8 @@ interface IProps {
 export const Modal: FC<IProps> = ({
 	active,
 	children,
-	onClickOutside: propsOnClickOutside = () => {
-		return;
-	},
-	onClose: propsOnClose = () => {
-		return;
-	},
+	onClickOutside: propsOnClickOutside = () => undefined,
+	onClose: propsOnClose = () => undefined,
 	title = ""
 }) => {
 	const classes = useStyles();
@@ -40,9 +36,9 @@ export const Modal: FC<IProps> = ({
 	}, [active, propsOnClickOutside]);
 
 	useEffect(() => {
-		const paperDiv: HTMLDivElement = paperRef.current!;
+		const paperDiv: HTMLDivElement | null = paperRef.current;
 
-		paperDiv.classList.toggle(classes.active, active);
+		paperDiv?.classList.toggle(classes.active, active);
 	}, [active, classes.active]);
 
 	return (

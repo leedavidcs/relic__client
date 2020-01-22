@@ -1,6 +1,6 @@
 export class ArrayUtil {
-	public static replace<T>(array: ReadonlyArray<T>, index: number, value: T): ReadonlyArray<T> {
-		const result: ReadonlyArray<T> = Object.assign([], array, { [index]: value });
+	public static replace<T>(array: readonly T[], index: number, value: T): readonly T[] {
+		const result: readonly T[] = Object.assign([], array, { [index]: value });
 
 		return result;
 	}

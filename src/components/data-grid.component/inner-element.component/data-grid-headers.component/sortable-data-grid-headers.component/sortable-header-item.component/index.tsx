@@ -1,16 +1,8 @@
 import { ContextMenu } from "@/components/context-menu.component";
-import { HeadersContext, IHeaderConfig } from "@/components/data-grid.component";
+import { IHeaderConfig } from "@/components/data-grid.component";
 import { Tooltip } from "@/components/tooltip.component";
 import { codes } from "keycode";
-import React, {
-	ChangeEvent,
-	FC,
-	KeyboardEvent,
-	memo,
-	useCallback,
-	useContext,
-	useMemo
-} from "react";
+import React, { ChangeEvent, FC, KeyboardEvent, memo, useCallback, useMemo } from "react";
 import { SortableElement, SortableElementProps } from "react-sortable-hoc";
 import { HeaderItem } from "./header-item.component";
 import { HeaderMenu, IOption } from "./header-menu.component";
@@ -62,13 +54,12 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 					stopEditing();
 					break;
 				default:
-					return;
 			}
 		},
 		[stopEditing, updateLabel]
 	);
 
-	const menuOptions: ReadonlyArray<IOption> = useMemo(
+	const menuOptions: readonly IOption[] = useMemo(
 		() => [
 			{ text: "Edit label", handler: startEditing },
 			{ text: freezeActionLabel, handler: freezeAction }
@@ -103,6 +94,8 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 	);
 });
 
+BaseHeaderItemComponent.displayName = "BaseHeaderItemComponent";
+
 const SortableHeaderItemComponent = SortableElement<IProps>(BaseHeaderItemComponent);
 
 export const SortableHeaderItem: FC<IProps & SortableElementProps> = memo((props) => {
@@ -112,3 +105,5 @@ export const SortableHeaderItem: FC<IProps & SortableElementProps> = memo((props
 
 	return <ComponentType {...props} />;
 });
+
+SortableHeaderItem.displayName = "SortableHeaderItem";

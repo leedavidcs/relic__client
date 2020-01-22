@@ -8,8 +8,8 @@ interface IModalContextProps {
 
 export const ModalContext: Context<IModalContextProps> = createContext<IModalContextProps>({
 	active: false,
-	setContent: () => void 0,
-	toggle: () => void 0
+	setContent: () => undefined,
+	toggle: () => undefined
 });
 
 ModalContext.displayName = "ModalContext";

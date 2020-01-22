@@ -16,10 +16,10 @@ interface IContextMenuContextProps {
 export const ContextMenuContext: Context<IContextMenuContextProps> = createContext<
 	IContextMenuContextProps
 >({
-	close: () => void 0,
-	open: () => void 0,
+	close: () => undefined,
+	open: () => undefined,
 	register: () => "",
-	unregister: () => void 0
+	unregister: () => undefined
 });
 
 ContextMenuContext.displayName = "ContextMenuContext";

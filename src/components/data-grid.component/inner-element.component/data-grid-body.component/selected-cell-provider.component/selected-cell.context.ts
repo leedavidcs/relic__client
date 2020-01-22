@@ -9,7 +9,7 @@ export const SelectedCellContext: Context<ISelectedCellContextProps> = createCon
 	ISelectedCellContextProps
 >({
 	selectedCell: null,
-	setSelectedCell: () => void 0
+	setSelectedCell: () => undefined
 });
 
 SelectedCellContext.displayName = "SelectedCellContext";

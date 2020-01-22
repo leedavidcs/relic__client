@@ -24,3 +24,5 @@ export const ResizeHandle: NamedExoticComponent<IProps> = memo<IProps>(({ index 
 		</DraggableCore>
 	);
 });
+
+ResizeHandle.displayName = "ResizeHandle";

@@ -5,8 +5,8 @@ export * from "./data.context";
 
 interface IProps {
 	children: ReactNode;
-	data: ReadonlyArray<{ [key: string]: DataValue }>;
-	onDataChange: (data: ReadonlyArray<{ [key: string]: DataValue }>) => void;
+	data: readonly { [key: string]: DataValue }[];
+	onDataChange: (data: readonly { [key: string]: DataValue }[]) => void;
 }
 
 export const DataProvider: FC<IProps> = memo(({ children, data, onDataChange }) => {
@@ -14,3 +14,5 @@ export const DataProvider: FC<IProps> = memo(({ children, data, onDataChange }) 
 
 	return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 });
+
+DataProvider.displayName = "DataProvider";

@@ -12,7 +12,7 @@ import { DataCell } from "./data-cell.component";
 import { useStyles } from "./styles";
 
 interface IProps {
-	data: ReadonlyArray<{ [key: string]: DataValue }>;
+	data: readonly { [key: string]: DataValue }[];
 	rowIndex: number;
 	style: CSSProperties;
 }
@@ -35,7 +35,7 @@ export const SortableDataRow = SortableElement<IProps>((props: IProps) => {
 	);
 
 	const getCellItems = useCallback(
-		(configs: ReadonlyArray<IHeaderConfig>, offset: number = 0) => {
+		(configs: readonly IHeaderConfig[], offset = 0) => {
 			return configs.map((header, i) => {
 				const { value, width } = header;
 				const adjIndex: number = i + offset;
@@ -57,12 +57,12 @@ export const SortableDataRow = SortableElement<IProps>((props: IProps) => {
 		[onClick, rowData, rowIndex]
 	);
 
-	const frozenCells: ReadonlyArray<ReactElement> = useMemo(
+	const frozenCells: readonly ReactElement[] = useMemo(
 		() => getCellItems(takeWhile(headers, { frozen: true })),
 		[getCellItems, headers]
 	);
 
-	const unfrozenCells: ReadonlyArray<ReactElement> = useMemo(
+	const unfrozenCells: readonly ReactElement[] = useMemo(
 		() => getCellItems(takeRightWhile(headers, { frozen: false }), frozenCells.length),
 		[getCellItems, headers, frozenCells.length]
 	);

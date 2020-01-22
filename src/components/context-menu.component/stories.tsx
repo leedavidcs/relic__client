@@ -4,8 +4,8 @@ import { action } from "@storybook/addon-actions";
 import React, { useCallback } from "react";
 import { ContextMenu } from ".";
 
-const MENU_SIZE: number = 200;
-const PAPER_SIZE: number = 500;
+const MENU_SIZE = 200;
+const PAPER_SIZE = 500;
 
 export default { title: "context-menu", component: ContextMenu };
 

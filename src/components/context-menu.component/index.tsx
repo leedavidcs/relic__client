@@ -44,8 +44,8 @@ export const ContextMenu = forwardRef<IRef, IProps>(
 		{
 			children,
 			menu,
-			onClose = () => void 0,
-			onOpen = () => void 0,
+			onClose = () => undefined,
+			onOpen = () => undefined,
 			register: propsRegister = true
 		},
 		ref

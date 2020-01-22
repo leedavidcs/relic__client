@@ -4,7 +4,7 @@
  * @author David Lee
  * @date January 16, 2020
  */
-export const makeConcurrentFunc = <Args extends ReadonlyArray<any>>(
-	funcs: ReadonlyArray<(...args: Args) => void>
+export const makeConcurrentFunc = <Args extends readonly any[]>(
+	funcs: readonly ((...args: Args) => void)[]
 ): ((...args: Args) => Promise<void>) => (...args: Args) =>
-	Promise.all<void>(funcs.map((func) => Promise.resolve(func(...args)))).then(void 0);
+	Promise.all<void>(funcs.map((func) => Promise.resolve(func(...args)))).then(undefined);

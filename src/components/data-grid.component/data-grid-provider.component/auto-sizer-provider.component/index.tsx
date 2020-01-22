@@ -24,3 +24,5 @@ export const AutoSizerProvider: FC<IProps> = memo(({ children }) => {
 		</div>
 	);
 });
+
+AutoSizerProvider.displayName = "AutoSizerProvider";

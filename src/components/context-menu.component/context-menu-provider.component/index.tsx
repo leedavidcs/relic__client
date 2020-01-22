@@ -23,7 +23,7 @@ export const ContextMenuProvider: FC<IProps> = ({ children }) => {
 				return dict[id]?.close();
 			}
 
-			const funcs: ReadonlyArray<() => void> = Object.values(dict).map(({ close: f }) => f);
+			const funcs: readonly (() => void)[] = Object.values(dict).map(({ close: f }) => f);
 
 			const closeAll = makeConcurrentFunc(funcs);
 
@@ -36,9 +36,7 @@ export const ContextMenuProvider: FC<IProps> = ({ children }) => {
 		(id: string, location: ITooltipLocation) => {
 			const { [id]: toOpen, ...toClose } = dictRef.current;
 
-			const funcs: ReadonlyArray<() => void> = Object.values(toClose).map(
-				({ close: f }) => f
-			);
+			const funcs: readonly (() => void)[] = Object.values(toClose).map(({ close: f }) => f);
 
 			const closeOthers = makeConcurrentFunc(funcs);
 

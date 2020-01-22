@@ -38,3 +38,5 @@ export const OuterElement = forwardRef<HTMLDivElement, Props>(
 		);
 	}
 );
+
+OuterElement.displayName = "OuterElement";

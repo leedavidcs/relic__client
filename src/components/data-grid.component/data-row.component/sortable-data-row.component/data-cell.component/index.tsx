@@ -4,7 +4,7 @@ import React, { FC, memo, useCallback, useContext, useMemo } from "react";
 import { DragHandle } from "./drag-handle.component";
 import { useStyles } from "./styles";
 
-const EVEN: number = 2;
+const EVEN = 2;
 
 interface IProps {
 	columnIndex: number;
@@ -59,3 +59,5 @@ export const DataCell: FC<IProps> = memo(
 		);
 	}
 );
+
+DataCell.displayName = "DataCell";

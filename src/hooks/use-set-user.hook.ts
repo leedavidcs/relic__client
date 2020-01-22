@@ -9,7 +9,7 @@ interface IUseSetUserOptions {
 }
 
 export const useSetUser = (options?: IUseSetUserOptions): SetUserResultsTuple => {
-	const { onCompleted: optOnCompleted = () => void 0 } = options || {};
+	const { onCompleted: optOnCompleted = () => undefined } = options || {};
 
 	const [called, setCalled] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
