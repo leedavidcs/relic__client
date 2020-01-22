@@ -25,7 +25,8 @@
 		"import",
 		"prefer-arrow",
 		"prettier",
-		"react"
+		"react",
+		"standard"
 	],
 	"rules": {
 		"@typescript-eslint/array-type": "error",
@@ -41,18 +42,6 @@
 		"@typescript-eslint/no-parameter-properties": "off",
 		"@typescript-eslint/prefer-for-of": "error",
 		"@typescript-eslint/prefer-function-type": "error",
-		"@typescript-eslint/quotes": "off",
-		"@typescript-eslint/semi": ["error", "always"],
-		"@typescript-eslint/space-within-parens": ["off", "never"],
-		"@typescript-eslint/unified-signatures": "error",
-		"arrow-parens": ["off", "as-needed"],
-		"comma-dangle": "off",
-		"curly": ["error", "multi-line"],
-		"dot-notation": "error",
-		"eol-last": "off",
-		"eqeqeq": ["error", "smart"],
-		"guard-for-in": "error",
-		"id-match": "error",
 		"import/order": [
 			"error",
 			{
@@ -70,22 +59,15 @@
 				]
 			}
 		],
-		"linebreak-style": "off",
-		"max-classes-per-file": "off",
 		"max-len": [
 			"error",
 			{
 				"code": 100
 			}
 		],
-		"new-parens": "off",
-		"newline-per-chained-call": "off",
 		"no-bitwise": "error",
-		"no-caller": "error",
-		"no-console": "error",
-		"no-empty": "error",
-		"no-eval": "error",
-		"no-invalid-this": "off",
+		"no-console": "warn",
+		"no-empty": "warn",
 		"no-magic-numbers": [
 			"error",
 			{
@@ -93,24 +75,17 @@
 			}
 		],
 		"no-multiple-empty-lines": "error",
-		"no-new-wrappers": "error",
 		"no-shadow": [
 			"error",
 			{
 				"hoist": "all"
 			}
 		],
-		"no-throw-literal": "error",
 		"no-underscore-dangle": "error",
 		"object-shorthand": "error",
-		"one-var": ["error", "never"],
 		"prefer-arrow/prefer-arrow-functions": "error",
 		"prettier/prettier": "error",
-		"quote-props": "off",
-		"radix": "error",
-		"react/prop-types": "off",
-		"space-before-function-paren": "off",
-		"spaced-comment": "error"
+		"react/prop-types": "off"
 	},
 	"settings": {
 		"react": {
