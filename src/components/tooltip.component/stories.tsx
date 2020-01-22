@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import { Button } from "@/components/input.component";
 import { List, ListItem, ListItemIcon, ListItemText } from "@/components/list.component";
 import { Paper } from "@/components/paper.component";
@@ -46,32 +45,30 @@ export const Standard = () => {
 	}, [setActive]);
 
 	return (
-		<Background>
-			<Paper style={{ display: "flex", justifyContent: "center" }}>
-				<Tooltip
-					active={active}
-					direction={direction}
-					onMouseDownOut={onClickOut}
-					tooltip={
-						<List>
-							<ListItem>
-								<ListItemIcon>
-									<FaBacon />
-								</ListItemIcon>
-								<ListItemText primary="Banana" />
-							</ListItem>
-							<ListItem>
-								<ListItemIcon>
-									<FaBacon />
-								</ListItemIcon>
-								<ListItemText primary="Apple" />
-							</ListItem>
-						</List>
-					}
-				>
-					<Button onClick={onClick}>Toggle</Button>
-				</Tooltip>
-			</Paper>
-		</Background>
+		<Paper style={{ display: "flex", justifyContent: "center" }}>
+			<Tooltip
+				active={active}
+				direction={direction}
+				onMouseDownOut={onClickOut}
+				tooltip={
+					<List>
+						<ListItem>
+							<ListItemIcon>
+								<FaBacon />
+							</ListItemIcon>
+							<ListItemText primary="Banana" />
+						</ListItem>
+						<ListItem>
+							<ListItemIcon>
+								<FaBacon />
+							</ListItemIcon>
+							<ListItemText primary="Apple" />
+						</ListItem>
+					</List>
+				}
+			>
+				<Button onClick={onClick}>Toggle</Button>
+			</Tooltip>
+		</Paper>
 	);
 };

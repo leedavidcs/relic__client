@@ -53,6 +53,7 @@
     "test-reports"
   ],
   "include": [
-    "src"
+    "src",
+    "./*.js"
   ]
 }

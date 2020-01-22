@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import { Paper } from "@/components/paper.component";
 import { text } from "@storybook/addon-knobs";
 import React from "react";
@@ -10,10 +9,8 @@ export const standard = () => {
 	const password = text("password", "");
 
 	return (
-		<Background>
-			<Paper>
-				<PasswordStrength password={password} />
-			</Paper>
-		</Background>
+		<Paper>
+			<PasswordStrength password={password} />
+		</Paper>
 	);
 };

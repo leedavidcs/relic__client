@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import { DataGrid, IHeaderConfig } from "@/components/data-grid.component";
 import { Paper } from "@/components/paper.component";
 import Faker from "faker";
@@ -60,17 +59,15 @@ export const StandardStory = () => {
 	]);
 
 	return (
-		<Background>
-			<Paper>
-				<div style={{ height: 500 }}>
-					<DataGrid
-						data={data}
-						headers={headers}
-						onDataChange={onDataChange}
-						onHeadersChange={onHeadersChange}
-					/>
-				</div>
-			</Paper>
-		</Background>
+		<Paper>
+			<div style={{ height: 500 }}>
+				<DataGrid
+					data={data}
+					headers={headers}
+					onDataChange={onDataChange}
+					onHeadersChange={onHeadersChange}
+				/>
+			</div>
+		</Paper>
 	);
 };

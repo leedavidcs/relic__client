@@ -1,4 +1,3 @@
-import { Background } from "@/components/background.component";
 import Faker from "faker";
 import React from "react";
 import { Paper } from ".";
@@ -12,11 +11,9 @@ export const standard = () => {
 	const paragraph: string = Faker.lorem.paragraph();
 
 	return (
-		<Background>
-			<Paper>
-				<h1>{heading}</h1>
-				<p>{paragraph}</p>
-			</Paper>
-		</Background>
+		<Paper>
+			<h1>{heading}</h1>
+			<p>{paragraph}</p>
+		</Paper>
 	);
 };
