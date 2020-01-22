@@ -1,3 +1,3 @@
 import { SignUpForm } from "@/forms";
 
-export const SignUpModal = SignUpForm;
+export default SignUpForm;

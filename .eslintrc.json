@@ -20,14 +20,7 @@
 		"project": "tsconfig.json",
 		"sourceType": "module"
 	},
-	"plugins": [
-		"@typescript-eslint",
-		"import",
-		"prefer-arrow",
-		"prettier",
-		"react",
-		"standard"
-	],
+	"plugins": ["@typescript-eslint", "import", "prefer-arrow", "prettier", "react", "standard"],
 	"rules": {
 		"@typescript-eslint/array-type": "error",
 		"@typescript-eslint/explicit-function-return-type": "off",
@@ -49,7 +42,7 @@
 					"order": "asc",
 					"caseInsensitive": true
 				},
-				"groups":["external", "internal", ["parent", "sibling", "builtin", "index"]],
+				"groups": ["external", "internal", ["parent", "sibling", "builtin", "index"]],
 				"pathGroups": [
 					{
 						"pattern": "@/**",
@@ -94,9 +87,7 @@
 		},
 		"import/resolver": {
 			"alias": {
-				"map": [
-					["@", "./src"]
-				],
+				"map": [["@", "./src"]],
 				"extensions": [".js", ".jsx", ".ts", ".tsx"]
 			}
 		}

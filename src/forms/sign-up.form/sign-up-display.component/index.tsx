@@ -1,11 +1,12 @@
 import { Anchor, Button, PasswordStrength, TextInput } from "@/components";
 import { RegisterLocalUserVariables } from "@/graphql";
 import { useModal } from "@/hooks";
-import { SignInModal } from "@/modals";
 import { onInputValueChanged } from "@/utils";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, lazy, useCallback, useState } from "react";
 import Validator from "validator";
 import { useStyles } from "./styles";
+
+const SignInModal = lazy(() => import("@/modals/sign-in.modal"));
 
 interface IProps {
 	onClickResend: () => void;
