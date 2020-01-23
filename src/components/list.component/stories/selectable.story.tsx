@@ -7,7 +7,7 @@ export const SelectableStory: FC = () => {
 
 	const onClick = useCallback(
 		(index: number) => {
-			return (event: MouseEvent<HTMLLIElement>) => {
+			return (event: MouseEvent<HTMLElement>) => {
 				setSelectedIndex(index);
 			};
 		},
@@ -15,7 +15,7 @@ export const SelectableStory: FC = () => {
 	);
 
 	return (
-		<List>
+		<List divider="full">
 			<ListItem selected={selectedIndex === 0} onClick={onClick(0)}>
 				<ListItemIcon>
 					<FaBacon />

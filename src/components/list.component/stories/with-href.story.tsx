@@ -2,10 +2,10 @@ import { List, ListItem, ListItemIcon, ListItemText } from "@/components/list.co
 import React, { FC } from "react";
 import { FaApple, FaBacon } from "react-icons/fa";
 
-export const StandardStory: FC = () => {
+export const WithHrefStory: FC = () => {
 	return (
 		<List divider="full">
-			<ListItem>
+			<ListItem href="https://google.com">
 				<ListItemIcon>
 					<FaBacon />
 				</ListItemIcon>
