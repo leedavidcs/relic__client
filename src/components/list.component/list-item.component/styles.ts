@@ -3,21 +3,33 @@ import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
 	root: {
+		position: "relative",
+		textAlign: "left",
+		textDecoration: "none",
+		cursor: ({ href, selected }) =>
+			typeof selected === "boolean" || href ? "pointer" : "unset"
+	},
+	padded: {
 		display: "flex",
 		justifyContent: "flex-start",
 		alignItems: "center",
-		position: "relative",
-		textDecoration: "none",
-		width: "100%",
 		boxSizing: "border-box",
-		textAlign: "left",
-		padding: "8px 16px",
-		cursor: ({ selected }) => (typeof selected === "boolean" ? "pointer" : "unset")
+		height: "100%",
+		width: "100%",
+		padding: "8px 16px"
 	},
 	link: {
 		display: "flex",
+		height: "100%",
+		width: "100%",
 		color: "unset",
 		textDecoration: "none"
+	},
+	divider: {
+		marginBlockStart: 0,
+		marginBlockEnd: 0,
+		marginTop: 0,
+		marginBottom: 0
 	}
 });
 
