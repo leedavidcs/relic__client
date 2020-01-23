@@ -7,5 +7,5 @@ export default { title: "overlay", component: Overlay };
 export const standard = () => {
 	const active: boolean = boolean("active", true);
 
-	return <Overlay active={active} />;
+	return <Overlay active={active} relative={false} />;
 };

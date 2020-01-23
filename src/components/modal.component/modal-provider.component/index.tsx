@@ -32,7 +32,7 @@ export const ModalProvider: FC = ({ children }) => {
 	return (
 		<ModalContext.Provider value={value}>
 			{children}
-			<Overlay active={active} clickThrough={false} />
+			<Overlay active={active} clickThrough={false} relative={false} />
 			<Modal active={active} onClose={onClose} onClickOutside={onClose} title={title}>
 				<Suspense fallback={<div>Loading...</div>}>{body}</Suspense>
 			</Modal>
