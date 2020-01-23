@@ -11,7 +11,7 @@ const PARAGRAPH_COUNTS = 10;
 export const Standard = () => {
 	const content: string = useMemo(() => Faker.lorem.paragraphs(PARAGRAPH_COUNTS), []);
 
-	const active: boolean = boolean("active", false);
+	const active: boolean = boolean("active", true);
 
 	return (
 		<Paper>
