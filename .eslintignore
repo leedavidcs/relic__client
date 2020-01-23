@@ -1,11 +1,22 @@
+# configs
 .jest/**
 .storybook/**
 .vscode/**
+
+# dependencies
 node_modules/**
+
+# production
 public/**
-scripts/**
+
+# testing
 storyshots/**
+
+# scripts
+scripts/**
 ./*.js
+
+# generated files
 **/types/**
 **/*.d.ts
 src/serviceWorker.ts
