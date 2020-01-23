@@ -1,0 +1,14 @@
+import { CustomTheme } from "@/themes";
+import { createUseStyles } from "react-jss";
+
+const styles = (theme: CustomTheme) => ({
+	header: {
+		height: 50,
+		border: "1px solid gray"
+	},
+	content: {
+		border: "1px solid gray"
+	}
+});
+
+export const useStyles = createUseStyles<CustomTheme, keyof ReturnType<typeof styles>>(styles);
