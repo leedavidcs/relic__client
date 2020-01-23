@@ -5,12 +5,12 @@ import Faker from "faker";
 import React, { useMemo } from "react";
 import { useStyles } from "./styles";
 
-const PARAGRAPH_COUNTS = 10;
+const PARAGRAPH_COUNT = 10;
 
 export const StandardStory = () => {
 	const classes = useStyles();
 
-	const content: string = useMemo(() => Faker.lorem.paragraphs(PARAGRAPH_COUNTS), []);
+	const content: string = useMemo(() => Faker.lorem.paragraphs(PARAGRAPH_COUNT), []);
 
 	const active: boolean = boolean("active", true);
 
