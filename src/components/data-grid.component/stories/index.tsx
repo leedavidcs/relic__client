@@ -1,5 +1,5 @@
+import { DataGrid } from "@/components/data-grid.component";
 import { StandardStory } from "./standard.story";
-import { DataGrid } from "..";
 
 export default { title: "data-grid", component: DataGrid };
 

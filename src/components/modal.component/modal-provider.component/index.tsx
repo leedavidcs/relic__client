@@ -1,7 +1,7 @@
 import { Modal, ModalContext } from "@/components/modal.component";
 import { Overlay } from "@/components/overlay.component";
 import { GetModal, Mutations, Queries, ToggleModal, ToggleModalVariables } from "@/graphql";
-import React, { FC, ReactNode, useCallback, useMemo, useState, Suspense } from "react";
+import React, { FC, ReactNode, Suspense, useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
 
 export * from "./modal.context";

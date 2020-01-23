@@ -1,6 +1,6 @@
 import { toggleClass } from "@/utils";
 import classnames from "classnames";
-import React, { FC, useEffect, useRef, useLayoutEffect } from "react";
+import React, { FC, memo, useEffect, useLayoutEffect, useRef } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
@@ -12,39 +12,36 @@ interface IProps {
 	relative?: boolean;
 }
 
-export const Overlay: FC<IProps> = ({
-	active,
-	animate,
-	className,
-	clickThrough,
-	opacity,
-	relative = true
-}) => {
-	const classes = useStyles({ active, animate, clickThrough, opacity, relative });
-	const elemRef = useRef<HTMLDivElement>(null);
+export const Overlay: FC<IProps> = memo(
+	({ active, animate, className, clickThrough, opacity, relative = true }) => {
+		const classes = useStyles({ active, animate, clickThrough, opacity, relative });
+		const elemRef = useRef<HTMLDivElement>(null);
 
-	useLayoutEffect(() => {
-		const elem: HTMLDivElement | null = elemRef.current;
+		useLayoutEffect(() => {
+			const elem: HTMLDivElement | null = elemRef.current;
 
-		if (!elem) {
-			return;
-		}
+			if (!elem) {
+				return;
+			}
 
-		toggleClass(elem, classes.active, true);
-	}, [active, classes.active]);
+			toggleClass(elem, classes.active, true);
+		}, [active, classes.active]);
 
-	useEffect(() => {
-		const elem: HTMLDivElement | null = elemRef.current;
+		useEffect(() => {
+			const elem: HTMLDivElement | null = elemRef.current;
 
-		if (!elem) {
-			return;
-		}
+			if (!elem) {
+				return;
+			}
 
-		toggleClass(elem, classes.transition, true);
-	}, [animate, classes.transition]);
+			toggleClass(elem, classes.transition, true);
+		}, [animate, classes.transition]);
 
-	return <div className={classnames(classes.root, className)} ref={elemRef} />;
-};
+		return <div className={classnames(classes.root, className)} ref={elemRef} />;
+	}
+);
+
+Overlay.displayName = "Overlay";
 
 Overlay.defaultProps = {
 	active: false,

@@ -1,4 +1,4 @@
-import { AppBar } from "../";
+import { AppBar } from "@/components/app-bar.component";
 import { StandardStory } from "./standard.story";
 import { WithUserStory } from "./with-user.story";
 

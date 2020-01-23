@@ -1,6 +1,6 @@
+import { AppBar } from "@/components/app-bar.component";
 import { action } from "@storybook/addon-actions";
 import React from "react";
-import { AppBar } from "../";
 
 export const StandardStory = () => {
 	const onClickSignOut = action("sign out");

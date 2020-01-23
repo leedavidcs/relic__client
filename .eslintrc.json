@@ -9,6 +9,7 @@
 		"eslint:recommended",
 		"plugin:import/errors",
 		"plugin:import/warnings",
+		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:prettier/recommended",
 		"plugin:react/recommended",
@@ -20,7 +21,15 @@
 		"project": "tsconfig.json",
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint", "import", "prefer-arrow", "prettier", "react", "standard"],
+	"plugins": [
+		"@typescript-eslint",
+		"@typescript-eslint/tslint",
+		"import",
+		"prefer-arrow",
+		"prettier",
+		"react",
+		"standard"
+	],
 	"rules": {
 		"@typescript-eslint/array-type": "error",
 		"@typescript-eslint/explicit-function-return-type": "off",
@@ -35,6 +44,16 @@
 		"@typescript-eslint/no-parameter-properties": "off",
 		"@typescript-eslint/prefer-for-of": "error",
 		"@typescript-eslint/prefer-function-type": "error",
+		"@typescript-eslint/tslint/config": [
+			"warn",
+			{
+				"rules": {
+					"ordered-imports": {
+						"named-imports-order": "case-insensitive"
+					}
+				}
+			}
+		],
 		"import/order": [
 			"error",
 			{
@@ -42,7 +61,7 @@
 					"order": "asc",
 					"caseInsensitive": true
 				},
-				"groups": ["external", "internal", ["parent", "sibling", "builtin", "index"]],
+				"groups": ["external", "internal", "parent", ["sibling", "builtin", "index"]],
 				"pathGroups": [
 					{
 						"pattern": "@/**",
@@ -68,6 +87,12 @@
 			}
 		],
 		"no-multiple-empty-lines": "error",
+		"no-restricted-imports": [
+			"error",
+			{
+				"patterns": ["../"]
+			}
+		],
 		"no-shadow": [
 			"error",
 			{

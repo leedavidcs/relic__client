@@ -3,11 +3,11 @@ import classnames from "classnames";
 import React, {
 	FC,
 	ReactNode,
+	useCallback,
+	useEffect,
 	useLayoutEffect,
 	useRef,
-	useEffect,
-	useState,
-	useCallback
+	useState
 } from "react";
 import { useStyles } from "./styles";
 
