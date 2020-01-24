@@ -7,7 +7,7 @@ import React, { useCallback, useState } from "react";
 import { FaBacon } from "react-icons/fa";
 import { Tooltip } from ".";
 
-export default { title: "tooltip", component: Tooltip };
+export default { title: "general/tooltip", component: Tooltip };
 
 export const Standard = () => {
 	const [active, setActive] = useState<boolean>(false);

@@ -2,7 +2,7 @@ import Faker from "faker";
 import React from "react";
 import { Toolbar } from ".";
 
-export default { title: "toolbar", components: Toolbar };
+export default { title: "general/toolbar", components: Toolbar };
 
 export const standard = () => {
 	Faker.seed(1);

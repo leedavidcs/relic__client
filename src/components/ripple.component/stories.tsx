@@ -4,7 +4,7 @@ import { Ripple } from ".";
 
 const RIPPLE_CONTAINER_SIZE = 500;
 
-export default { title: "ripple", component: Ripple };
+export default { title: "general/ripple", component: Ripple };
 
 export const standard = () => {
 	return (

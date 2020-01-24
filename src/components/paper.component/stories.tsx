@@ -2,7 +2,7 @@ import Faker from "faker";
 import React from "react";
 import { Paper } from ".";
 
-export default { title: "paper", component: Paper };
+export default { title: "general/paper", component: Paper };
 
 export const standard = () => {
 	Faker.seed(1);

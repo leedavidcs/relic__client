@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 import { Anchor } from ".";
 
-export default { title: "input/anchor", component: Anchor };
+export default { title: "general/inputs/anchor", component: Anchor };
 
 export const standard = () => {
 	const onClick = action("onClick");
