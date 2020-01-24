@@ -15,7 +15,7 @@ const styles = (theme: CustomTheme) => ({
 		width: "100%"
 	},
 	transition: {
-		transition: "max-height 0.2s ease-out"
+		transition: ({ transition }) => `max-height ${transition}ms ease-out`
 	}
 });
 

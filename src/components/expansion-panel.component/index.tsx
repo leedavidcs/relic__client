@@ -3,32 +3,38 @@ import classnames from "classnames";
 import React, {
 	FC,
 	ReactNode,
+	useCallback,
+	useEffect,
 	useLayoutEffect,
 	useRef,
-	useEffect,
-	useState,
-	useCallback
+	useState
 } from "react";
 import { useStyles } from "./styles";
 
+const DEFAULT_TRANSITION_MS = 200;
+
 interface IProps {
 	active: boolean;
+	animate?: boolean;
 	header: ReactNode;
 	children: ReactNode;
 	className?: string;
 	onClick?: (active: boolean) => void;
+	transition?: number;
 }
 
 export const ExpansionPanel: FC<IProps> = ({
 	active,
+	animate = true,
 	header,
 	children,
 	className,
-	onClick: propsOnClick
+	onClick: propsOnClick,
+	transition = DEFAULT_TRANSITION_MS
 }) => {
 	const [height, setHeight] = useState<number>(0);
 
-	const classes = useStyles({ active, height });
+	const classes = useStyles({ active, height, transition });
 
 	const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,8 +51,14 @@ export const ExpansionPanel: FC<IProps> = ({
 
 	// Add transition after initial render
 	useEffect(() => {
-		containerRef.current?.classList.add(classes.transition);
-	}, [classes.transition]);
+		const containerElem: HTMLDivElement | null = containerRef.current;
+
+		if (!containerElem) {
+			return;
+		}
+
+		setTimeout(() => toggleClass(containerElem, classes.transition, animate), transition);
+	}, [animate, height, transition, classes.transition]);
 
 	// Compute content height for expansion
 	useEffect(() => {

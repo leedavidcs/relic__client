@@ -1,5 +1,6 @@
+import { useClickThrough } from "@/hooks";
 import { debounce } from "lodash";
-import React, { CSSProperties, FC, MouseEvent, useCallback, useEffect, useState } from "react";
+import React, { CSSProperties, FC, useCallback, useEffect, useRef, useState } from "react";
 import { useStyles } from "./styles";
 
 const CLEAN_UP_DEBOUNCE = 2000;
@@ -9,10 +10,11 @@ export const Ripple: FC<{}> = () => {
 
 	const [styles, setStyles] = useState<{ [key: string]: CSSProperties }>({});
 	const [count, setCount] = useState<number>(0);
+	const elemRef = useRef<HTMLDivElement | null>(null);
 
 	const onMouseDown = useCallback(
-		(event: MouseEvent<HTMLDivElement>) => {
-			const container = event.currentTarget;
+		(event: MouseEvent) => {
+			const container = event.relatedTarget as HTMLDivElement;
 
 			const size = container.offsetWidth;
 			const position = container.getBoundingClientRect();
@@ -41,10 +43,13 @@ export const Ripple: FC<{}> = () => {
 		[setStyles, setCount]
 	);
 
+	useClickThrough(onMouseDown, elemRef, { event: "mousedown" });
+	useClickThrough(onMouseUp, elemRef, { event: "mouseup" });
+
 	useEffect(() => () => onMouseUp.cancel(), [onMouseUp]);
 
 	return (
-		<div className={classes.root} onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
+		<div ref={elemRef} className={classes.root}>
 			{Object.keys(styles).map((key) => (
 				<span className={classes.ripple} key={key} style={styles[key]} />
 			))}

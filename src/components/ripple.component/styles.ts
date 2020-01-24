@@ -14,7 +14,8 @@ const styles = (theme: CustomTheme) => ({
 		right: 0,
 		bottom: 0,
 		left: 0,
-		overflow: "hidden"
+		overflow: "hidden",
+		pointerEvents: "none"
 	},
 	ripple: {
 		position: "absolute",

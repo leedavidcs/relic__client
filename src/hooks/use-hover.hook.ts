@@ -1,13 +1,13 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 export const useHover = <T extends Element = Element>(
 	initial: boolean,
-	ref?: RefObject<T>
-): [boolean, RefObject<T>] => {
+	ref?: MutableRefObject<T | null>
+): [boolean, MutableRefObject<T | null>] => {
 	const [isHovered, setIsHovered] = useState<boolean>(initial);
 
 	const createdRef: RefObject<T> = useRef<T>(null);
-	const hoverRef: RefObject<T> = ref || createdRef;
+	const hoverRef: MutableRefObject<T | null> = ref || createdRef;
 
 	const onMouseOver = useCallback(() => setIsHovered(true), [setIsHovered]);
 	const onMouseOut = useCallback(() => setIsHovered(false), [setIsHovered]);

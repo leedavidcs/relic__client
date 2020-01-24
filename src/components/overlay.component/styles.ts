@@ -4,7 +4,7 @@ import { createUseStyles } from "react-jss";
 const styles = (theme: CustomTheme) => ({
 	root: {
 		backgroundColor: theme.onSurface,
-		position: "fixed",
+		position: ({ relative }) => (relative ? "absolute" : "fixed"),
 		top: 0,
 		right: 0,
 		bottom: 0,
@@ -15,7 +15,7 @@ const styles = (theme: CustomTheme) => ({
 	},
 	active: {
 		opacity: ({ active, opacity }) => (active ? opacity : 0),
-		pointerEvents: ({ clickThrough }) => (clickThrough ? "none" : "auto")
+		pointerEvents: ({ active, clickThrough }) => (!active || clickThrough ? "none" : "auto")
 	},
 	transition: {
 		transition: ({ animate }) => (animate ? "opacity 0.4s ease" : "all 0s ease 0s")

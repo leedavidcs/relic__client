@@ -2,12 +2,12 @@ import classnames from "classnames";
 import React, { FC } from "react";
 import { useStyles } from "./styles";
 
-const variants = ["full", "inset", "middle"] as const;
+export type DividerVariant = "full" | "inset" | "middle";
 
 interface IProps {
 	className?: string;
 	list?: boolean;
-	variant?: typeof variants[number];
+	variant?: DividerVariant;
 }
 
 export const Divider: FC<IProps> = (props) => {

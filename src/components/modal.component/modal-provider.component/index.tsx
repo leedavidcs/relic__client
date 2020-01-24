@@ -1,7 +1,7 @@
 import { Modal, ModalContext } from "@/components/modal.component";
 import { Overlay } from "@/components/overlay.component";
 import { GetModal, Mutations, Queries, ToggleModal, ToggleModalVariables } from "@/graphql";
-import React, { FC, ReactNode, useCallback, useMemo, useState, Suspense } from "react";
+import React, { FC, ReactNode, Suspense, useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
 
 export * from "./modal.context";
@@ -32,7 +32,7 @@ export const ModalProvider: FC = ({ children }) => {
 	return (
 		<ModalContext.Provider value={value}>
 			{children}
-			<Overlay active={active} clickThrough={false} />
+			<Overlay active={active} clickThrough={false} relative={false} />
 			<Modal active={active} onClose={onClose} onClickOutside={onClose} title={title}>
 				<Suspense fallback={<div>Loading...</div>}>{body}</Suspense>
 			</Modal>
