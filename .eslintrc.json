@@ -7,10 +7,11 @@
 	"extends": [
 		"standard",
 		"eslint:recommended",
-		"plugin:import/errors",
-		"plugin:import/warnings",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:mdx/recommended",
 		"plugin:prettier/recommended",
 		"plugin:react/recommended",
 		"prettier/@typescript-eslint",
@@ -77,6 +78,7 @@
 				"code": 100
 			}
 		],
+		"mdx/no-unused-expressions": "off",
 		"no-bitwise": "error",
 		"no-console": "warn",
 		"no-empty": "warn",
