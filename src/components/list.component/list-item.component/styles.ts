@@ -5,7 +5,9 @@ const styles = (theme: CustomTheme) => ({
 	root: {
 		position: "relative",
 		textAlign: "left",
-		textDecoration: "none"
+		textDecoration: "none",
+		backgroundColor: theme.surface,
+		color: theme.onSurface
 	},
 	padded: {
 		display: "flex",

@@ -6,9 +6,7 @@ const styles = (theme: CustomTheme) => ({
 		position: "relative",
 		margin: 0,
 		padding: 0,
-		backgroundColor: theme.surface,
 		fontFamily: theme.fontPrimary,
-		color: theme.onSurface,
 		listStyleType: "none"
 	}
 });
