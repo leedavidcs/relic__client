@@ -3,7 +3,7 @@ import { AppBar, Background } from "@/components";
 import { useAuth, useSetUser } from "@/hooks";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
 	const { logout } = useAuth();
 	const [setUser, { called, loading, user }] = useSetUser();
 
@@ -33,5 +33,3 @@ const App: React.FC = () => {
 		</Background>
 	);
 };
-
-export default App;
