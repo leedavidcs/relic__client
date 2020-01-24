@@ -5,9 +5,7 @@ const styles = (theme: CustomTheme) => ({
 	root: {
 		position: "relative",
 		textAlign: "left",
-		textDecoration: "none",
-		cursor: ({ href, selected }) =>
-			typeof selected === "boolean" || href ? "pointer" : "unset"
+		textDecoration: "none"
 	},
 	padded: {
 		display: "flex",
@@ -16,7 +14,9 @@ const styles = (theme: CustomTheme) => ({
 		boxSizing: "border-box",
 		height: "100%",
 		width: "100%",
-		padding: "8px 16px"
+		padding: "8px 16px",
+		cursor: ({ href, selected }) =>
+			typeof selected === "boolean" || href ? "pointer" : "unset"
 	},
 	link: {
 		display: "flex",

@@ -47,6 +47,7 @@ export const Ripple: FC<{}> = () => {
 	useClickThrough(onMouseUp, elemRef, { event: "mouseup" });
 
 	useEffect(() => () => onMouseUp.cancel(), [onMouseUp]);
+
 	return (
 		<div ref={elemRef} className={classes.root}>
 			{Object.keys(styles).map((key) => (

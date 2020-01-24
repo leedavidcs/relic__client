@@ -25,12 +25,7 @@ export const AccordionStory = () => {
 	return (
 		<List divider="full">
 			{contents.map((content, i) => (
-				<ListItem
-					key={i}
-					onClick={selectActive(i)}
-					className={classes.header}
-					selected={selected === i}
-				>
+				<ListItem key={i} onClick={selectActive(i)} selected={selected === i}>
 					{({ deferred }) => (
 						<ExpansionPanel
 							active={selected === i}

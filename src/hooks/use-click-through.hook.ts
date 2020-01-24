@@ -62,8 +62,6 @@ export const useClickThrough: Overload = <T extends HTMLElement>(
 
 	const onClick = useCallback(
 		(event: MouseEvent) => {
-			event.stopPropagation();
-
 			const elem: T | null = finalRef.current;
 
 			if (!elem) {
