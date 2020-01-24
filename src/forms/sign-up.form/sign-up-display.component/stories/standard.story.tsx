@@ -1,4 +1,4 @@
-import { Background, Paper } from "@/components";
+import { Paper } from "@/components";
 import { action } from "@storybook/addon-actions";
 import React, { useCallback } from "react";
 import { SignUpDisplay } from "..";
@@ -20,10 +20,8 @@ export const StandardStory = () => {
 	);
 
 	return (
-		<Background>
-			<Paper>
-				<SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />
-			</Paper>
-		</Background>
+		<Paper>
+			<SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />
+		</Paper>
 	);
 };

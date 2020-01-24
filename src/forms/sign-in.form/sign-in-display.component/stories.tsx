@@ -1,4 +1,4 @@
-import { Background, Paper } from "@/components";
+import { Paper } from "@/components";
 import { action } from "@storybook/addon-actions";
 import React, { useCallback } from "react";
 import { SignInDisplay } from ".";
@@ -18,10 +18,8 @@ export const Standard = () => {
 	);
 
 	return (
-		<Background>
-			<Paper>
-				<SignInDisplay onSubmit={onSubmit} />
-			</Paper>
-		</Background>
+		<Paper>
+			<SignInDisplay onSubmit={onSubmit} />
+		</Paper>
 	);
 };
