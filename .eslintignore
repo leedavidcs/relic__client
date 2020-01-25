@@ -14,7 +14,7 @@ storyshots/**
 
 # scripts
 scripts/**
-./*.js
+*.js
 
 # generated files
 **/types/**

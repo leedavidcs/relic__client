@@ -23,5 +23,9 @@ module.exports = {
 		"<rootDir>/{src,storyshots}/**/*test.{ts,tsx}",
 		"<rootDir>/{src,storyshots}/**/*test/index.{ts,tsx}"
 	],
-	testPathIgnorePatterns: ["/.storybook/", "/node_modules/", "/dist/", "/build"]
+	testPathIgnorePatterns: ["/.storybook/", "/node_modules/", "/dist/", "/build"],
+	transform: {
+		"^.+\\.[tj]sx?$": "babel-jest",
+		"^.+\\.mdx$": "@storybook/addon-docs/jest-transform-mdx"
+	}
 };

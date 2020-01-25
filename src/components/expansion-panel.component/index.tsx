@@ -2,6 +2,7 @@ import { toggleClass } from "@/utils";
 import classnames from "classnames";
 import React, {
 	FC,
+	ReactElement,
 	ReactNode,
 	useCallback,
 	useEffect,
@@ -11,26 +12,31 @@ import React, {
 } from "react";
 import { useStyles } from "./styles";
 
-const DEFAULT_TRANSITION_MS = 200;
-
 interface IProps {
+	/** Open/close state of the drawer (children) */
 	active: boolean;
+	/** Whether the drawer should transition between {active} states */
 	animate?: boolean;
-	header: ReactNode;
+	/** The element to use as the header (top) for the contents */
+	header: ReactElement;
+	/** Contents that are shown/hidden depending on {active} */
 	children: ReactNode;
+	/** Optional classes to pass to the outer div of this component */
 	className?: string;
+	/** Listener for when the header is clicked on, passing the current {active} state */
 	onClick?: (active: boolean) => void;
+	/** If {animate} is true, this sets the transition duration in milliseconds */
 	transition?: number;
 }
 
 export const ExpansionPanel: FC<IProps> = ({
 	active,
-	animate = true,
+	animate,
 	header,
 	children,
 	className,
 	onClick: propsOnClick,
-	transition = DEFAULT_TRANSITION_MS
+	transition
 }) => {
 	const [height, setHeight] = useState<number>(0);
 
@@ -85,4 +91,9 @@ export const ExpansionPanel: FC<IProps> = ({
 			</div>
 		</div>
 	);
+};
+
+ExpansionPanel.defaultProps = {
+	animate: true,
+	transition: 200
 };

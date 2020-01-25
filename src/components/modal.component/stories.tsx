@@ -4,7 +4,7 @@ import Faker from "faker";
 import React from "react";
 import { Modal } from ".";
 
-export default { title: "modal", component: Modal };
+export default { title: "general/modal", component: Modal };
 
 export const standard = () => {
 	Faker.seed(1);

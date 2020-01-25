@@ -1,0 +1,7 @@
+import { RootProvider } from "@/components";
+import { DecoratorFunction } from "@storybook/addons";
+import React, { ReactElement } from "react";
+
+export const withRootProvider: DecoratorFunction<ReactElement> = (getStory) => {
+	return <RootProvider>{getStory()}</RootProvider>;
+};

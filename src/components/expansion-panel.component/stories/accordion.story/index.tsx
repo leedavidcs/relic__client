@@ -1,21 +1,19 @@
 import { ExpansionPanel } from "@/components/expansion-panel.component";
 import { List, ListItem, ListItemText } from "@/components/list.component";
 import { lorem } from "faker";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useStyles } from "./styles";
 
 const PARAGRAPH_COUNT = 10;
 const ITEM_COUNT = 5;
 
+const paragraphs: string = lorem.paragraphs(PARAGRAPH_COUNT);
+const contents: readonly string[] = Array(ITEM_COUNT).fill(paragraphs);
+
 export const AccordionStory = () => {
 	const classes = useStyles();
 
 	const [selected, setSelected] = useState<number>(-1);
-
-	const paragraphs: string = useMemo(() => lorem.paragraphs(PARAGRAPH_COUNT), []);
-	const contents: readonly string[] = useMemo(() => Array(ITEM_COUNT).fill(paragraphs), [
-		paragraphs
-	]);
 
 	const selectActive = useCallback(
 		(index: number) => () => setSelected(index === selected ? -1 : index),

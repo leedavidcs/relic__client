@@ -1,25 +1,27 @@
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs } from "@storybook/addon-knobs";
-import { addDecorator, configure } from "@storybook/react";
-import React from "react";
+import { addDecorator, configure, addParameters } from "@storybook/react";
 import withStoryRouter from "storybook-react-router";
-import { RootProvider, Background } from "../src/components";
-import { standardTheme } from "../src/themes";
+import { withRootProvider } from "../src/storybook";
 
-addDecorator(withInfo);
-addDecorator(withKnobs);
-addDecorator(withStoryRouter());
-addDecorator((getStory) => (
-	<RootProvider>
-		<Background>{getStory()}</Background>
-	</RootProvider>
-));
+const alphabeticSort = (a, b) => {
+	const isSameKind: boolean = a[1].kind === b[1].kind;
 
-const loadStories = () => {
-	// Dynamically load stories
-	const req = require.context("../src", true, /\.?stories(\/index)?\.tsx?$/);
+	if (isSameKind) {
+		return 0;
+	}
 
-	return req.keys().map(req);
+	const compared: boolean = a[1].id.localeCompare(b[1].id, undefined, { numeric: true });
+
+	return compared;
 };
 
-configure(loadStories, module);
+addParameters({
+	options: {
+		showRoots: true,
+		storySort: alphabeticSort
+	}
+});
+
+addDecorator(withStoryRouter());
+addDecorator(withRootProvider);
+
+configure(require.context("../src", true, /\.?stories(\/index)?\.(tsx?|mdx)$/), module);

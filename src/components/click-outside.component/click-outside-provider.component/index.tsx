@@ -1,10 +1,16 @@
 import { useDictionary } from "@/hooks";
 import { makeConcurrentFunc } from "@/utils";
-import React, { FC, MouseEvent, MouseEventHandler, useCallback, useMemo } from "react";
+import classnames from "classnames";
+import React, { FC, MouseEvent, MouseEventHandler, ReactNode, useCallback, useMemo } from "react";
 import { ClickOutsideContext, IHandlerInfo } from "./click-outside.context";
 import { useStyles } from "./styles";
 
 export * from "./click-outside.context";
+
+interface IProps {
+	children: ReactNode;
+	className?: string;
+}
 
 /**
  * @description Creates a wrapper `div` that can be targetted as a global click event in place of
@@ -25,7 +31,7 @@ export * from "./click-outside.context";
  * @author David Lee
  * @date January 16, 2020
  */
-export const ClickOutsideProvider: FC = ({ children }) => {
+export const ClickOutsideProvider: FC<IProps> = ({ children, className }) => {
 	const classes = useStyles();
 
 	const { dictRef, register, unregister } = useDictionary<IHandlerInfo>({
@@ -58,7 +64,7 @@ export const ClickOutsideProvider: FC = ({ children }) => {
 	return (
 		<ClickOutsideContext.Provider value={value}>
 			<div
-				className={classes.root}
+				className={classnames(classes.root, className)}
 				onClick={onClick}
 				onMouseDown={onMouseDown}
 				onMouseUp={onMouseUp}

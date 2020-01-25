@@ -6,7 +6,7 @@ import { ContextMenu } from ".";
 const MENU_SIZE = 200;
 const PAPER_SIZE = 500;
 
-export default { title: "context-menu", component: ContextMenu };
+export default { title: "general/context-menu", component: ContextMenu };
 
 export const Standard = () => {
 	const onClose0 = useCallback(action("onClose0"), []);
