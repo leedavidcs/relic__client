@@ -15,7 +15,7 @@ import { Modal } from ".";
 
 # Modal
 
-- [Modal](#modal)
+- [Table of Contents](#modal)
   * [Description](#description)
   * [Props](#props)
   * [StandardStory](#standardstory)
@@ -47,7 +47,7 @@ import { Modal } from "@/components/modal.component";
 import { action, HandlerFunction } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import Faker from "faker";
-import React, { useCallback } from "react";
+import React, { Fragment, useCallback } from "react";
 
 Faker.seed(1);
 
@@ -61,10 +61,14 @@ export const StandardStory = () => {
 	const onClose: HandlerFunction = useCallback(action("onClose"), []);
 
 	return (
-		<Modal title={title} active={active} onClickOut={onClickOut} onClose={onClose}>
-			<h1>{heading}</h1>
-			<p>{paragraph}</p>
-		</Modal>
+		<div style={{ height: 120 }}>
+			<Modal title={title} active={active} onClickOut={onClickOut} onClose={onClose}>
+				<Fragment>
+					<h1>{heading}</h1>
+					<p>{paragraph}</p>
+				</Fragment>
+			</Modal>
+		</div>
 	);
 };
 ```
@@ -104,7 +108,6 @@ export const WithModal: FC = () => {
 
 	return <div onClick={onClick}>Click me to open!</div>
 };
-
 ```
 
 ### Quick Note

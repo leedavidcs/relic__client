@@ -7,12 +7,30 @@ const DEFAULT_OPACITY = 0.6;
 const DEFAULT_TRANSITION_MS = 400;
 
 interface IProps {
+	/** Whether this overlay is on or not */
 	active?: boolean;
+	/** Whether animations should be turned on */
 	animate?: boolean;
+	/** Optional classes to place on the div used for this overlay */
 	className?: string;
+	/** If true, pointer-events will be off for this element */
 	clickThrough?: boolean;
+	/**
+	 * The opacity for this element when active
+	 *
+	 * @default 0.6
+	 */
 	opacity?: number;
+	/**
+	 * If true, this element is absolutely positioned to its nearest relative parent. Otherwise it
+	 * is fixed
+	 */
 	relative?: boolean;
+	/**
+	 * If {animate} is true, this sets the transition duration in milliseconds
+	 *
+	 * @default 400
+	 */
 	transition?: number;
 }
 

@@ -2,7 +2,7 @@ import { Modal } from "@/components/modal.component";
 import { action, HandlerFunction } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import Faker from "faker";
-import React, { useCallback } from "react";
+import React, { Fragment, useCallback } from "react";
 
 Faker.seed(1);
 
@@ -18,8 +18,10 @@ export const StandardStory = () => {
 	return (
 		<div style={{ height: 120 }}>
 			<Modal title={title} active={active} onClickOut={onClickOut} onClose={onClose}>
-				<h1>{heading}</h1>
-				<p>{paragraph}</p>
+				<Fragment>
+					<h1>{heading}</h1>
+					<p>{paragraph}</p>
+				</Fragment>
 			</Modal>
 		</div>
 	);
