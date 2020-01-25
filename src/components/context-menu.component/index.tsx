@@ -24,13 +24,23 @@ interface IProps {
 	children: ReactElement;
 	/** The component to render at location. This does not necessarily need to be a menu */
 	menu: ReactNode;
-	/** Invoked when the context menu is closed */
+	/**
+	 * Invoked when the context menu is closed
+	 *
+	 * @default () => undefined
+	 */
 	onClose?: () => void;
-	/** Invoked when the context menu is opened */
+	/**
+	 * Invoked when the context menu is opened
+	 *
+	 * @default () => undefined
+	 */
 	onOpen?: () => void;
 	/**
 	 * If true, will prevent other ContextMenus from opening when this one is open, under the
 	 * nearest ancestor ContextMenuProvider. Otherwise, will disregard other ContextMenus.
+	 *
+	 * @default true
 	 */
 	register?: boolean;
 }
