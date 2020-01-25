@@ -16,9 +16,13 @@ const FA_BARS_SIZE = 20;
 const FA_USER_CIRCLE_SIZE = 32;
 
 interface IProps {
+	/** Text to be used in the brand */
 	title: string;
+	/** Action for when the user clicks to sign out. Is only available on {user} !== null */
 	onClickSignOut?: () => void;
+	/** Invoked on search action from search bar. Passes search text */
 	onSearch?: (text: string) => void;
+	/** User object of currently logged-in user. Null if none is logged in */
 	user: User | null;
 }
 
@@ -101,24 +105,26 @@ export const AppBar: FC<IProps> = ({
 						</Button>
 					</div>
 				)}
-				<Tooltip
-					active={selectedIndex === 0}
-					direction="left-start"
-					onMouseDownOut={closeMenus}
-					tooltip={
-						<ProfileMenu
-							onClickSignIn={onClickSignIn}
-							onClickSignOut={onClickSignOut}
-							user={user}
+				{user && (
+					<Tooltip
+						active={selectedIndex === 0}
+						direction="left-start"
+						onMouseDownOut={closeMenus}
+						tooltip={
+							<ProfileMenu
+								onClickSignIn={onClickSignIn}
+								onClickSignOut={onClickSignOut}
+								user={user}
+							/>
+						}
+					>
+						<FaUserCircle
+							onClick={onClickRightIcon(0)}
+							className={classes.profileIcon}
+							size={FA_USER_CIRCLE_SIZE}
 						/>
-					}
-				>
-					<FaUserCircle
-						onClick={onClickRightIcon(0)}
-						className={classes.profileIcon}
-						size={FA_USER_CIRCLE_SIZE}
-					/>
-				</Tooltip>
+					</Tooltip>
+				)}
 			</div>
 		</Toolbar>
 	);
