@@ -1,0 +1,60 @@
+import { Meta, Preview, Props, Story } from "@storybook/addon-docs/blocks";
+import { themes } from "@storybook/theming";
+import { StandardStory } from "./stories";
+import { Overlay } from ".";
+
+<Meta
+	title="general/overlay"
+	component={Overlay}
+	parameters={{
+		options: {
+			theme: themes.dark
+		}
+	}}
+/>
+
+# Overlay
+
+- [Table of Contents](#overlay)
+  * [Description](#description)
+  * [Props](#props)
+  * [StandardStory](#standardstory)
+    + [Source](#source)
+
+## Description
+A faded overlay, meant to mask over an element or background the application.
+
+This is useful for backgrounding the application when a modal is open, or producing a highlight
+effect on an interactable element on hover.
+
+## Props
+<Props of={Overlay} />
+
+## StandardStory
+<Preview>
+	<Story name="standard">
+		<StandardStory />
+	</Story>
+</Preview>
+
+### Source
+```tsx
+import { Overlay } from "@/components/overlay.component";
+import { Paper } from "@/components/paper.component";
+import { boolean } from "@storybook/addon-knobs";
+import React from "react";
+import { useStyles } from "./styles";
+
+export const StandardStory = () => {
+	const classes = useStyles();
+
+	const active: boolean = boolean("active", true);
+
+	return (
+		<Paper>
+			<div className={classes.backgroundElem} />
+			<Overlay active={active} relative={false} />
+		</Paper>
+	);
+};
+```
