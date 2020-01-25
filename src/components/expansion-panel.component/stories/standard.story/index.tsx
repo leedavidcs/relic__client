@@ -1,24 +1,29 @@
 import { ExpansionPanel } from "@/components/expansion-panel.component";
 import { Paper } from "@/components/paper.component";
-import { boolean } from "@storybook/addon-knobs";
 import Faker from "faker";
-import React, { useMemo } from "react";
+import React, { useCallback, useState } from "react";
 import { useStyles } from "./styles";
 
 const PARAGRAPH_COUNT = 10;
 
+const content: string = Faker.lorem.paragraphs(PARAGRAPH_COUNT);
+
 export const StandardStory = () => {
 	const classes = useStyles();
 
-	const content: string = useMemo(() => Faker.lorem.paragraphs(PARAGRAPH_COUNT), []);
+	const [active, setActive] = useState<boolean>(false);
 
-	const active: boolean = boolean("active", true);
+	const onClick = useCallback(() => setActive(!active), [active, setActive]);
 
 	return (
 		<Paper>
 			<ExpansionPanel
 				active={active}
-				header={<div className={classes.header}>Header Item</div>}
+				header={
+					<div className={classes.header} onClick={onClick}>
+						Header Item
+					</div>
+				}
 			>
 				<p className={classes.content}>{content}</p>
 			</ExpansionPanel>
