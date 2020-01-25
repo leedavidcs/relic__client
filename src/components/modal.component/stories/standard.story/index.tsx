@@ -12,12 +12,12 @@ const paragraph: string = Faker.lorem.paragraph();
 
 export const StandardStory = () => {
 	const active: boolean = boolean("active", true);
-	const onClickOutside: HandlerFunction = useCallback(action("onClickOutside"), []);
+	const onClickOut: HandlerFunction = useCallback(action("onClickOut"), []);
 	const onClose: HandlerFunction = useCallback(action("onClose"), []);
 
 	return (
 		<div style={{ height: 120 }}>
-			<Modal title={title} active={active} onClickOutside={onClickOutside} onClose={onClose}>
+			<Modal title={title} active={active} onClickOut={onClickOut} onClose={onClose}>
 				<h1>{heading}</h1>
 				<p>{paragraph}</p>
 			</Modal>
