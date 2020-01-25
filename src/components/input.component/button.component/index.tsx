@@ -25,10 +25,14 @@ interface IProps {
 	size?: typeof sizes[number];
 }
 
-export const Button: FC<IProps> = (props) => {
-	const { children, className, onClick } = props;
-
-	const classes = useStyles(props);
+export const Button: FC<IProps> = ({
+	children,
+	className,
+	color = "primary",
+	onClick,
+	size = "medium"
+}) => {
+	const classes = useStyles({ color, size });
 	const [isHovered, hoverRef] = useHover<HTMLButtonElement>(false);
 
 	return (
@@ -38,9 +42,4 @@ export const Button: FC<IProps> = (props) => {
 			<Ripple />
 		</button>
 	);
-};
-
-Button.defaultProps = {
-	color: "primary",
-	size: "medium"
 };

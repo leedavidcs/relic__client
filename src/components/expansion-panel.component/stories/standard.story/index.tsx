@@ -6,6 +6,8 @@ import { useStyles } from "./styles";
 
 const PARAGRAPH_COUNT = 10;
 
+Faker.seed(1);
+
 const content: string = Faker.lorem.paragraphs(PARAGRAPH_COUNT);
 
 export const StandardStory = () => {

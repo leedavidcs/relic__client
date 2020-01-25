@@ -3,6 +3,9 @@ import classnames from "classnames";
 import React, { FC, memo, useEffect, useLayoutEffect, useRef } from "react";
 import { useStyles } from "./styles";
 
+const DEFAULT_OPACITY = 0.6;
+const DEFAULT_TRANSITION_MS = 400;
+
 interface IProps {
 	active?: boolean;
 	animate?: boolean;
@@ -10,11 +13,20 @@ interface IProps {
 	clickThrough?: boolean;
 	opacity?: number;
 	relative?: boolean;
+	transition?: number;
 }
 
 export const Overlay: FC<IProps> = memo(
-	({ active, animate, className, clickThrough, opacity, relative = true }) => {
-		const classes = useStyles({ active, animate, clickThrough, opacity, relative });
+	({
+		active = false,
+		animate = true,
+		className,
+		clickThrough = false,
+		opacity = DEFAULT_OPACITY,
+		relative = true,
+		transition = DEFAULT_TRANSITION_MS
+	}) => {
+		const classes = useStyles({ active, animate, clickThrough, opacity, relative, transition });
 		const elemRef = useRef<HTMLDivElement>(null);
 
 		useLayoutEffect(() => {
@@ -34,18 +46,11 @@ export const Overlay: FC<IProps> = memo(
 				return;
 			}
 
-			toggleClass(elem, classes.transition, true);
-		}, [animate, classes.transition]);
+			setTimeout(() => toggleClass(elem, classes.transition, true), transition);
+		}, [animate, transition, classes.transition]);
 
 		return <div className={classnames(classes.root, className)} ref={elemRef} />;
 	}
 );
 
 Overlay.displayName = "Overlay";
-
-Overlay.defaultProps = {
-	active: false,
-	animate: true,
-	clickThrough: false,
-	opacity: 0.6
-};

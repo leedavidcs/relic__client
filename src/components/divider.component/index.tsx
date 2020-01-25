@@ -10,16 +10,10 @@ interface IProps {
 	variant?: DividerVariant;
 }
 
-export const Divider: FC<IProps> = (props) => {
-	const { className, list } = props;
-
-	const classes = useStyles(props);
+export const Divider: FC<IProps> = ({ className, list, variant = "full" }) => {
+	const classes = useStyles({ variant });
 
 	const DividerElement = list ? "li" : "hr";
 
 	return <DividerElement className={classnames(classes.root, className)} />;
-};
-
-Divider.defaultProps = {
-	variant: "full"
 };

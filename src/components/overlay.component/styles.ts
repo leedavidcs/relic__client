@@ -18,7 +18,8 @@ const styles = (theme: CustomTheme) => ({
 		pointerEvents: ({ active, clickThrough }) => (!active || clickThrough ? "none" : "auto")
 	},
 	transition: {
-		transition: ({ animate }) => (animate ? "opacity 0.4s ease" : "all 0s ease 0s")
+		transition: ({ animate, transition }) =>
+			animate ? `opacity ${transition}ms ease` : "all 0s ease 0s"
 	}
 });
 

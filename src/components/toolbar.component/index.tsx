@@ -7,14 +7,10 @@ interface IProps {
 	stickTop?: boolean;
 }
 
-export const Toolbar: FC<IProps> = (props) => {
-	const { children, className } = props;
-
-	const classes = useStyles(props);
+export const Toolbar: FC<IProps> = ({ children, className, stickTop = false }) => {
+	const classes = useStyles({ stickTop });
 
 	const classNames = classnames(classes.root, className);
 
 	return <div className={classNames}>{children}</div>;
 };
-
-Toolbar.defaultProps = { stickTop: false };

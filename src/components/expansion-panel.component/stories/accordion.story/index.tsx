@@ -1,13 +1,15 @@
 import { ExpansionPanel } from "@/components/expansion-panel.component";
 import { List, ListItem, ListItemText } from "@/components/list.component";
-import { lorem } from "faker";
+import Faker from "faker";
 import React, { useCallback, useState } from "react";
 import { useStyles } from "./styles";
 
 const PARAGRAPH_COUNT = 10;
 const ITEM_COUNT = 5;
 
-const paragraphs: string = lorem.paragraphs(PARAGRAPH_COUNT);
+Faker.seed(1);
+
+const paragraphs: string = Faker.lorem.paragraphs(PARAGRAPH_COUNT);
 const contents: readonly string[] = Array(ITEM_COUNT).fill(paragraphs);
 
 export const AccordionStory = () => {
