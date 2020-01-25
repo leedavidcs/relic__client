@@ -1,14 +1,17 @@
 import classnames from "classnames";
-import React, { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from "react";
+import React, { FC } from "react";
 import { useStyles } from "./styles";
 
-interface IProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface IProps {
+	/** Optional classes to pass to the outer div of this component */
 	className?: string;
-	primary?: ReactNode;
-	secondary?: ReactNode;
+	/** Top text to display on this component */
+	primary: string;
+	/** Bottom text to display on this component */
+	secondary?: string;
 }
 
-export const ListItemText: FC<IProps> = ({ className, primary, secondary, ...restProps }) => {
+export const ListItemText: FC<IProps> = ({ className, primary, secondary }) => {
 	const classes = useStyles();
 
 	return (
@@ -16,7 +19,6 @@ export const ListItemText: FC<IProps> = ({ className, primary, secondary, ...res
 			className={classnames(classes.root, className, {
 				[classes.multiline]: primary && secondary
 			})}
-			{...restProps}
 		>
 			{primary}
 			{secondary}

@@ -29,10 +29,26 @@ interface IChildrenProps {
 }
 
 interface IProps {
-	children?: ReactNode | FC<IChildrenProps>;
+	/**
+	 * The ReactNode to place within the `li`. If a render function is passed instead, this will
+	 * expose a React.FC with a props of `{ deferred: (element: ReactElement) => ReactElement; }`
+	 * that will defer the ListItem behaviors to the deferred element (see story `AccordionStory`
+	 * of `general/expansion-panel`)
+	 */
+	children: ReactNode | FC<IChildrenProps>;
+	/** Optional classes to pass to the wrapping div of the list item */
 	className?: string;
+	/** Href, if this list item should act as a link */
 	href?: string;
+	/**
+	 * Click handler. This will target a `li` if {children} is a ReactNode. `div` if {children} is a
+	 * function
+	 */
 	onClick?: (event: MouseEvent<HTMLElement>) => void;
+	/**
+	 * Whether this item is selected or not. If this is provided, the list will behave as if it is
+	 * selectable (highlights on hover, ripples on click)
+	 */
 	selected?: boolean;
 }
 
