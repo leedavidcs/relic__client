@@ -10,8 +10,9 @@ const styles = (theme: CustomTheme) => ({
 		padding: 0,
 		width: 680,
 		maxHeight: "75%",
-		transition: "all 0.2s ease",
-		fontFamily: theme.fontPrimary
+		transition: ({ transition }) => `all ${transition}ms ease`,
+		fontFamily: theme.fontPrimary,
+		opacity: 0
 	},
 	"@media (max-width: 768px)": {
 		root: {
@@ -20,7 +21,8 @@ const styles = (theme: CustomTheme) => ({
 	},
 	active: {
 		top: "50%",
-		transform: "translate(-50%, -50%)"
+		transform: "translate(-50%, -50%)",
+		opacity: 1
 	},
 	title: {
 		height: 36,

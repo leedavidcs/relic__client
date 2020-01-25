@@ -11,6 +11,7 @@ interface IProps {
 	onClose?: () => void;
 	onClickOutside?: () => void;
 	title?: string;
+	transition?: number;
 }
 
 export const Modal: FC<IProps> = ({
@@ -18,9 +19,10 @@ export const Modal: FC<IProps> = ({
 	children,
 	onClickOutside: propsOnClickOutside = () => undefined,
 	onClose: propsOnClose = () => undefined,
-	title = ""
+	title = "",
+	transition
 }) => {
-	const classes = useStyles();
+	const classes = useStyles({ active, transition });
 	const paperRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
 	const onClose = useCallback((): void => {
@@ -54,4 +56,8 @@ export const Modal: FC<IProps> = ({
 			</Paper>
 		</ClickOutside>
 	);
+};
+
+Modal.defaultProps = {
+	transition: 200
 };
