@@ -1,4 +1,4 @@
-import { Background, Paper } from "@/components";
+import { Paper } from "@/components";
 import { action } from "@storybook/addon-actions";
 import { text } from "@storybook/addon-knobs";
 import React from "react";
@@ -12,10 +12,8 @@ export const Standard = () => {
 	const onClickResend = action("onClickResend");
 
 	return (
-		<Background>
-			<Paper>
-				<VerifyEmailDisplay email={email} onClickResend={onClickResend} />
-			</Paper>
-		</Background>
+		<Paper>
+			<VerifyEmailDisplay email={email} onClickResend={onClickResend} />
+		</Paper>
 	);
 };

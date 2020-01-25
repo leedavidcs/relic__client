@@ -1,5 +1,5 @@
 import { AppRoutes } from "@/app-routes";
-import { AppBar, Background } from "@/components";
+import { AppBar } from "@/components";
 import { useAuth, useSetUser } from "@/hooks";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 
@@ -22,14 +22,10 @@ export const App: React.FC = () => {
 		}
 	}, [called, loading, setLoaded]);
 
-	return (
-		<Background>
-			{loaded ? (
-				<Fragment>
-					<AppBar title="TheBrand Inc." user={user} onClickSignOut={onClickSignOut} />
-					<AppRoutes />
-				</Fragment>
-			) : null}
-		</Background>
-	);
+	return loaded ? (
+		<Fragment>
+			<AppBar title="TheBrand Inc." user={user} onClickSignOut={onClickSignOut} />
+			<AppRoutes />
+		</Fragment>
+	) : null;
 };

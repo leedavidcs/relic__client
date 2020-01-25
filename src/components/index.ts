@@ -1,5 +1,4 @@
 export * from "./app-bar.component";
-export * from "./background.component";
 export * from "./click-outside.component";
 export * from "./context-menu.component";
 export * from "./data-grid.component";

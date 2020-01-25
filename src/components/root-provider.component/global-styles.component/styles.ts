@@ -1,17 +1,19 @@
 import { breakpoints, CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
-export const styles = (theme: CustomTheme) => ({
+const styles = (theme: CustomTheme) => ({
+	"@global": {
+		"html, body, #root": {
+			height: "100%"
+		}
+	},
 	root: {
-		position: "relative",
 		boxSizing: "border-box",
-		height: "100vh",
-		width: "100vw",
-		overflow: "scroll",
 		backgroundColor: theme.background,
+		height: "100%",
 
 		[breakpoints.up("sm")]: {
-			padding: "96px 25px 0"
+			padding: "96px 25px"
 		}
 	}
 });

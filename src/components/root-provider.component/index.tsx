@@ -4,22 +4,22 @@ import { ModalProvider } from "@/components/modal.component";
 import { Client } from "@/graphql";
 import React, { FC } from "react";
 import { ApolloProvider } from "react-apollo";
+import { GlobalStyles } from "./global-styles.component";
 import { JssProvider } from "./jss-provider.component";
-import { useStyles } from "./styles";
 
 export * from "./jss-provider.component";
 
 export const RootProvider: FC = ({ children }) => {
-	useStyles();
-
 	return (
 		<ApolloProvider client={Client}>
 			<JssProvider>
-				<ClickOutsideProvider>
-					<ContextMenuProvider>
-						<ModalProvider>{children}</ModalProvider>
-					</ContextMenuProvider>
-				</ClickOutsideProvider>
+				<GlobalStyles>
+					<ClickOutsideProvider>
+						<ContextMenuProvider>
+							<ModalProvider>{children}</ModalProvider>
+						</ContextMenuProvider>
+					</ClickOutsideProvider>
+				</GlobalStyles>
 			</JssProvider>
 		</ApolloProvider>
 	);
