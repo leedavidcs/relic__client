@@ -1,18 +1,13 @@
-import React, { FC, MouseEvent, useCallback, useState } from "react";
+import { List, ListItem, ListItemIcon, ListItemText } from "@/components/list.component";
+import React, { FC, useCallback, useState } from "react";
 import { FaApple, FaBacon } from "react-icons/fa";
-import { List, ListItem, ListItemIcon, ListItemText } from "..";
 
 export const SelectableStory: FC = () => {
 	const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-	const onClick = useCallback(
-		(index: number) => {
-			return (event: MouseEvent<HTMLElement>) => {
-				setSelectedIndex(index);
-			};
-		},
-		[setSelectedIndex]
-	);
+	const onClick = useCallback((index: number) => () => setSelectedIndex(index), [
+		setSelectedIndex
+	]);
 
 	return (
 		<List divider="full">
