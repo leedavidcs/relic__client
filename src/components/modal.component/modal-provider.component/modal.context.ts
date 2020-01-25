@@ -1,8 +1,8 @@
-import { Context, createContext, ReactNode } from "react";
+import { Context, createContext, ReactElement } from "react";
 
 interface IModalContextProps {
 	active: boolean;
-	setContent: (content: { title: string; body: ReactNode } | null) => void;
+	setContent: (content: { title: string; body: ReactElement } | null) => void;
 	toggle: (force?: boolean) => void;
 }
 

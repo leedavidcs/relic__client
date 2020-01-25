@@ -1,7 +1,7 @@
 import { Modal, ModalContext } from "@/components/modal.component";
 import { Overlay } from "@/components/overlay.component";
 import { GetModal, Mutations, Queries, ToggleModal, ToggleModalVariables } from "@/graphql";
-import React, { FC, ReactNode, Suspense, useCallback, useMemo, useState } from "react";
+import React, { FC, ReactElement, Suspense, useCallback, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
 
 export * from "./modal.context";
@@ -10,7 +10,7 @@ export const ModalProvider: FC = ({ children }) => {
 	const { data } = useQuery<GetModal>(Queries.GetModal);
 	const [toggleModal] = useMutation<ToggleModal, ToggleModalVariables>(Mutations.ToggleModal);
 
-	const [content, setContent] = useState<{ title: string; body: ReactNode } | null>(null);
+	const [content, setContent] = useState<{ title: string; body: ReactElement } | null>(null);
 
 	const { title, body } = content || { title: "", body: null };
 	const active: boolean = data?.modal || false;
