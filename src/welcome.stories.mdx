@@ -1,0 +1,21 @@
+import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
+import { themes } from "@storybook/theming";
+import { Welcome } from "@storybook/react/demo";
+
+<Meta
+	title="others/Welcome"
+	component={Welcome}
+	parameters={{
+		options: {
+			theme: themes.dark
+		}
+	}}
+/>
+
+# Welcome
+
+<Preview>
+	<Story name="To Storybook">
+		<Welcome />
+	</Story>
+</Preview>
