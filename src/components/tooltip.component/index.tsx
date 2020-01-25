@@ -32,7 +32,7 @@ const isLocation = memoizeOne((value: any): value is ITooltipLocation => !isVali
 const mountToDocumentBody = (element: ReactElement) => createPortal(element, document.body);
 
 export const Tooltip: FC<IProps> = ({
-	active,
+	active = false,
 	children,
 	className,
 	direction: placement,
@@ -72,8 +72,4 @@ export const Tooltip: FC<IProps> = ({
 			</div>
 		</ClickOutside>
 	);
-};
-
-Tooltip.defaultProps = {
-	active: false
 };

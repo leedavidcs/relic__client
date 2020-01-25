@@ -52,7 +52,7 @@ export const TextInput: FC<IProps> = ({
 	style,
 	value,
 	validator = () => null,
-	variant
+	variant = "underlined"
 }) => {
 	const classes = useStyles({ variant });
 
@@ -161,8 +161,4 @@ export const TextInput: FC<IProps> = ({
 			</div>
 		</div>
 	);
-};
-
-TextInput.defaultProps = {
-	variant: "underlined"
 };

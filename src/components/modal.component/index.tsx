@@ -6,6 +6,8 @@ import { useStyles } from "./styles";
 
 export * from "./modal-provider.component";
 
+const DEFAULT_TRANSITION_MS = 200;
+
 interface IProps {
 	active: boolean;
 	onClose?: () => void;
@@ -20,7 +22,7 @@ export const Modal: FC<IProps> = ({
 	onClickOutside: propsOnClickOutside = () => undefined,
 	onClose: propsOnClose = () => undefined,
 	title = "",
-	transition
+	transition = DEFAULT_TRANSITION_MS
 }) => {
 	const classes = useStyles({ active, transition });
 	const paperRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
@@ -56,8 +58,4 @@ export const Modal: FC<IProps> = ({
 			</Paper>
 		</ClickOutside>
 	);
-};
-
-Modal.defaultProps = {
-	transition: 200
 };

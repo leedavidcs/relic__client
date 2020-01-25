@@ -12,6 +12,8 @@ import React, {
 } from "react";
 import { useStyles } from "./styles";
 
+const DEFAULT_TRANSITION_MS = 200;
+
 interface IProps {
 	/** Open/close state of the drawer (children) */
 	active: boolean;
@@ -25,18 +27,22 @@ interface IProps {
 	className?: string;
 	/** Listener for when the header is clicked on, passing the current {active} state */
 	onClick?: (active: boolean) => void;
-	/** If {animate} is true, this sets the transition duration in milliseconds */
+	/**
+	 * If {animate} is true, this sets the transition duration in milliseconds
+	 *
+	 * @default 200
+	 */
 	transition?: number;
 }
 
 export const ExpansionPanel: FC<IProps> = ({
 	active,
-	animate,
+	animate = true,
 	header,
 	children,
 	className,
 	onClick: propsOnClick,
-	transition
+	transition = DEFAULT_TRANSITION_MS
 }) => {
 	const [height, setHeight] = useState<number>(0);
 
@@ -91,9 +97,4 @@ export const ExpansionPanel: FC<IProps> = ({
 			</div>
 		</div>
 	);
-};
-
-ExpansionPanel.defaultProps = {
-	animate: true,
-	transition: 200
 };

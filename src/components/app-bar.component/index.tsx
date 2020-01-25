@@ -18,7 +18,11 @@ const FA_USER_CIRCLE_SIZE = 32;
 interface IProps {
 	/** Text to be used in the brand */
 	title: string;
-	/** Action for when the user clicks to sign out. Is only available on {user} !== null */
+	/**
+	 * Action for when the user clicks to sign out. Is only available on {user} !== null
+	 *
+	 * @default () => undefined
+	 */
 	onClickSignOut?: () => void;
 	/** Invoked on search action from search bar. Passes search text */
 	onSearch?: (text: string) => void;
