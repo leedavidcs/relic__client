@@ -1,6 +1,6 @@
 import { ClickOutside } from "@/components/click-outside.component";
 import { Paper } from "@/components/paper.component";
-import React, { FC, RefObject, useCallback, useEffect, useRef } from "react";
+import React, { FC, ReactElement, useCallback, useEffect, useRef } from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useStyles } from "./styles";
 
@@ -9,35 +9,50 @@ export * from "./modal-provider.component";
 const DEFAULT_TRANSITION_MS = 200;
 
 interface IProps {
+	/** Whether this modal is open or not */
 	active: boolean;
+	/** The contents (body) of the modal */
+	children?: ReactElement;
+	/**
+	 * Handler for when the `x` (close) button is clicked on
+	 *
+	 * @default () => undefined
+	 */
 	onClose?: () => void;
-	onClickOutside?: () => void;
+	/**
+	 * Handler for when the user clicks outside of the modal component
+	 *
+	 * @default () => undefined
+	 */
+	onClickOut?: () => void;
+	/** Text that is used in the top-bar (header) of the modal */
 	title?: string;
+	/** The delay in milliseconds for the transition animation */
 	transition?: number;
 }
 
 export const Modal: FC<IProps> = ({
 	active,
 	children,
-	onClickOutside: propsOnClickOutside = () => undefined,
+	onClickOut: propsOnClickOut = () => undefined,
 	onClose: propsOnClose = () => undefined,
 	title = "",
 	transition = DEFAULT_TRANSITION_MS
 }) => {
 	const classes = useStyles({ active, transition });
-	const paperRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+	const paperRef = useRef<HTMLDivElement>(null);
 
 	const onClose = useCallback((): void => {
 		propsOnClose();
 	}, [propsOnClose]);
 
-	const onClickOutside = useCallback((): void => {
+	const onClickOut = useCallback((): void => {
 		if (!active) {
 			return;
 		}
 
-		propsOnClickOutside();
-	}, [active, propsOnClickOutside]);
+		propsOnClickOut();
+	}, [active, propsOnClickOut]);
 
 	useEffect(() => {
 		const paperDiv: HTMLDivElement | null = paperRef.current;
@@ -46,7 +61,7 @@ export const Modal: FC<IProps> = ({
 	}, [active, classes.active]);
 
 	return (
-		<ClickOutside onClick={onClickOutside}>
+		<ClickOutside onClick={onClickOut}>
 			<Paper className={classes.root} ref={paperRef}>
 				<div className={classes.title}>
 					{title}
