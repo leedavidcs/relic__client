@@ -4,10 +4,10 @@ const webpackCraOverrides = require("../webpack-cra-overrides");
 
 module.exports = {
 	addons: [
-		"@storybook/addon-actions/register",
-		"@storybook/addon-knobs/register",
-		"@storybook/addon-storysource/register",
-		"@storybook/addon-viewport/register",
+		"@storybook/addon-actions",
+		"@storybook/addon-docs",
+		"@storybook/addon-knobs",
+		"@storybook/addon-viewport",
 		{
 			name: "@storybook/preset-create-react-app",
 			options: {
@@ -21,6 +21,7 @@ module.exports = {
 		const tmpConfig = _.flow.apply(null, webpackCraOverrides)(config);
 
 		tmpConfig.node = { ...tmpConfig.node, fs: "empty" };
+		tmpConfig.resolve.extensions.push(".mdx");
 
 		return tmpConfig;
 	}
