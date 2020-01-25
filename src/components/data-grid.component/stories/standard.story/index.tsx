@@ -1,7 +1,7 @@
 import { DataGrid, IHeaderConfig } from "@/components/data-grid.component";
 import { Paper } from "@/components/paper.component";
 import Faker from "faker";
-import { uniq } from "lodash";
+import { range, uniq } from "lodash";
 import React, { useCallback, useState } from "react";
 
 const MAX_DATA_SIZE = 100;
@@ -17,7 +17,7 @@ const MOCK_HEADER_NAMES: readonly string[] = uniq(
 
 const reducedSize: number = MOCK_HEADER_NAMES.length;
 
-const MOCK_DATA: readonly Record<string, number>[] = [...Array(reducedSize)].map((x, i) => {
+const MOCK_DATA: readonly Record<string, number>[] = range(reducedSize).map((i) => {
 	const datum: Record<string, number> = {};
 
 	MOCK_HEADER_NAMES.forEach((name, j) => (datum[name] = j * reducedSize + i));
@@ -38,10 +38,10 @@ const MOCK_HEADERS: readonly IHeaderConfig[] = MOCK_HEADER_NAMES.map((label, i) 
 }));
 
 export const StandardStory = () => {
-	const [data, setData] = useState<readonly { [key: string]: any }[]>(MOCK_DATA);
+	const [data, setData] = useState<readonly Record<string, number>[]>(MOCK_DATA);
 	const [headers, setHeaders] = useState<readonly IHeaderConfig[]>(MOCK_HEADERS);
 
-	const onDataChange = useCallback((value: readonly { [key: string]: any }[]) => setData(value), [
+	const onDataChange = useCallback((value: readonly Record<string, number>[]) => setData(value), [
 		setData
 	]);
 
@@ -50,15 +50,13 @@ export const StandardStory = () => {
 	]);
 
 	return (
-		<Paper>
-			<div style={{ height: 500 }}>
-				<DataGrid
-					data={data}
-					headers={headers}
-					onDataChange={onDataChange}
-					onHeadersChange={onHeadersChange}
-				/>
-			</div>
+		<Paper style={{ height: 500 }}>
+			<DataGrid
+				data={data}
+				headers={headers}
+				onDataChange={onDataChange}
+				onHeadersChange={onHeadersChange}
+			/>
 		</Paper>
 	);
 };
