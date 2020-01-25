@@ -27,7 +27,11 @@ interface IProps {
 	onClickOut?: () => void;
 	/** Text that is used in the top-bar (header) of the modal */
 	title?: string;
-	/** The delay in milliseconds for the transition animation */
+	/**
+	 * If {animate} is true, this sets the transition duration in milliseconds
+	 *
+	 * @default 200
+	 */
 	transition?: number;
 }
 
