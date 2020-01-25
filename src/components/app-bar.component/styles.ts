@@ -58,6 +58,8 @@ const styles = (theme: CustomTheme) => ({
 		}
 	},
 	profileIcon: {
+		display: "flex",
+		marginRight: 10,
 		cursor: "pointer"
 	}
 });
