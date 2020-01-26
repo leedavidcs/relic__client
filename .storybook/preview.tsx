@@ -1,4 +1,5 @@
 import { addDecorator, configure, addParameters } from "@storybook/react";
+import { themes } from "@storybook/theming";
 import withStoryRouter from "storybook-react-router";
 import { withRootProvider } from "../src/storybook";
 
@@ -17,7 +18,8 @@ const alphabeticSort = (a, b) => {
 addParameters({
 	options: {
 		showRoots: true,
-		storySort: alphabeticSort
+		storySort: alphabeticSort,
+		theme: themes.dark
 	}
 });
 
