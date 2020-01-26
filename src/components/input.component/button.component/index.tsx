@@ -7,22 +7,25 @@ import { useStyles } from "./styles";
 
 const OVERLAY_OPACITY = 0.04;
 
-const colors = [
-	"primary",
-	"primaryVariant",
-	"secondary",
-	"secondaryVariant",
-	"error",
-	"warning",
-	"transparent"
-] as const;
-const sizes = ["small", "medium", "large"] as const;
+export type ButtonColor =
+	| "primary"
+	| "primaryVariant"
+	| "secondary"
+	| "secondaryVariant"
+	| "error"
+	| "warning"
+	| "transparent";
+export type ButtonSize = "size" | "medium" | "large";
 
 interface IProps {
+	/** Optional classes in pass to the outermost `button` */
 	className?: string;
-	color?: typeof colors[number];
+	/** The color scheme of the button. See story */
+	color?: ButtonColor;
+	/** Button onClick event */
 	onClick?: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
-	size?: typeof sizes[number];
+	/** The size variant of the button. See story */
+	size?: ButtonSize;
 }
 
 export const Button: FC<IProps> = ({
