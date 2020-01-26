@@ -17,24 +17,46 @@ import React, {
 } from "react";
 import { useStyles } from "./styles";
 
-const variants = ["underlined", "outlined"] as const;
+export type TextInputVariant = "underlined" | "outlined";
 
 interface IProps {
+	/** Optional classes to pass the outermost `div` */
 	className?: string;
+	/** Whether the text-input should be disabled */
 	disabled?: boolean;
+	/** Label to be placed on the text input. Acts as a placeholder as well */
 	label: string;
+	/** HTMLInputElement onChange event */
 	onChange?: (event: FormEvent<HTMLInputElement>) => void;
+	/** HTMLInputElement onClick event */
 	onClick?: (event: MouseEvent<HTMLInputElement>) => void;
+	/** HTMLInputElement onInput event */
 	onInput?: (event: FormEvent<HTMLInputElement>) => void;
+	/** HTMLInputElement onKeyDown event */
 	onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+	/** Whether this should censor inputs (as a password input) */
 	password?: boolean;
-	placeholder?: string;
+	/** Whether this should spellcheck (red-squiggle) */
 	spellCheck?: boolean;
+	/** Add an icon to the left-side of the text input */
 	startIcon?: ReactElement;
+	/** Optional styles to pass to the outermost `div` */
 	style?: CSSProperties;
+	/**
+	 * Validator.
+	 *
+	 * If a string is passed, and there is no input, and the input is dirty, this will emit the
+	 * string as an error message.
+	 *
+	 * If null is passed, there is no validation
+	 *
+	 * If a function is passed, it will emit an error message if a string is returned.
+	 */
 	validator?: string | null | ((value: string) => string | null);
+	/** Controlled value of the input */
 	value: string;
-	variant?: typeof variants[number];
+	/** Stylistic variations for the element. See story */
+	variant?: TextInputVariant;
 }
 
 export const TextInput: FC<IProps> = ({
@@ -46,7 +68,6 @@ export const TextInput: FC<IProps> = ({
 	onInput: propsOnInput,
 	onKeyDown,
 	password = false,
-	placeholder = "",
 	spellCheck = false,
 	startIcon: propsStartIcon,
 	style,
@@ -148,7 +169,6 @@ export const TextInput: FC<IProps> = ({
 						[classes.invalid]: !isValidInput
 					})}
 					type={password ? "password" : "text"}
-					placeholder={placeholder}
 					disabled={disabled}
 					onChange={onChange}
 					onClick={onClick}
