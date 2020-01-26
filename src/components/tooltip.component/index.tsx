@@ -17,13 +17,21 @@ import { createPortal } from "react-dom";
 import { useStyles } from "./styles";
 
 interface IProps {
+	/** Whether the tooltip is open or closed */
 	active?: boolean;
+	/** The reference element, that the tooltip is positioned around */
 	children: ReactNode | ITooltipLocation;
+	/** Optional classes to be passed to the `div` wrapper around the reference element */
 	className?: string;
+	/** The `popper` placement */
 	direction: Placement;
+	/** Handler for when the user clicks outside of the reference and tooltip */
 	onClickOut?: () => void;
+	/** Handler for when the user mousedowns outside of the renferece and tooltip */
 	onMouseDownOut?: () => void;
+	/** Optional styles to be passed to the `div` wrapper around the reference element */
 	style?: CSSProperties;
+	/** The tooltip element to position based on direction and the reference element */
 	tooltip?: ReactNode;
 }
 
