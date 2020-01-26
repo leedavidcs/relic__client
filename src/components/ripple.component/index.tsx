@@ -5,7 +5,7 @@ import { useStyles } from "./styles";
 
 const CLEAN_UP_DEBOUNCE = 2000;
 
-export const Ripple: FC<{}> = () => {
+export const Ripple: FC = () => {
 	const classes = useStyles();
 
 	const [styles, setStyles] = useState<{ [key: string]: CSSProperties }>({});
