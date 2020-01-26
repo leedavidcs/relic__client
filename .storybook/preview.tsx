@@ -1,4 +1,4 @@
-import { addDecorator, configure, addParameters } from "@storybook/react";
+import { addDecorator, addParameters, configure } from "@storybook/react";
 import { themes } from "@storybook/theming";
 import withStoryRouter from "storybook-react-router";
 import { withRootProvider } from "../src/storybook";

@@ -99,6 +99,7 @@
 		"@storybook/components": "^5.3.9",
 		"@storybook/preset-create-react-app": "^1.5.2",
 		"@storybook/react": "^5.3.9",
+		"@storybook/theming": "^5.3.9",
 		"@types/enzyme": "^3.10.4",
 		"@types/enzyme-adapter-react-16": "^1.0.5",
 		"@types/faker": "^4.1.9",

@@ -10,11 +10,11 @@ export const AuthLink: ApolloLink = setContext(
 	async (__, { headers }: IAuthLinkContext): Promise<IAuthLinkContext> => {
 		const token = localStorage.getItem("token");
 
-		return {
+		return Promise.resolve({
 			headers: {
 				...headers,
 				Authorization: token ? `Bearer ${token}` : ""
 			}
-		};
+		});
 	}
 );
