@@ -1,20 +1,20 @@
 import { Paper } from "@/components";
+import { SignUpDisplay } from "@/forms/sign-up.form/sign-up-display.component";
 import { action } from "@storybook/addon-actions";
 import React, { useCallback } from "react";
-import { SignUpDisplay } from "..";
 
 export const WithErrorStory = () => {
 	const onClickResend = action("onClickResend");
 	const onSubmitAction = action("onSubmit");
 
 	const onSubmit = useCallback(
-		async (values) => {
+		(values) => {
 			onSubmitAction(values);
 
-			return {
+			return Promise.resolve({
 				success: false,
 				error: "Something went wrong."
-			};
+			});
 		},
 		[onSubmitAction]
 	);
