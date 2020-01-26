@@ -1,12 +1,19 @@
 import { useHover } from "@/hooks";
 import classnames from "classnames";
-import React, { FC, useRef } from "react";
+import React, { FC, MouseEvent, useRef } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
+	/** Optional classes to pass to the `a` or `button` */
 	className?: string;
+	/**
+	 * Uri to pass to the `a`. If this is passed-in, this component will be a wrapper around `a`.
+	 * Otherwise, a `button` will be used instead.
+	 */
 	href?: string;
-	onClick?: () => void;
+	/** HTMLAnchorElement or HTMLButtonElement onClick event */
+	onClick?: (event: MouseEvent<HTMLElement>) => void;
+	/** The text to use for this anchor */
 	value: string;
 }
 

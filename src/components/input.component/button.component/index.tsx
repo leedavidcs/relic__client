@@ -22,7 +22,7 @@ interface IProps {
 	className?: string;
 	/** The color scheme of the button. See story */
 	color?: ButtonColor;
-	/** Button onClick event */
+	/** HTMLButtonElement onClick event */
 	onClick?: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
 	/** The size variant of the button. See story */
 	size?: ButtonSize;
