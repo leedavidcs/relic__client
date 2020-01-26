@@ -3,7 +3,9 @@ import React, { FC } from "react";
 import { useStyles } from "./styles";
 
 interface IProps {
+	/** Optional classes to pass onto the `div` wrapper */
 	className?: string;
+	/** If true, this is `fixed` positioned. Otherwise, it is `static` positioned */
 	stickTop?: boolean;
 }
 
