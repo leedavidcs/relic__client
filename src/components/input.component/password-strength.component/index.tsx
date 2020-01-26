@@ -8,7 +8,9 @@ const MAX_PERCENTAGE = 100;
 const strengths = ["Weak", "Weak", "Fair", "Good", "Strong"] as const;
 
 interface IProps {
+	/** Optional classes to pass to the outermost `div` */
 	className?: string;
+	/** The password text to check the strength of */
 	password: string;
 }
 
