@@ -1,0 +1,79 @@
+import { Paper } from "@/components";
+import { action } from "@storybook/addon-actions";
+import { Meta, Preview, Props, Story } from "@storybook/addon-docs/blocks";
+import { useCallback } from "@storybook/addon-actions";
+import { SignUpDisplay } from ".";
+
+<Meta title="form-display/sign-up-display" component={SignUpDisplay} />
+
+# SignUpDisplay
+
+- [Table of contents](#signupdisplay)
+  * [Description](#description)
+  * [Props](#props)
+  * [StandardStory](#standardstory)
+    + [Source](#source)
+  * [WithUserStory](#withuserstory)
+    + [Source](#source-1)
+
+## Description
+The presentational display for the form used to register a user.
+
+## Props
+<Props of={SignUpDisplay} />
+
+## StandardStory
+<Preview>
+	<Story name="standard">
+		{() => {
+			const onClickResend = action("onClickResend");
+			const onSubmitAction = action("onSubmit");
+			const onSubmit = useCallback(
+				(values) => {
+					onSubmitAction(values);
+					return Promise.resolve({
+						success: true,
+						error: null
+					});
+				},
+				[onSubmitAction]
+			);
+			return (
+				<Paper>
+					<SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />
+				</Paper>
+			);
+		}}
+	</Story>
+</Preview>
+
+### Source
+(see code in story)
+
+## WithErrorStory
+<Preview>
+	<Story name="with-error">
+		{() => {
+			const onClickResend = action("onClickResend");
+			const onSubmitAction = action("onSubmit");
+			const onSubmit = useCallback(
+				(values) => {
+					onSubmitAction(values);
+					return Promise.resolve({
+						success: false,
+						error: "Something went wrong."
+					});
+				},
+				[onSubmitAction]
+			);
+			return (
+				<Paper>
+					<SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />
+				</Paper>
+			);
+		}}
+	</Story>
+</Preview>
+
+### Source
+(see code in story)
