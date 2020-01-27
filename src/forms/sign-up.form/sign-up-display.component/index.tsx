@@ -9,7 +9,9 @@ import { useStyles } from "./styles";
 const SignInModal = lazy(() => import("@/modals/sign-in.modal"));
 
 interface IProps {
+	/** Action to take when the user clicks to resend account validation email */
 	onClickResend: () => void;
+	/** Action for when the user submits the form */
 	onSubmit: (
 		variables: RegisterLocalUserVariables
 	) => Promise<{ success: boolean; error: string | null }>;
