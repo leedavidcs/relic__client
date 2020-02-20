@@ -34,6 +34,7 @@
 	],
 	"rules": {
 		"@typescript-eslint/array-type": "error",
+		"@typescript-eslint/camelcase": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/indent": "off",
 		"@typescript-eslint/interface-name-prefix": [

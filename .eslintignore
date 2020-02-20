@@ -2,15 +2,19 @@
 .jest/**
 .storybook/**
 .vscode/**
+tsconfig.json
 
 # dependencies
 node_modules/**
 
 # production
+dist/**
 public/**
 
 # testing
+coverage/**
 storyshots/**
+test-reports/**/*
 
 # scripts
 scripts/**
@@ -19,4 +23,6 @@ scripts/**
 # generated files
 **/types/**
 **/*.d.ts
+logs/**
+src/graphql/schema.json
 src/serviceWorker.ts

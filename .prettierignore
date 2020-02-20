@@ -1,9 +1,28 @@
-build/**/*
-config/**/*
-coverage/**/*
-dist/**/*
-logs/**/*
-public/**/*
-scripts/**/*
-test-reports/**/*
+# configs
+.jest/**
+.storybook/**
+.vscode/**
 tsconfig.json
+
+# dependencies
+node_modules/**
+
+# production
+dist/**
+public/**
+
+# testing
+coverage/**
+storyshots/**
+test-reports/**/*
+
+# scripts
+scripts/**
+*.js
+
+# generated files
+**/types/**
+**/*.d.ts
+logs/**
+src/graphql/schema.json
+src/serviceWorker.ts
