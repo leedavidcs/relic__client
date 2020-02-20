@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -7,7 +8,7 @@
 // ====================================================
 
 export interface LoginLocalUser_loginLocalUser {
-	readonly __typename: "TokenResponse";
+	readonly __typename: "TokenPayload";
 	/**
 	 * JSON web token to authenticate API requests
 	 */
@@ -22,16 +23,16 @@ export interface LoginLocalUser {
 	/**
 	 * Logins in the user, and returns an expiring access token
 	 */
-	readonly loginLocalUser: LoginLocalUser_loginLocalUser;
+	readonly loginLocalUser: LoginLocalUser_loginLocalUser | null;
 }
 
 export interface LoginLocalUserVariables {
-	readonly userIdentifier: string;
-	readonly password: string;
+	readonly input: LoginLocalUserInput;
 }
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -39,7 +40,7 @@ export interface LoginLocalUserVariables {
 // ====================================================
 
 export interface RefreshAccessToken_refreshAccessToken {
-	readonly __typename: "TokenResponse";
+	readonly __typename: "TokenPayload";
 	/**
 	 * JSON web token to authenticate API requests
 	 */
@@ -54,15 +55,16 @@ export interface RefreshAccessToken {
 	/**
 	 * Refreshes the currently logged-in user's access token
 	 */
-	readonly refreshAccessToken: RefreshAccessToken_refreshAccessToken;
+	readonly refreshAccessToken: RefreshAccessToken_refreshAccessToken | null;
 }
 
 export interface RefreshAccessTokenVariables {
-	readonly refreshToken: string;
+	readonly input: RefreshAccessTokenInput;
 }
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -90,7 +92,7 @@ export interface RegisterLocalUser_registerLocalUser_user {
 }
 
 export interface RegisterLocalUser_registerLocalUser {
-	readonly __typename: "RegisterLocalUserResponse";
+	readonly __typename: "RegisterLocalUserPayload";
 	/**
 	 * Whether the registration successfully created a user or not
 	 */
@@ -109,17 +111,16 @@ export interface RegisterLocalUser {
 	/**
 	 * Performs local authentication (custom username + password)
 	 */
-	readonly registerLocalUser: RegisterLocalUser_registerLocalUser;
+	readonly registerLocalUser: RegisterLocalUser_registerLocalUser | null;
 }
 
 export interface RegisterLocalUserVariables {
-	readonly email: any;
-	readonly password: string;
-	readonly username: string;
+	readonly input: RegisterLocalUserInput;
 }
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -135,6 +136,7 @@ export interface ResendVerifyEmail {
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -171,6 +173,7 @@ export interface SetUserVariables {
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -187,6 +190,7 @@ export interface ToggleModalVariables {
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -199,6 +203,7 @@ export interface GetModal {
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -231,6 +236,7 @@ export interface GetUser {
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -266,11 +272,27 @@ export interface GetViewer {
 
 /* tslint:disable */
 /* eslint-disable */
+// @generated
 // This file was automatically generated and should not be edited.
 
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export interface LoginLocalUserInput {
+	readonly userIdentifier: string;
+	readonly password: string;
+}
+
+export interface RefreshAccessTokenInput {
+	readonly refreshToken: string;
+}
+
+export interface RegisterLocalUserInput {
+	readonly email: any;
+	readonly password: any;
+	readonly username: string;
+}
 
 export interface UserInput {
 	readonly id: string;

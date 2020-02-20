@@ -1,5 +1,5 @@
-mutation RefreshAccessToken($refreshToken: String!) {
-	refreshAccessToken(refreshToken: $refreshToken) {
+mutation RefreshAccessToken($input: RefreshAccessTokenInput!) {
+	refreshAccessToken(input: $input) {
 		token
 		refreshToken
 	}

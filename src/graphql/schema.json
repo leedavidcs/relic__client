@@ -1095,6 +1095,22 @@
 						"deprecationReason": null
 					},
 					{
+						"name": "name",
+						"description": "The name, the user has given to this stock portfolio",
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
 						"name": "headers",
 						"description": "The headers (configs) for this data grid, including how data is resolved",
 						"args": [],
@@ -1299,8 +1315,24 @@
 						"deprecationReason": null
 					},
 					{
+						"name": "frozen",
+						"description": "Whether this column could be moved",
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "Boolean",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
 						"name": "resizable",
-						"description": "Whether this column should be resizable",
+						"description": "Whether this column could be resized",
 						"args": [],
 						"type": {
 							"kind": "NON_NULL",
@@ -1435,28 +1467,14 @@
 						"description": "Logins in the user, and returns an expiring access token",
 						"args": [
 							{
-								"name": "userIdentifier",
-								"description": "The email or username (either) of the user",
+								"name": "input",
+								"description": null,
 								"type": {
 									"kind": "NON_NULL",
 									"name": null,
 									"ofType": {
-										"kind": "SCALAR",
-										"name": "String",
-										"ofType": null
-									}
-								},
-								"defaultValue": null
-							},
-							{
-								"name": "password",
-								"description": "The user's decrypted password",
-								"type": {
-									"kind": "NON_NULL",
-									"name": null,
-									"ofType": {
-										"kind": "SCALAR",
-										"name": "String",
+										"kind": "INPUT_OBJECT",
+										"name": "LoginLocalUserInput",
 										"ofType": null
 									}
 								},
@@ -1464,13 +1482,9 @@
 							}
 						],
 						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "TokenResponse",
-								"ofType": null
-							}
+							"kind": "OBJECT",
+							"name": "TokenPayload",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
@@ -1480,14 +1494,14 @@
 						"description": "Refreshes the currently logged-in user's access token",
 						"args": [
 							{
-								"name": "refreshToken",
-								"description": "The refresh token, that is used to refresh the access token",
+								"name": "input",
+								"description": null,
 								"type": {
 									"kind": "NON_NULL",
 									"name": null,
 									"ofType": {
-										"kind": "SCALAR",
-										"name": "String",
+										"kind": "INPUT_OBJECT",
+										"name": "RefreshAccessTokenInput",
 										"ofType": null
 									}
 								},
@@ -1495,13 +1509,9 @@
 							}
 						],
 						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "TokenResponse",
-								"ofType": null
-							}
+							"kind": "OBJECT",
+							"name": "TokenPayload",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
@@ -1511,42 +1521,14 @@
 						"description": "Performs local authentication (custom username + password)",
 						"args": [
 							{
-								"name": "email",
-								"description": "(Unique) The user's email",
+								"name": "input",
+								"description": null,
 								"type": {
 									"kind": "NON_NULL",
 									"name": null,
 									"ofType": {
-										"kind": "SCALAR",
-										"name": "EmailAddress",
-										"ofType": null
-									}
-								},
-								"defaultValue": null
-							},
-							{
-								"name": "password",
-								"description": "The user's decrypted password",
-								"type": {
-									"kind": "NON_NULL",
-									"name": null,
-									"ofType": {
-										"kind": "SCALAR",
-										"name": "String",
-										"ofType": null
-									}
-								},
-								"defaultValue": null
-							},
-							{
-								"name": "username",
-								"description": "The user's username",
-								"type": {
-									"kind": "NON_NULL",
-									"name": null,
-									"ofType": {
-										"kind": "SCALAR",
-										"name": "String",
+										"kind": "INPUT_OBJECT",
+										"name": "RegisterLocalUserInput",
 										"ofType": null
 									}
 								},
@@ -1554,13 +1536,9 @@
 							}
 						],
 						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "RegisterLocalUserResponse",
-								"ofType": null
-							}
+							"kind": "OBJECT",
+							"name": "RegisterLocalUserPayload",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
@@ -1584,15 +1562,26 @@
 					{
 						"name": "createStockPortfolio",
 						"description": "Creates an empty stock portfolio",
-						"args": [],
-						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "StockPortfolio",
-								"ofType": null
+						"args": [
+							{
+								"name": "input",
+								"description": null,
+								"type": {
+									"kind": "NON_NULL",
+									"name": null,
+									"ofType": {
+										"kind": "INPUT_OBJECT",
+										"name": "CreateStockPortfolioInput",
+										"ofType": null
+									}
+								},
+								"defaultValue": null
 							}
+						],
+						"type": {
+							"kind": "OBJECT",
+							"name": "CreateStockPortfolioPayload",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
@@ -1602,60 +1591,24 @@
 						"description": "Updates a stock portfolio",
 						"args": [
 							{
-								"name": "id",
-								"description": "The ID of the stock portfolio to update",
+								"name": "input",
+								"description": null,
 								"type": {
-									"kind": "SCALAR",
-									"name": "ID",
-									"ofType": null
-								},
-								"defaultValue": null
-							},
-							{
-								"name": "headers",
-								"description": "Headers for this data grid, including how data is resolved",
-								"type": {
-									"kind": "LIST",
+									"kind": "NON_NULL",
 									"name": null,
 									"ofType": {
-										"kind": "NON_NULL",
-										"name": null,
-										"ofType": {
-											"kind": "INPUT_OBJECT",
-											"name": "StockPortfolioHeaderInput",
-											"ofType": null
-										}
-									}
-								},
-								"defaultValue": null
-							},
-							{
-								"name": "tickers",
-								"description": "The tickers that are the rows for this data grid",
-								"type": {
-									"kind": "LIST",
-									"name": null,
-									"ofType": {
-										"kind": "NON_NULL",
-										"name": null,
-										"ofType": {
-											"kind": "SCALAR",
-											"name": "String",
-											"ofType": null
-										}
+										"kind": "INPUT_OBJECT",
+										"name": "UpdateStockPortfolioInput",
+										"ofType": null
 									}
 								},
 								"defaultValue": null
 							}
 						],
 						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "StockPortfolio",
-								"ofType": null
-							}
+							"kind": "OBJECT",
+							"name": "UpdateStockPortfolioPayload",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
@@ -1665,24 +1618,24 @@
 						"description": "Deletes a stock portfolio",
 						"args": [
 							{
-								"name": "id",
-								"description": "Id of the stock portfolio to delete",
+								"name": "input",
+								"description": null,
 								"type": {
-									"kind": "SCALAR",
-									"name": "ID",
-									"ofType": null
+									"kind": "NON_NULL",
+									"name": null,
+									"ofType": {
+										"kind": "INPUT_OBJECT",
+										"name": "DeleteStockPortfolioInput",
+										"ofType": null
+									}
 								},
 								"defaultValue": null
 							}
 						],
 						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "StockPortfolio",
-								"ofType": null
-							}
+							"kind": "OBJECT",
+							"name": "DeleteStockPortfolioPayload",
+							"ofType": null
 						},
 						"isDeprecated": false,
 						"deprecationReason": null
@@ -1744,8 +1697,47 @@
 				"possibleTypes": null
 			},
 			{
+				"kind": "INPUT_OBJECT",
+				"name": "LoginLocalUserInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "userIdentifier",
+						"description": "The email or username (either) of the user",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "password",
+						"description": "The user's decrypted password",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
 				"kind": "OBJECT",
-				"name": "TokenResponse",
+				"name": "TokenPayload",
 				"description": "The response from a successful login or token refresh request",
 				"fields": [
 					{
@@ -1787,8 +1779,96 @@
 				"possibleTypes": null
 			},
 			{
+				"kind": "INPUT_OBJECT",
+				"name": "RefreshAccessTokenInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "refreshToken",
+						"description": "The refresh token, that is used to refresh the access token",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "INPUT_OBJECT",
+				"name": "RegisterLocalUserInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "email",
+						"description": "(Unique) The user's email",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "EmailAddress",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "password",
+						"description": "The user's decrypted password",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "UserPassword",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "username",
+						"description": "(Unique) The user's username",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "SCALAR",
+				"name": "UserPassword",
+				"description": "The plain-text password of a user to be hashed",
+				"fields": null,
+				"inputFields": null,
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
 				"kind": "OBJECT",
-				"name": "RegisterLocalUserResponse",
+				"name": "RegisterLocalUserPayload",
 				"description": "The response object from a local register user request",
 				"fields": [
 					{
@@ -1834,6 +1914,115 @@
 				],
 				"inputFields": null,
 				"interfaces": [],
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "INPUT_OBJECT",
+				"name": "CreateStockPortfolioInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "name",
+						"description": "(Unique) The name of this stock portfolio.",
+						"type": {
+							"kind": "SCALAR",
+							"name": "String",
+							"ofType": null
+						},
+						"defaultValue": "\"New_Portfolio\""
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "OBJECT",
+				"name": "CreateStockPortfolioPayload",
+				"description": null,
+				"fields": [
+					{
+						"name": "stockPortfolio",
+						"description": null,
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "StockPortfolio",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					}
+				],
+				"inputFields": null,
+				"interfaces": [],
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "INPUT_OBJECT",
+				"name": "UpdateStockPortfolioInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "id",
+						"description": "The ID of the stock portfolio to update",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "ID",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "headers",
+						"description": "Headers for this data grid, including how data is resolved",
+						"type": {
+							"kind": "LIST",
+							"name": null,
+							"ofType": {
+								"kind": "NON_NULL",
+								"name": null,
+								"ofType": {
+									"kind": "INPUT_OBJECT",
+									"name": "StockPortfolioHeaderInput",
+									"ofType": null
+								}
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "tickers",
+						"description": "The tickers that are the rows for this data grid",
+						"type": {
+							"kind": "LIST",
+							"name": null,
+							"ofType": {
+								"kind": "NON_NULL",
+								"name": null,
+								"ofType": {
+									"kind": "SCALAR",
+									"name": "String",
+									"ofType": null
+								}
+							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
 				"enumValues": null,
 				"possibleTypes": null
 			},
@@ -1909,6 +2098,85 @@
 					}
 				],
 				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "OBJECT",
+				"name": "UpdateStockPortfolioPayload",
+				"description": null,
+				"fields": [
+					{
+						"name": "stockPortfolio",
+						"description": null,
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "StockPortfolio",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					}
+				],
+				"inputFields": null,
+				"interfaces": [],
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "INPUT_OBJECT",
+				"name": "DeleteStockPortfolioInput",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "id",
+						"description": "Id of the stock portfolio to delete",
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "ID",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "OBJECT",
+				"name": "DeleteStockPortfolioPayload",
+				"description": null,
+				"fields": [
+					{
+						"name": "stockPortfolio",
+						"description": null,
+						"args": [],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "StockPortfolio",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					}
+				],
+				"inputFields": null,
+				"interfaces": [],
 				"enumValues": null,
 				"possibleTypes": null
 			},
@@ -2959,6 +3227,16 @@
 			},
 			{
 				"kind": "SCALAR",
+				"name": "Hexadecimal",
+				"description": "A field whose value is a hexadecimal: https://en.wikipedia.org/wiki/Hexadecimal.",
+				"fields": null,
+				"inputFields": null,
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "SCALAR",
 				"name": "HexColorCode",
 				"description": "A field whose value is a hex color code: https://en.wikipedia.org/wiki/Web_colors.",
 				"fields": null,
@@ -2981,6 +3259,16 @@
 				"kind": "SCALAR",
 				"name": "HSLA",
 				"description": "A field whose value is a CSS HSLA color: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#hsl()_and_hsla().",
+				"fields": null,
+				"inputFields": null,
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "SCALAR",
+				"name": "IBAN",
+				"description": "A field whose value is an International Bank Account Number (IBAN):\nhttps://en.wikipedia.org/wiki/International_Bank_Account_Number.",
 				"fields": null,
 				"inputFields": null,
 				"interfaces": null,
@@ -3069,8 +3357,8 @@
 			},
 			{
 				"kind": "SCALAR",
-				"name": "NonNegative",
-				"description": "Integers that will have a value of 0 or more.",
+				"name": "NonNegativeFloat",
+				"description": "Floats that will have a value of 0 or more.",
 				"fields": null,
 				"inputFields": null,
 				"interfaces": null,
@@ -3079,8 +3367,8 @@
 			},
 			{
 				"kind": "SCALAR",
-				"name": "NonNegativeFloat",
-				"description": "Floats that will have a value of 0 or more.",
+				"name": "NonNegativeInt",
+				"description": "Integers that will have a value of 0 or more.",
 				"fields": null,
 				"inputFields": null,
 				"interfaces": null,
@@ -3151,6 +3439,16 @@
 				"kind": "SCALAR",
 				"name": "PostalCode",
 				"description": "A field whose value conforms to the standard postal code formats for United\nStates, United Kingdom, Germany, Canada, France, Italy, Australia, Netherlands,\nSpain, Denmark, Sweden, Belgium, India, Austria, Portugal, Switzerland or Luxembourg.",
+				"fields": null,
+				"inputFields": null,
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "SCALAR",
+				"name": "RegularExpression",
+				"description": null,
 				"fields": null,
 				"inputFields": null,
 				"interfaces": null,

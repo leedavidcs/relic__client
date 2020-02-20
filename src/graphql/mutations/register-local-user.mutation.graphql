@@ -1,5 +1,5 @@
-mutation RegisterLocalUser($email: EmailAddress!, $password: String!, $username: String!) {
-	registerLocalUser(email: $email, password: $password, username: $username) {
+mutation RegisterLocalUser($input: RegisterLocalUserInput!) {
+	registerLocalUser(input: $input) {
 		success
 		error
 		user {
