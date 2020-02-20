@@ -23,23 +23,21 @@ The presentational display for the form used to login a user.
 ## StandardStory
 <Preview>
 	<Story name="standard">
-		<Paper>
-			{() => {
-				const submitAction = useCallback(action("onSubmit"), []);
-				const onSubmit = useCallback(
-					(values) => {
-						submitAction(values);
-						return true;
-					},
-					[submitAction]
-				);
-				return (
-					<Paper>
-						<SignInDisplay onSubmit={onSubmit} />
-					</Paper>
-				);
-			}}
-		</Paper>
+		{() => {
+			const submitAction = useCallback(action("onSubmit"), []);
+			const onSubmit = useCallback(
+				(values) => {
+					submitAction(values);
+					return true;
+				},
+				[submitAction]
+			);
+			return (
+				<Paper>
+					<SignInDisplay onSubmit={onSubmit} />
+				</Paper>
+			);
+		}}
 	</Story>
 </Preview>
 
