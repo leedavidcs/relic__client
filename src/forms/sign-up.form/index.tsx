@@ -40,11 +40,13 @@ export const SignUpForm: FC<{}> = () => {
 				return { success, error };
 			}
 
-			const { email: userIdentifier, password } = variables;
+			const {
+				input: { email: userIdentifier, password }
+			} = variables;
 
-			await login({ variables: { userIdentifier, password } });
+			await login({ variables: { input: { userIdentifier, password } } });
 
-			setEmail(variables.email);
+			setEmail(variables.input.email);
 			setDidSucceed(true);
 
 			return { success, error };

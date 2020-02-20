@@ -44,7 +44,7 @@ export const SignInDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 	);
 
 	const onSubmit = useCallback(async () => {
-		const result: boolean = await propsOnSubmit({ userIdentifier, password });
+		const result: boolean = await propsOnSubmit({ input: { userIdentifier, password } });
 
 		setDidSubmit(true);
 		setDidSucceed(result);

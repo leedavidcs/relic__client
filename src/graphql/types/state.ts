@@ -1,5 +1,5 @@
 import { InMemoryCache } from "apollo-boost";
-import { User } from "./generated.types";
+import { GetUser_user as User } from "./generated.types";
 
 export interface IClientContext {
 	cache: InMemoryCache;

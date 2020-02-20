@@ -1,4 +1,8 @@
 import { Mutations } from "@/graphql";
+import {
+	RefreshAccessTokenVariables,
+	RefreshAccessToken_refreshAccessToken
+} from "@/graphql/types";
 import { Logger } from "@/utils";
 import { ApolloLink, FetchResult, Observable, Operation } from "apollo-boost";
 import { onError } from "apollo-link-error";
@@ -20,12 +24,11 @@ const doRefreshToken = async (): Promise<string | null> => {
 		return null;
 	}
 
+	const variables: RefreshAccessTokenVariables = { input: { refreshToken: oldRefreshToken } };
 	const tokenRequest = await fetch(BASE_GRAPHQL_URL, {
 		body: JSON.stringify({
 			mutation: print(Mutations.RefreshAccessToken),
-			variables: {
-				refreshToken: oldRefreshToken
-			}
+			variables
 		}),
 		headers: {
 			Accept: "application/json",
@@ -39,12 +42,15 @@ const doRefreshToken = async (): Promise<string | null> => {
 		return null;
 	}
 
-	const { refreshToken: newRefreshToken, token } = await tokenRequest.json();
+	const {
+		refreshToken: newRefreshToken,
+		token
+	}: RefreshAccessToken_refreshAccessToken = await tokenRequest.json();
 
 	localStorage.setItem("refreshToken", newRefreshToken);
 	localStorage.setItem("token", token);
 
-	return token as string;
+	return token;
 };
 
 const onRefreshToken = new Observable<string | null>((subscriber) => {

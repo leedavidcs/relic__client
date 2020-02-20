@@ -7,7 +7,7 @@ DotEnv.config();
 
 const strOptions = {
 	endpoint: `${process.env.REACT_APP_API_BASE_URL}/graphql`,
-	includes: "src/graphql/{mutations,queries}/*.{gql,graphql}",
+	includes: "src/graphql/**/*.{gql,graphql}",
 	localSchemaFile: "src/graphql/schema.json",
 	target: "typescript"
 };
