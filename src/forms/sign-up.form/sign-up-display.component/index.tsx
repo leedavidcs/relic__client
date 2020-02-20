@@ -47,7 +47,7 @@ export const SignUpDisplay: FC<IProps> = ({ onSubmit: propsOnSubmit }) => {
 			return;
 		}
 
-		propsOnSubmit({ email, password, username }).then((result) => {
+		propsOnSubmit({ input: { email, password, username } }).then((result) => {
 			setError(result.error);
 		});
 	}, [

@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemIcon, ListItemText } from "@/components/list.component";
-import { User } from "@/graphql";
+import { GetUser_user as User } from "@/graphql";
 import React, { FC } from "react";
 import { FaBacon } from "react-icons/fa";
 

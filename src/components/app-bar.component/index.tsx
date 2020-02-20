@@ -1,7 +1,7 @@
 import { Button, TextInput } from "@/components/input.component";
 import { Toolbar } from "@/components/toolbar.component";
 import { Tooltip } from "@/components/tooltip.component";
-import { User } from "@/graphql";
+import { GetUser_user as User } from "@/graphql";
 import { useModal } from "@/hooks";
 import { onInputValueChanged } from "@/utils";
 import React, { FC, lazy, useCallback, useState } from "react";

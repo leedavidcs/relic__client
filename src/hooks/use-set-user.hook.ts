@@ -1,4 +1,12 @@
-import { GetUser, GetViewer, Mutations, Queries, SetUser, SetUserVariables, User } from "@/graphql";
+import {
+	GetUser,
+	GetUser_user as User,
+	GetViewer,
+	Mutations,
+	Queries,
+	SetUser,
+	SetUserVariables
+} from "@/graphql";
 import { useCallback, useState } from "react";
 import { useLazyQuery, useMutation, useQuery } from "react-apollo";
 
