@@ -7,7 +7,3 @@ generates:
       - src/**/*.{gql,graphql}
     plugins:
       - typescript-graphql-files-modules
-  ./src/graphql/types/generated.types/custom-types.ts:
-    plugins:
-      - typescript
-      - typescript-operations
