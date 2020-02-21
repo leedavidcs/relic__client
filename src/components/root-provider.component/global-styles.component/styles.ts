@@ -5,6 +5,26 @@ const styles = (theme: CustomTheme) => ({
 	"@global": {
 		"html, body, #root": {
 			height: "100%"
+		},
+		/**
+		 * !HACK
+		 * @description Chrome puts an ugly big box over text inputs that are autofilled. Hard-code
+		 *     styles to prevent that from happening.
+		 * @author David Lee
+		 * @date February 21, 2020
+		 */
+		[[
+			`input[type="text"]:-webkit-autofill`,
+			"input:-webkit-autofill:hover",
+			"input:-webkit-autofill:focus",
+			"input:-webkit-autofill:active"
+		].join(", ")]: {
+			"-webkit-box-shadow": [`0 0 0 30px ${theme.surface} inset`, "!important"],
+			"-webkit-text-fill-color": theme.onSurface,
+			boxSizing: "border-box",
+			height: "100%",
+			width: "100%",
+			borderRadius: 4
 		}
 	},
 	root: {
