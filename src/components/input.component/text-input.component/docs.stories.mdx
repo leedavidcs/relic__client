@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { FaBacon } from "react-icons/fa";
 import { TextInput } from ".";
 
-<Meta title="general/inputs/text-input" component={TextInput} />
+<Meta title="general/inputs/text-input2" component={TextInput} />
 
 # TextInput
 
@@ -32,27 +32,49 @@ export const STANDARD_MAX_INPUT_LENGTH = 5;
 			const [value1, setValue1] = useState("");
 			const [value2, setValue2] = useState("");
 			const [value3, setValue3] = useState("");
-			const validator = useCallback((value) => {
+			const [error0, setError0] = useState(null);
+			const [error1, setError1] = useState(null);
+			const [error2, setError2] = useState(null);
+			const [error3, setError3] = useState(null);
+			const validator = useCallback((value, setError) => {
 				const isValid = value.length < STANDARD_MAX_INPUT_LENGTH;
-				return isValid ? null : "Text is too long";
+				setError(isValid ? null : "Text is too long");
 			}, []);
 			const style = { marginBottom: 8 };
-			const onChange0 = useCallback(onInputValueChanged(setValue0), []);
-			const onChange1 = useCallback(onInputValueChanged(setValue1), []);
-			const onChange2 = useCallback(onInputValueChanged(setValue2), []);
-			const onChange3 = useCallback(onInputValueChanged(setValue3), []);
+			const onChangeWithValidator = useCallback((setValue, setError) => {
+				return ({ currentTarget: { value } }) => {
+					validator(value, setError);
+					setValue(value);
+				};
+			}, [validator]);
+			const onChange0 = useCallback(
+				onChangeWithValidator(setValue0, setError0),
+				[setValue0, setError0]
+			);
+			const onChange1 = useCallback(
+				onChangeWithValidator(setValue1, setError1),
+				[setValue1, setError1]
+			);
+			const onChange2 = useCallback(
+				onChangeWithValidator(setValue2, setError2),
+				[setValue2, setError2]
+			);
+			const onChange3 = useCallback(
+				onChangeWithValidator(setValue3, setError3),
+				[setValue3, setError3]
+			);
 			return (
 				<Paper>
 					<TextInput
 						label="Must be fewer than 5 chars"
-						validator={validator}
+						error={error0}
 						style={style}
 						onChange={onChange0}
 						value={value0}
 					/>
 					<TextInput
 						label="Must be fewer than 5 chars"
-						validator={validator}
+						error={error1}
 						style={style}
 						onChange={onChange1}
 						value={value1}
@@ -60,7 +82,7 @@ export const STANDARD_MAX_INPUT_LENGTH = 5;
 					/>
 					<TextInput
 						label="Must be fewer than 5 chars"
-						validator={validator}
+						error={error2}
 						style={style}
 						onChange={onChange2}
 						value={value2}
@@ -68,7 +90,7 @@ export const STANDARD_MAX_INPUT_LENGTH = 5;
 					/>
 					<TextInput
 						label="Must be fewer than 5 chars"
-						validator={validator}
+						error={error3}
 						style={style}
 						onChange={onChange3}
 						value={value3}
