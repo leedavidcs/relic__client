@@ -26,6 +26,8 @@ interface IProps {
 	onClick?: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
 	/** The size variant of the button. See story */
 	size?: ButtonSize;
+	/** Native button["type"] property */
+	type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 }
 
 export const Button: FC<IProps> = ({
@@ -33,13 +35,19 @@ export const Button: FC<IProps> = ({
 	className,
 	color = "primary",
 	onClick,
-	size = "medium"
+	size = "medium",
+	type
 }) => {
 	const classes = useStyles({ color, size });
 	const [isHovered, hoverRef] = useHover<HTMLButtonElement>(false);
 
 	return (
-		<button ref={hoverRef} className={classnames(classes.root, className)} onClick={onClick}>
+		<button
+			ref={hoverRef}
+			className={classnames(classes.root, className)}
+			type={type}
+			onClick={onClick}
+		>
 			{children}
 			<Overlay active={isHovered} opacity={OVERLAY_OPACITY} />
 			<Ripple />

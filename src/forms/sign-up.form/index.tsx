@@ -1,64 +1,200 @@
-import { Mutations, RegisterLocalUserVariables, ResendVerifyEmail } from "@/graphql";
+import { Anchor, Button, PasswordStrength, TextInput } from "@/components";
+import {
+	LoginLocalUserVariables,
+	Mutations,
+	RegisterLocalUserVariables,
+	RegisterLocalUser_registerLocalUser,
+	ResendVerifyEmail
+} from "@/graphql";
 import { useAuth, useModal, useSetUser } from "@/hooks";
-import { VerifyEmailModal } from "@/modals";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import { getYupValidationResolver } from "@/utils";
+import React, { FC, FormEvent, lazy, useCallback, useEffect, useState } from "react";
 import { useMutation } from "react-apollo";
-import { SignUpDisplay } from "./sign-up-display.component";
+import { useForm } from "react-hook-form";
+import { string } from "yup";
+import { useStyles } from "./styles";
 
-export const SignUpForm: FC<{}> = () => {
+const SignInModal = lazy(() => import("@/modals/sign-in.modal"));
+const VerifyEmailModal = lazy(() => import("@/modals/verify-email.modal"));
+
+interface IFormData {
+	username: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
+}
+
+const validationSchema = ({ password }: IFormData) => ({
+	username: string().required("Username is required"),
+	email: string().required("Email is required"),
+	password: string().required("Password is required"),
+	confirmPassword: string().test(
+		"confirmPassword",
+		"Passwords do not match",
+		(text) => text === password
+	)
+});
+
+const validationResolver = getYupValidationResolver(validationSchema);
+
+/**
+ * @description Returns a setState<string>, that toggles a modal content to a verify-email form.
+ *     This is used for after a user is successfully signed-up.
+ */
+const useSetEmail = () => {
+	const [email, setEmail] = useState<string>("");
 	const [resendVerifyEmail] = useMutation<ResendVerifyEmail>(Mutations.ResendVerifyEmail);
 
-	const { login, register } = useAuth();
 	const { setContent, toggle } = useModal();
-
-	const [email, setEmail] = useState<string>("");
-	const [didSucceed, setDidSucceed] = useState<boolean>(false);
-
-	const onClickResend = useCallback(() => resendVerifyEmail(), [resendVerifyEmail]);
 
 	const onCompleted = useCallback(() => {
 		setContent({
 			title: "Confirm your email address",
-			body: <VerifyEmailModal email={email} onClickResend={onClickResend} />
+			body: <VerifyEmailModal email={email} onClickResend={resendVerifyEmail} />
 		});
 		toggle(true);
-	}, [email, onClickResend, setContent, toggle]);
+	}, [email, resendVerifyEmail, setContent, toggle]);
 
 	const [setUser] = useSetUser({ onCompleted });
 
-	const onSubmit = useCallback(
-		async (variables: RegisterLocalUserVariables) => {
-			const result = await register({ variables });
+	useEffect(() => {
+		email && setUser();
+	}, [email, setUser]);
 
-			if (!result) {
-				return { success: false, error: "Unexpected error. Please try again" };
-			}
+	return setEmail;
+};
 
-			const { success, error } = result;
+/**
+ * @description This is the onClick handler for if the user clicks to sign-in, instad of
+ *     submitting the sign-up form.
+ */
+const useSignInHandler = () => {
+	const { setContent, toggle } = useModal();
 
+	return useCallback(() => {
+		setContent({ title: "Sign in", body: <SignInModal /> });
+		toggle(true);
+	}, [setContent, toggle]);
+};
+
+/**
+ * @description This is the handler for when the form is submitted. If successful, the user will be
+ *     registered and logged-in.
+ */
+const useFormSubmitHandler = (onSuccess?: () => void) => {
+	const { login, register } = useAuth();
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+	const handleRegisterPayload = useCallback(
+		async (
+			{ email: userIdentifier, password }: IFormData,
+			{ success, error }: RegisterLocalUser_registerLocalUser
+		): Promise<void> => {
 			if (!success) {
-				return { success, error };
+				setErrorMessage(error);
+
+				return;
 			}
 
-			const {
-				input: { email: userIdentifier, password }
-			} = variables;
+			const variables: LoginLocalUserVariables = {
+				input: { userIdentifier, password }
+			};
 
-			await login({ variables: { input: { userIdentifier, password } } });
+			await login({ variables });
 
-			setEmail(variables.input.email);
-			setDidSucceed(true);
-
-			return { success, error };
+			onSuccess?.();
 		},
-		[login, register]
+		[login, onSuccess, setErrorMessage]
 	);
 
-	useEffect(() => {
-		if (didSucceed) {
-			setUser();
-		}
-	}, [didSucceed, setUser]);
+	const onFormSubmit = useCallback(
+		async (data: IFormData): Promise<void> => {
+			const variables: RegisterLocalUserVariables = { input: data };
+			const result = await register({ variables });
 
-	return <SignUpDisplay onClickResend={onClickResend} onSubmit={onSubmit} />;
+			return result
+				? handleRegisterPayload(data, result)
+				: setErrorMessage("Unexpected error. Please try again");
+		},
+		[handleRegisterPayload, register, setErrorMessage]
+	);
+
+	return { errorMessage, onFormSubmit };
+};
+
+const usePasswordChangeHandler = () => {
+	const [password, setPassword] = useState<string>("");
+
+	const onPasswordChange = useCallback(
+		(event: FormEvent<HTMLInputElement>) => setPassword(event.currentTarget.value),
+		[setPassword]
+	);
+
+	return { password, onPasswordChange };
+};
+
+export const SignUpForm: FC = () => {
+	const classes = useStyles();
+
+	const { errors, getValues, handleSubmit, register } = useForm<IFormData>({
+		validationResolver
+	});
+
+	const setEmail = useSetEmail();
+	const onClickSignIn = useSignInHandler();
+	const { password, onPasswordChange } = usePasswordChangeHandler();
+
+	const onSuccess = useCallback(() => setEmail(getValues().email), [setEmail, getValues]);
+	const { errorMessage, onFormSubmit } = useFormSubmitHandler(onSuccess);
+	const onSubmit = useCallback(handleSubmit(onFormSubmit), [handleSubmit, onFormSubmit]);
+
+	return (
+		<div className={classes.root}>
+			<form className={classes.formWrapper} onSubmit={onSubmit}>
+				<TextInput
+					className={classes.textInput}
+					label="Username"
+					name="username"
+					error={errors.username?.message}
+					variant="outlined"
+					ref={register}
+				/>
+				<TextInput
+					className={classes.textInput}
+					label="Email"
+					name="email"
+					error={errors.email?.message}
+					variant="outlined"
+					ref={register}
+				/>
+				<TextInput
+					className={classes.textInput}
+					label="Password"
+					name="password"
+					error={errors.password?.message}
+					onChange={onPasswordChange}
+					variant="outlined"
+					ref={register}
+				/>
+				<PasswordStrength className={classes.passwordStrength} password={password} />
+				<TextInput
+					label="Confirm password"
+					name="confirmPassword"
+					error={errors.confirmPassword?.message}
+					className={classes.textInput}
+					variant="outlined"
+					ref={register}
+				/>
+				<div className={classes.btnContainer}>
+					<Button className={classes.signUpBtn} type="submit">
+						SIGN UP
+					</Button>
+				</div>
+			</form>
+			{errorMessage ? <div className={classes.error}>{errorMessage}</div> : null}
+			<div className={classes.signInWrapper}>
+				Already a member? {<Anchor value="SIGN IN" onClick={onClickSignIn} />}
+			</div>
+		</div>
+	);
 };
