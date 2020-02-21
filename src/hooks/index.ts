@@ -11,3 +11,4 @@ export * from "./use-set-user.hook";
 export * from "./use-theme-changer.hook";
 export * from "./use-tooltip.hook";
 export * from "./use-unified-ref.hook";
+export * from "./use-yup-validation-resolver";
