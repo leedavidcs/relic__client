@@ -1,9 +1,11 @@
 import {
 	LoginLocalUser,
 	LoginLocalUserVariables,
+	LoginLocalUser_loginLocalUser,
 	Mutations,
 	RegisterLocalUser,
-	RegisterLocalUserVariables
+	RegisterLocalUserVariables,
+	RegisterLocalUser_registerLocalUser
 } from "@/graphql";
 import { ApolloError, ExecutionResult } from "apollo-boost";
 import { useCallback } from "react";
@@ -27,67 +29,72 @@ interface IUseAuthResult {
 	register: (options: RegisterOptions) => Promise<RegisterResult>;
 }
 
-export const useAuth = ({
-	onLoginCompleted = () => undefined,
-	onLoginError = () => undefined,
-	onRegisterCompleted = () => undefined
-}: IUseAuthOptions = {}): IUseAuthResult => {
-	const [registerUser] = useMutation<RegisterLocalUser, RegisterLocalUserVariables>(
-		Mutations.RegisterLocalUser
-	);
+const useLogout = () => {
+	const removeAppTokens = useCallback(() => {
+		localStorage.removeItem("refreshToken");
+		localStorage.removeItem("token");
+	}, []);
 
+	return removeAppTokens;
+};
+
+const useLogin = ({ onLoginCompleted, onLoginError }: IUseAuthOptions = {}) => {
 	const [loginUser] = useMutation<LoginLocalUser, LoginLocalUserVariables>(
 		Mutations.LoginLocalUser
 	);
 
-	const login = useCallback(
+	const setAppTokens = useCallback(({ refreshToken, token }: LoginLocalUser_loginLocalUser) => {
+		localStorage.setItem("refreshToken", refreshToken);
+		localStorage.setItem("token", token);
+	}, []);
+
+	return useCallback(
 		async (
 			options: Parameters<typeof loginUser>[0]
-		): Promise<LoginLocalUser["loginLocalUser"] | null> => {
+		): Promise<LoginLocalUser_loginLocalUser | null> => {
 			let result: ExecutionResult<LoginLocalUser>;
 
 			try {
 				result = await loginUser(options);
 			} catch (err) {
 				if (err instanceof ApolloError) {
-					onLoginError(err.graphQLErrors.map(({ message }) => message));
+					onLoginError?.(err.graphQLErrors.map(({ message }) => message));
 
 					return null;
 				}
 
-				onLoginError(["Unexpected error. Please try again."]);
+				onLoginError?.(["Unexpected error. Please try again."]);
 
 				return null;
 			}
 
-			const tokens = result.data ? result.data.loginLocalUser : null;
+			const tokens: LoginLocalUser_loginLocalUser | null =
+				result.data?.loginLocalUser || null;
 
 			if (tokens) {
-				const { refreshToken, token } = tokens;
-
-				localStorage.setItem("refreshToken", refreshToken);
-				localStorage.setItem("token", token);
+				setAppTokens(tokens);
 			}
 
-			onLoginCompleted(tokens);
+			onLoginCompleted?.(tokens);
 
 			return tokens;
 		},
-		[loginUser, onLoginCompleted, onLoginError]
+		[loginUser, onLoginCompleted, onLoginError, setAppTokens]
+	);
+};
+
+const useRegister = ({ onRegisterCompleted = () => undefined }: IUseAuthOptions = {}) => {
+	const [registerUser] = useMutation<RegisterLocalUser, RegisterLocalUserVariables>(
+		Mutations.RegisterLocalUser
 	);
 
-	const logout = useCallback(() => {
-		localStorage.removeItem("refreshToken");
-		localStorage.removeItem("token");
-	}, []);
-
-	const register = useCallback(
+	return useCallback(
 		async (
 			options: Parameters<typeof registerUser>[0]
-		): Promise<RegisterLocalUser["registerLocalUser"] | null> => {
+		): Promise<RegisterLocalUser_registerLocalUser | null> => {
 			const result = await registerUser(options);
-
-			const registerLocalUser = result.data ? result.data.registerLocalUser : null;
+			const registerLocalUser: RegisterLocalUser_registerLocalUser | null =
+				result.data?.registerLocalUser || null;
 
 			onRegisterCompleted(registerLocalUser);
 
@@ -95,6 +102,12 @@ export const useAuth = ({
 		},
 		[registerUser, onRegisterCompleted]
 	);
+};
+
+export const useAuth = (options: IUseAuthOptions = {}): IUseAuthResult => {
+	const login = useLogin(options);
+	const logout = useLogout();
+	const register = useRegister(options);
 
 	return { login, logout, register };
 };

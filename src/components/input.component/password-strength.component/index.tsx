@@ -11,10 +11,10 @@ interface IProps {
 	/** Optional classes to pass to the outermost `div` */
 	className?: string;
 	/** The password text to check the strength of */
-	password: string;
+	password?: string;
 }
 
-export const PasswordStrength: FC<IProps> = ({ className, password }) => {
+export const PasswordStrength: FC<IProps> = ({ className, password = "" }) => {
 	const classes = useStyles();
 
 	const { score } = useMemo(() => zxcvbn(password), [password]);
