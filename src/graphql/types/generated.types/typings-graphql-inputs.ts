@@ -73,21 +73,12 @@ export interface RefreshAccessTokenVariables {
 
 export interface RegisterLocalUser_registerLocalUser_user {
   readonly __typename: "User";
-  /**
-   * The id of the user
-   */
   readonly id: string;
   /**
    * The user's email
    */
-  readonly email: any;
-  /**
-   * Whether the user verified their email address
-   */
+  readonly email: any | null;
   readonly emailVerified: boolean;
-  /**
-   * The user's username
-   */
   readonly username: string;
 }
 
@@ -109,7 +100,7 @@ export interface RegisterLocalUser_registerLocalUser {
 
 export interface RegisterLocalUser {
   /**
-   * Performs local authentication (custom username + password)
+   * Performs local auth registration (custom username + password)
    */
   readonly registerLocalUser: RegisterLocalUser_registerLocalUser | null;
 }
@@ -127,11 +118,19 @@ export interface RegisterLocalUserVariables {
 // GraphQL mutation operation: ResendVerifyEmail
 // ====================================================
 
+export interface ResendVerifyEmail_resendVerifyEmail {
+  readonly __typename: "ResendVerifyEmailPayload";
+  /**
+   * Status, on whether the email was successfully resent
+   */
+  readonly success: boolean;
+}
+
 export interface ResendVerifyEmail {
   /**
    * Resends the account verification email to the logged-in user
    */
-  readonly resendVerifyEmail: boolean;
+  readonly resendVerifyEmail: ResendVerifyEmail_resendVerifyEmail | null;
 }
 
 /* tslint:disable */
@@ -145,21 +144,12 @@ export interface ResendVerifyEmail {
 
 export interface SetUser_setUser {
   readonly __typename: "User";
-  /**
-   * The id of the user
-   */
   readonly id: string;
   /**
    * The user's email
    */
-  readonly email: any;
-  /**
-   * Whether the user verified their email address
-   */
+  readonly email: any | null;
   readonly emailVerified: boolean;
-  /**
-   * The user's username
-   */
   readonly username: string;
 }
 
@@ -212,21 +202,12 @@ export interface GetModal {
 
 export interface GetUser_user {
   readonly __typename: "User";
-  /**
-   * The id of the user
-   */
   readonly id: string;
   /**
    * The user's email
    */
-  readonly email: any;
-  /**
-   * Whether the user verified their email address
-   */
+  readonly email: any | null;
   readonly emailVerified: boolean;
-  /**
-   * The user's username
-   */
   readonly username: string;
 }
 
@@ -248,19 +229,19 @@ export interface GetViewer_viewer {
   /**
    * The viewer's id
    */
-  readonly id: string;
+  readonly id: string | null;
   /**
    * The viewer's email
    */
-  readonly email: string;
+  readonly email: string | null;
   /**
    * Whether this viewer verified their email address
    */
-  readonly emailVerified: boolean;
+  readonly emailVerified: boolean | null;
   /**
    * The viewer's username
    */
-  readonly username: string;
+  readonly username: string | null;
 }
 
 export interface GetViewer {
