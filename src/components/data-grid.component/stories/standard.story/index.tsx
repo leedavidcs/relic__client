@@ -2,7 +2,7 @@ import { DataGrid, IHeaderConfig } from "@/components/data-grid.component";
 import { Paper } from "@/components/paper.component";
 import Faker from "faker";
 import { range, uniq } from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 
 const MAX_DATA_SIZE = 100;
 const MAX_COLUMN_WIDTH = 80;
@@ -37,7 +37,7 @@ const MOCK_HEADERS: readonly IHeaderConfig[] = MOCK_HEADER_NAMES.map((label, i) 
 	})
 }));
 
-export const StandardStory = () => {
+export const StandardStory: FC = () => {
 	const [data, setData] = useState<readonly Record<string, number>[]>(MOCK_DATA);
 	const [headers, setHeaders] = useState<readonly IHeaderConfig[]>(MOCK_HEADERS);
 

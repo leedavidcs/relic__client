@@ -15,7 +15,8 @@ const styles = (theme: CustomTheme) => ({
 	},
 	list: {
 		width: 180,
-		borderRadius: 4
+		borderRadius: 4,
+		overflow: "hidden"
 	},
 	listItem: {
 		padding: "6px 10px"

@@ -40,5 +40,7 @@ export const standardTheme = {
 	].join(),
 	gridOdd: lighten(GRID_ODD, "#000"),
 	gridEven: lighten(GRID_EVEN, "#000"),
-	gridSelected: "#00B0FF"
+	gridSelected: "#00B0FF",
+	surfaceLoading: "#323232",
+	surfaceLoadingHighlight: "#A6A6A6"
 };

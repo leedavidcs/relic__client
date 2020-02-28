@@ -6,7 +6,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-	<RootProvider>
+	<RootProvider mockRequests={false}>
 		<App />
 	</RootProvider>,
 	document.getElementById("root")

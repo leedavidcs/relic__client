@@ -5,6 +5,7 @@ const zIndices = [
 	"data-grid-header",
 	"data-grid-frozen-header",
 	"text-input-label",
+	"kebab-menu",
 	"context-menu"
 ] as const;
 
