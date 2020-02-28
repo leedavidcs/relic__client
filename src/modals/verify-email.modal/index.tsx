@@ -7,7 +7,7 @@ interface IProps {
 	onClickResend: () => void;
 }
 
-export const VerifyEmailDisplay: FC<IProps> = ({ email, onClickResend }) => {
+export const VerifyEmailModal: FC<IProps> = ({ email, onClickResend }) => {
 	const classes = useStyles();
 
 	const resendBtn = useMemo(
@@ -29,3 +29,5 @@ export const VerifyEmailDisplay: FC<IProps> = ({ email, onClickResend }) => {
 		</div>
 	);
 };
+
+export default VerifyEmailModal;

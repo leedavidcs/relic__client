@@ -21,7 +21,7 @@ export const Anchor: FC<IProps> = ({ className, href, onClick, value }) => {
 	const classes = useStyles();
 
 	const ref = useRef(null);
-	const [isHovered] = useHover(false, ref);
+	const [isHovered] = useHover(false, {}, ref);
 
 	const Wrapper = typeof href === "string" ? "a" : "button";
 

@@ -1,0 +1,46 @@
+import { action } from "@storybook/addon-actions";
+import { Meta, Preview, Props, Story } from "@storybook/addon-docs/blocks";
+import { themes } from "@storybook/theming";
+import { StockPortfolioList } from ".";
+
+<Meta
+	title="user__stock-portfolios-page/stock-portfolio-list"
+	component={StockPortfolioList}
+	parameters={{
+		options: {
+			theme: themes.dark
+		}
+	}}
+/>
+
+# StockPortfolioList
+
+- [Table of contents](#stockportfoliolist)
+  * [Description](#description)
+  * [Props](#props)
+  * [StandardStory](#standardstory)
+    + [Source](#source)
+
+## Description
+A list that displays the stock portfolios, that the user has created.
+
+## Props
+<Props of={StockPortfolioList} />
+
+export const wrapperStyles = { width: "80%" };
+export const variables = { first: 10, after: { id: "" } };
+
+## StandardStory
+<Preview>
+	<Story name="standard">
+		<div style={wrapperStyles}>
+			<StockPortfolioList
+				onClickOpen={action("onClickOpen")}
+				variables={variables}
+			/>
+		</div>
+	</Story>
+</Preview>
+
+## Source
+(see code in story)

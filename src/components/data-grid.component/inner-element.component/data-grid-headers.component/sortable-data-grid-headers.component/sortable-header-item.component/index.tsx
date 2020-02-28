@@ -69,7 +69,6 @@ const BaseHeaderItemComponent: FC<IProps> = memo((props: IProps) => {
 
 	return (
 		<Tooltip
-			className={classes.root}
 			active={isSelected}
 			direction="bottom-start"
 			onMouseDownOut={stopOperations}

@@ -8,7 +8,7 @@ export * from "./theme-setter.context";
 export const JssProvider: FC = ({ children }) => {
 	const [theme, setTheme] = useState<CustomTheme>(standardTheme);
 
-	const value = useMemo(() => ({ setTheme }), [setTheme]);
+	const value = useMemo(() => ({ setTheme, theme }), [setTheme, theme]);
 
 	return (
 		<ThemeSetterContext.Provider value={value}>
