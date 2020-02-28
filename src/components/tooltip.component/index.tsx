@@ -1,6 +1,7 @@
 import { ClickOutside } from "@/components/click-outside.component";
 import { ITooltipLocation, useTooltip } from "@/hooks";
 import { Placement } from "@popperjs/core";
+import classnames from "classnames";
 import { identity } from "lodash";
 import memoizeOne from "memoize-one";
 import React, {
@@ -68,13 +69,13 @@ export const Tooltip: FC<IProps> = ({
 
 	return mountStrategy(
 		<ClickOutside onClick={onClickOut} onMouseDown={onMouseDownOut}>
-			<div>
+			<div className={classes.root}>
 				{!isLocation(children) && (
-					<div ref={referenceRef} className={className} style={style}>
+					<div ref={referenceRef} style={style}>
 						{children}
 					</div>
 				)}
-				<div ref={popper} className={classes.popper}>
+				<div ref={popper} className={classnames(classes.popper, className)}>
 					{tooltip}
 				</div>
 			</div>

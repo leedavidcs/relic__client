@@ -4,6 +4,29 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: DeleteStockPortfolio
+// ====================================================
+
+export interface DeleteStockPortfolio_deleteOneStockPortfolio {
+  readonly __typename: "StockPortfolio";
+  readonly id: string;
+  readonly name: string;
+}
+
+export interface DeleteStockPortfolio {
+  readonly deleteOneStockPortfolio: DeleteStockPortfolio_deleteOneStockPortfolio | null;
+}
+
+export interface DeleteStockPortfolioVariables {
+  readonly id?: string | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: LoginLocalUser
 // ====================================================
 
@@ -197,6 +220,67 @@ export interface GetModal {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetOneStockPortfolio
+// ====================================================
+
+export interface GetOneStockPortfolio_stockPortfolio_headers {
+  readonly __typename: "StockPortfolioHeader";
+  readonly name: string;
+  readonly dataKey: string;
+  readonly width: number;
+  readonly frozen: boolean;
+  readonly resizable: boolean;
+}
+
+export interface GetOneStockPortfolio_stockPortfolio {
+  readonly __typename: "StockPortfolio";
+  readonly id: string;
+  readonly name: string;
+  readonly headers: ReadonlyArray<GetOneStockPortfolio_stockPortfolio_headers>;
+  readonly tickers: ReadonlyArray<string>;
+  readonly createdAt: any;
+  readonly updatedAt: any;
+}
+
+export interface GetOneStockPortfolio {
+  readonly stockPortfolio: GetOneStockPortfolio_stockPortfolio | null;
+}
+
+export interface GetOneStockPortfolioVariables {
+  readonly id?: string | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetStockPortfoliosForPreview
+// ====================================================
+
+export interface GetStockPortfoliosForPreview_stockPortfolios {
+  readonly __typename: "StockPortfolio";
+  readonly id: string;
+  readonly name: string;
+  readonly updatedAt: any;
+}
+
+export interface GetStockPortfoliosForPreview {
+  readonly stockPortfolios: ReadonlyArray<GetStockPortfoliosForPreview_stockPortfolios>;
+}
+
+export interface GetStockPortfoliosForPreviewVariables {
+  readonly first?: number | null;
+  readonly after?: StockPortfolioWhereUniqueInput | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetUser
 // ====================================================
 
@@ -229,19 +313,19 @@ export interface GetViewer_viewer {
   /**
    * The viewer's id
    */
-  readonly id: string | null;
+  readonly id: string;
   /**
    * The viewer's email
    */
-  readonly email: string | null;
+  readonly email: string;
   /**
    * Whether this viewer verified their email address
    */
-  readonly emailVerified: boolean | null;
+  readonly emailVerified: boolean;
   /**
    * The viewer's username
    */
-  readonly username: string | null;
+  readonly username: string;
 }
 
 export interface GetViewer {
@@ -273,6 +357,10 @@ export interface RegisterLocalUserInput {
   readonly email: any;
   readonly password: any;
   readonly username: string;
+}
+
+export interface StockPortfolioWhereUniqueInput {
+  readonly id?: string | null;
 }
 
 export interface UserInput {

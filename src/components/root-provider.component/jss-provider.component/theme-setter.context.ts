@@ -1,16 +1,18 @@
 import { CustomTheme, standardTheme } from "@/themes";
-import { Context, createContext, Dispatch, SetStateAction } from "react";
+import { Context, createContext } from "react";
 
 export interface IJssProviderState {
 	theme: CustomTheme;
 }
 
 export interface IThemeContextProps {
-	setTheme: IJssProviderState | Dispatch<SetStateAction<CustomTheme>>;
+	setTheme: (theme: CustomTheme) => void;
+	theme: CustomTheme;
 }
 
 export const ThemeSetterContext: Context<IThemeContextProps> = createContext<IThemeContextProps>({
-	setTheme: { theme: standardTheme }
+	setTheme: () => undefined,
+	theme: standardTheme
 });
 
 ThemeSetterContext.displayName = "ThemeSetterContext";
