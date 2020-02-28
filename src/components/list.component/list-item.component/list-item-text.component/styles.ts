@@ -10,6 +10,10 @@ const styles = (theme: CustomTheme) => ({
 	},
 	multiline: {
 		margin: "6px 0"
+	},
+	secondary: {
+		marginTop: 4,
+		fontSize: 12
 	}
 });
 

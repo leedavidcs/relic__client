@@ -28,6 +28,10 @@ const styles = (theme: CustomTheme) => ({
 		textDecoration: "none"
 	},
 	divider: {
+		width: "100%",
+		position: "absolute",
+		bottom: 0,
+		left: 0,
 		marginBlockStart: 0,
 		marginBlockEnd: 0,
 		marginTop: 0,
