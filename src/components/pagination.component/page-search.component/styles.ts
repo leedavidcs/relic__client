@@ -2,16 +2,16 @@ import { CustomTheme } from "@/themes";
 import { createUseStyles } from "react-jss";
 
 const styles = (theme: CustomTheme) => ({
-	root: {
-		display: "inline-flex"
-	},
-	reference: {
+	interactive: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
 		height: "100%",
 		width: "100%"
 	},
-	popper: {
-		position: "absolute",
-		display: ({ active }) => (active ? "block" : "none")
+	paper: {
+		width: 120,
+		padding: 8
 	}
 });
 
