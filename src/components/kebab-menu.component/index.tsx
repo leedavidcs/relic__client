@@ -52,7 +52,7 @@ export const KebabMenu: FC<IProps> = ({ className, options, size = DEFAULT_SIZE 
 
 	return (
 		<Tooltip
-			className={classes.menu}
+			popperClassName={classes.menu}
 			active={active}
 			direction="bottom-start"
 			onClickOut={onClickOut}
