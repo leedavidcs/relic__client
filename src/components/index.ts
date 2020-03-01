@@ -6,6 +6,7 @@ export * from "./data-grid.component";
 export * from "./divider.component";
 export * from "./expansion-panel.component";
 export * from "./input.component";
+export * from "./interactable.component";
 export * from "./kebab-menu.component";
 export * from "./list.component";
 export * from "./modal.component";
