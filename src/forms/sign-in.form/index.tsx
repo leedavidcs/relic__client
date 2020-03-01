@@ -142,7 +142,7 @@ export const SignInForm: FC = () => {
 						className={classes.textInput}
 						label="Password"
 						name="password"
-						password={true}
+						type="password"
 						error={passwordError}
 						variant="outlined"
 						ref={register}
