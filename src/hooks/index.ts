@@ -11,5 +11,4 @@ export * from "./use-modal.hook";
 export * from "./use-set-user.hook";
 export * from "./use-theme.hook";
 export * from "./use-tooltip.hook";
-export * from "./use-unified-ref.hook";
 export * from "./use-yup-validation-resolver";
