@@ -24,6 +24,8 @@ interface IProps {
 	children: ReactNode | ITooltipLocation;
 	/** Optional classes to be passed to the `div` wrapper around the reference element */
 	className?: string;
+	/** Optional classes to be passed to the `div` wrapper around the popper element */
+	popperClassName?: string;
 	/** The `popper` placement */
 	direction: Placement;
 	/** Handler for when the user clicks outside of the reference and tooltip */
@@ -32,6 +34,8 @@ interface IProps {
 	onMouseDownOut?: () => void;
 	/** Optional styles to be passed to the `div` wrapper around the reference element */
 	style?: CSSProperties;
+	/** Optional styles to be passed to the `div` wrapper around the popper element */
+	popperStyle?: CSSProperties;
 	/** The tooltip element to position based on direction and the reference element */
 	tooltip?: ReactNode;
 }
@@ -47,6 +51,8 @@ export const Tooltip: FC<IProps> = ({
 	direction: placement,
 	onClickOut,
 	onMouseDownOut,
+	popperClassName,
+	popperStyle,
 	style,
 	tooltip
 }) => {
@@ -71,11 +77,19 @@ export const Tooltip: FC<IProps> = ({
 		<ClickOutside onClick={onClickOut} onMouseDown={onMouseDownOut}>
 			<div className={classes.root}>
 				{!isLocation(children) && (
-					<div ref={referenceRef} style={style}>
+					<div
+						ref={referenceRef}
+						className={classnames(classes.reference, className)}
+						style={style}
+					>
 						{children}
 					</div>
 				)}
-				<div ref={popper} className={classnames(classes.popper, className)}>
+				<div
+					ref={popper}
+					className={classnames(classes.popper, popperClassName)}
+					style={popperStyle}
+				>
 					{tooltip}
 				</div>
 			</div>
