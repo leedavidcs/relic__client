@@ -11,6 +11,7 @@ export * from "./kebab-menu.component";
 export * from "./list.component";
 export * from "./modal.component";
 export * from "./overlay.component";
+export * from "./pagination.component";
 export * from "./paper.component";
 export * from "./ripple.component";
 export * from "./root-provider.component";
